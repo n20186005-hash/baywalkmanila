@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-ocean-deep bg-sand-light antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  ::selection {
+    @apply bg-sunset-orange text-white;
+  }
+}
+
+@layer components {
+  .container-wide {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .section-title {
+    @apply font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-ocean-deep mb-2;
+  }
+  .section-subtitle {
+    @apply text-ocean-mid text-base md:text-lg mb-8 max-w-2xl;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-sand-warm overflow-hidden transition-all duration-300 hover:shadow-md;
+  }
+  .chip {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium;
+  }
+  .anchor-offset {
+    scroll-margin-top: 5rem;
+  }
+}

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <defs>
+    <linearGradient id="as" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF8C42;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#E85D75;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5E4B8B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ao" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6BA3C9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E3A5F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ask" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5E6D3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD4B8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" rx="32" fill="url(#ask)"/>
+  <circle cx="90" cy="98" r="30" fill="url(#as)"/>
+  <path d="M 18,122 Q 45,108 72,122 T 126,122 T 180,122 L 180,180 L 0,180 L 0,122 Z" fill="url(#ao)" opacity="0.85"/>
+  <path d="M 18,136 Q 45,124 72,136 T 126,136 T 180,136 L 180,180 L 0,180 L 0,136 Z" fill="url(#ao)"/>
+  <g transform="translate(132, 66)">
+    <rect x="-2.7" y="0" width="5.4" height="64" rx="2" fill="#4A3728"/>
+    <ellipse cx="0" cy="-4" rx="28" ry="13" fill="#3D7A3D" transform="rotate(-30 0 -4)"/>
+    <ellipse cx="0" cy="-4" rx="28" ry="13" fill="#2E6B2E" transform="rotate(30 0 -4)"/>
+    <ellipse cx="0" cy="-4" rx="28" ry="13" fill="#3D7A3D" transform="rotate(-80 0 -4)"/>
+    <ellipse cx="0" cy="-4" rx="28" ry="13" fill="#2E6B2E" transform="rotate(80 0 -4)"/>
+    <ellipse cx="0" cy="-4" rx="28" ry="13" fill="#3D7A3D" transform="rotate(0 0 -4)"/>
+  </g>
+</svg>
