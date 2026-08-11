@@ -9,7 +9,9 @@ const site = process.env.SITE_URL || undefined;
 export default defineConfig({
   site: site,
   output: 'server',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'passthrough',
+  }),
   integrations: [
     tailwind({
       applyBaseStyles: false,
