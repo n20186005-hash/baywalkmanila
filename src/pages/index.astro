@@ -1,16 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, FAQ, NEARBY_EATS, NEARBY_ATTR, TRANSPORT_INFO } from '../config';
+import { SITE, FAQ, NEARBY_EATS, NEARBY_ATTR, TRANSPORT_INFO, GALLERY } from '../config';
 
 const siteUrl: string | undefined = Astro.site?.toString();
 const thisPageUrl = siteUrl
   ? new URL(Astro.url.pathname, siteUrl).toString()
   : undefined;
 
-const HERO_IMG = 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Manila%20Bay%20sunset%20at%20Baywalk%20Roxas%20Boulevard%2C%20vibrant%20orange%20pink%20and%20purple%20sky%2C%20silhouette%20of%20palm%20trees%2C%20white%20dolomite%20sand%20beach%2C%20calm%20ocean%20reflection%2C%20Filipino%20families%20walking%20along%20promenade%2C%20photorealistic%2C%20cinematic%20wide%20shot&image_size=landscape_16_9';
-const DOLOMITE_IMG = 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Manila%20Baywalk%20Dolomite%20Beach%2C%20white%20artificial%20sand%20beach%20alongside%20urban%20bay%2C%20clear%20afternoon%20light%2C%20people%20relaxing%20on%20sand%2C%20skyscrapers%20in%20background%2C%20photorealistic&image_size=landscape_4_3';
-const PROMENADE_IMG = 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Roxas%20Boulevard%20Baywalk%20promenade%2C%20palm%20trees%20lined%20walkway%2C%20ornamental%20lamp%20posts%2C%20benches%20facing%20Manila%20Bay%2C%20late%20afternoon%20light%2C%20photorealistic%20travel%20photo&image_size=landscape_4_3';
-const SUNSET_IMG = 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Golden%20hour%20sunset%20over%20Manila%20Bay%2C%20dramatic%20sky%20colors%20orange%20to%20deep%20purple%2C%20ship%20silhouettes%20on%20horizon%2C%20reflection%20on%20calm%20water%2C%20long%20exposure%20photorealistic&image_size=landscape_4_3';
+const HERO_IMG = GALLERY.hero;
+const HERO_ALT = GALLERY.heroAlt;
+const DOLOMITE_IMG = GALLERY.dolomite;
+const DOLOMITE_ALT = GALLERY.dolomiteAlt;
+const PROMENADE_IMG = GALLERY.promenade;
+const PROMENADE_ALT = GALLERY.promenadeAlt;
+const SUNSET_IMG = GALLERY.sunset;
+const SUNSET_ALT = GALLERY.sunsetAlt;
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
@@ -96,7 +100,7 @@ const attractionJsonLd = {
   <!-- HERO -->
   <section id="top" class="relative overflow-hidden">
     <div class="absolute inset-0 bg-ocean-deep/40 z-10"></div>
-    <img src={HERO_IMG} alt="Manila Bay sunset at Baywalk promenade with palm tree silhouettes" class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
+    <img src={HERO_IMG} alt={HERO_ALT} class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
     <div class="relative z-20 container-wide py-24 sm:py-32 md:py-40">
       <div class="max-w-3xl">
         <div class="flex flex-wrap gap-2 mb-5">
@@ -168,7 +172,7 @@ const attractionJsonLd = {
         <div class="grid gap-5">
           <div class="grid sm:grid-cols-2 gap-5">
             <div class="card">
-              <img src={DOLOMITE_IMG} alt="White dolomite sand beach along Manila Baywalk" loading="lazy" class="w-full h-44 object-cover" />
+              <img src={DOLOMITE_IMG} alt={DOLOMITE_ALT} loading="lazy" class="w-full h-44 object-cover" />
               <div class="p-4">
                 <div class="chip bg-palm-green/10 text-palm-green mb-2">Dolomite Beach</div>
                 <div class="font-display text-lg font-semibold text-ocean-deep">Urban beach in the capital</div>
@@ -176,7 +180,7 @@ const attractionJsonLd = {
               </div>
             </div>
             <div class="card">
-              <img src={SUNSET_IMG} alt="Dramatic sunset colors over Manila Bay horizon" loading="lazy" class="w-full h-44 object-cover" />
+              <img src={SUNSET_IMG} alt={SUNSET_ALT} loading="lazy" class="w-full h-44 object-cover" />
               <div class="p-4">
                 <div class="chip bg-sunset-orange/10 text-sunset-orange mb-2">Sunset Capital</div>
                 <div class="font-display text-lg font-semibold text-ocean-deep">Sky palette at 5pm</div>
@@ -598,7 +602,7 @@ const attractionJsonLd = {
   <section class="py-4 md:py-8 bg-sand-warm/30">
     <div class="container-wide grid md:grid-cols-3 gap-4 md:gap-6">
       <div class="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-sm">
-        <img src={PROMENADE_IMG} alt="Baywalk promenade with palm trees and lamp posts" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+        <img src={PROMENADE_IMG} alt={PROMENADE_ALT} loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
         <div class="absolute inset-0 bg-gradient-to-t from-ocean-deep/55 via-ocean-deep/0 to-ocean-deep/0"></div>
         <div class="absolute bottom-5 left-5 right-5 text-white">
           <div class="text-xs uppercase tracking-wider opacity-85">The Promenade</div>
@@ -606,7 +610,7 @@ const attractionJsonLd = {
         </div>
       </div>
       <div class="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-sm">
-        <img src={SUNSET_IMG} alt="Manila Bay sunset sky with ship silhouette" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+        <img src={SUNSET_IMG} alt={SUNSET_ALT} loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
         <div class="absolute inset-0 bg-gradient-to-t from-ocean-deep/55 via-ocean-deep/0 to-ocean-deep/0"></div>
         <div class="absolute bottom-5 left-5 right-5 text-white">
           <div class="text-xs uppercase tracking-wider opacity-85">Golden Hour</div>
@@ -614,7 +618,7 @@ const attractionJsonLd = {
         </div>
       </div>
       <div class="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-sm">
-        <img src={DOLOMITE_IMG} alt="Dolomite white sand beach at Manila Baywalk" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+        <img src={DOLOMITE_IMG} alt={DOLOMITE_ALT} loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
         <div class="absolute inset-0 bg-gradient-to-t from-ocean-deep/55 via-ocean-deep/0 to-ocean-deep/0"></div>
         <div class="absolute bottom-5 left-5 right-5 text-white">
           <div class="text-xs uppercase tracking-wider opacity-85">Dolomite Beach</div>

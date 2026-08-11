@@ -174,3 +174,118 @@ export const TRANSPORT_INFO = {
     fromAirport: 'NAIA Terminal 3 is about 30 – 60 min drive; PHP 300 – 500 via Grab sedan.',
   },
 };
+
+export const GALLERY = {
+  hero: '/gallery/sunset-dolomite-beach-crowd-sunbeams.jpg',
+  heroAlt: 'Golden hour sunset at Manila Baywalk Dolomite Beach with visitors seated on white sand watching crepuscular rays over the bay',
+  dolomite: '/gallery/dolomite-beach-skyline-daytime.jpg',
+  dolomiteAlt: 'Dolomite Beach white sand stretch along Manila Bay with the Ermita-Malate skyline rising behind the palm-lined promenade',
+  sunset: '/gallery/sunset-bangka-outrigger-traditional-boat.jpg',
+  sunsetAlt: 'Manila Bay sunset with a Filipino outrigger bangka silhouetted against a burning orange sky and its reflection on calm water',
+  promenade: '/gallery/promenade-seawall-palm-trees-skyline.jpg',
+  promenadeAlt: 'Roxas Boulevard Baywalk promenade with a rocky seawall, coconut palms and the Manila high-rise skyline under a cloud-patterned sky',
+  photos: [
+    {
+      src: '/gallery/landmark-archway-dolomite-beach-entrance.jpg',
+      alt: 'Manila Baywalk Dolomite Beach metal archway entrance sign against a dramatic cloudy sky with palm fronds',
+      category: 'Landmark',
+      label: 'Archway Entrance',
+    },
+    {
+      src: '/gallery/aerial-baywalk-roxas-boulevard-overview.jpg',
+      alt: 'Aerial overview of the entire Baywalk strip showing the white Dolomite Beach, Roxas Boulevard carriageway, palm buffers and Manila Bay',
+      category: 'Overview',
+      label: 'Aerial Roxas Blvd',
+    },
+    {
+      src: '/gallery/landmark-dolomite-marker-plaque-rock.jpg',
+      alt: 'Giant dolomite boulder on the beach bearing three metal plaques listing the Mandamus agencies and inauguration of the Manila Bay nourishment project',
+      category: 'Landmark',
+      label: 'Dolomite Marker',
+    },
+    {
+      src: '/gallery/dolomite-beach-skyline-daytime.jpg',
+      alt: 'Daytime panorama of Dolomite Beach with the marker boulder at the waterline and tall city buildings across the sand',
+      category: 'Dolomite Beach',
+      label: 'Beach & Skyline',
+    },
+    {
+      src: '/gallery/dolomite-beach-construction-skyline-daytime.jpg',
+      alt: 'Visitors strolling the Dolomite Beach shoreline at high tide with the ongoing residential tower construction rising behind the palm row',
+      category: 'Dolomite Beach',
+      label: 'Shoreline Stroll',
+    },
+    {
+      src: '/gallery/dolomite-beach-wide-overcast-seascape.jpg',
+      alt: 'Wide overcast view of the full Dolomite Beach curve opening onto Manila Bay horizon with scattered visitors on the pale sand',
+      category: 'Dolomite Beach',
+      label: 'Open Seascape',
+    },
+    {
+      src: '/gallery/sunset-dolomite-beach-crowd-sunbeams.jpg',
+      alt: 'Crowds gathered on Dolomite Beach watching the descending sun push dramatic crepuscular rays through scattered clouds',
+      category: 'Sunset',
+      label: 'Sunset on the Sand',
+    },
+    {
+      src: '/gallery/sunset-bangka-outrigger-traditional-boat.jpg',
+      alt: 'A traditional Filipino bangka outrigger boat floating still on Manila Bay under a fiery gradient sunset sky',
+      category: 'Sunset',
+      label: 'Bangka at Dusk',
+    },
+    {
+      src: '/gallery/skyline-rocky-breakwater-buildings-golden-hour.jpg',
+      alt: 'Golden-hour view of the Manila skyline from across the breakwater, the rocky groynes warmed by the setting sun',
+      category: 'Sunset',
+      label: 'Skyline Golden Hour',
+    },
+    {
+      src: '/gallery/promenade-seawall-palm-trees-skyline.jpg',
+      alt: 'The paved Roxas Boulevard Baywalk promenade running alongside a grey rocky seawall with tall palms and Manila high-rises receding into distance',
+      category: 'Promenade',
+      label: 'Seawall Walkway',
+    },
+    {
+      src: '/gallery/promenade-bench-bronze-statues-sculpture.jpg',
+      alt: 'Bronze life-size sculptures of two seated figures on the Baywalk promenade with Roxas Boulevard traffic and the Manila waterfront behind',
+      category: 'Promenade',
+      label: 'Bench Sculptures',
+    },
+    {
+      src: '/gallery/promenade-kalesa-horse-carriage.jpg',
+      alt: 'A white kalesa horse-drawn carriage waiting on the paved Baywalk promenade shaded by coconut palms at golden hour',
+      category: 'Promenade',
+      label: 'Kalesa Ride',
+    },
+    {
+      src: '/gallery/marina-yacht-silhouette-sunset.jpg',
+      alt: 'Masts of anchored yachts and sailboats forming vertical silhouettes against a deep blue-to-orange sunset sky in Manila Yacht Club',
+      category: 'Marina',
+      label: 'Yacht Sunset Silhouette',
+    },
+    {
+      src: '/gallery/marina-superyacht-club-daytime.jpg',
+      alt: 'Luxury superyachts lined up at the Manila Yacht Club jetty with a warm post-sunset glow reflected on still water',
+      category: 'Marina',
+      label: 'Superyacht Marina',
+    },
+    {
+      src: '/gallery/marina-sunset-golden-water-reflection.jpg',
+      alt: 'Expansive golden sunset over the yacht marina with every mast reflected perfectly in the glassy harbour water',
+      category: 'Marina',
+      label: 'Marina Golden Reflection',
+    },
+    {
+      src: '/gallery/park-fountain-plaza-palm-trees.jpg',
+      alt: 'Central fountain plaza framed by towering royal palms under a bright blue cumulus sky, typical of the Rizal Park waterfront precinct',
+      category: 'Nearby',
+      label: 'Rizal Park Plaza',
+    },
+    {
+      src: '/gallery/nearby-moa-ferris-wheel-seaside-boulevard.jpg',
+      alt: 'The SM MOA Eye ferris wheel standing at the end of the seaside boulevard leading to the Mall of Asia complex on Manila Bay',
+      category: 'Nearby',
+      label: 'MOA Seaside Blvd',
+    },
+  ],
+};
