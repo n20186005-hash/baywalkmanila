@@ -451,113 +451,245 @@ const attractionJsonLd = {
   <!-- TRANSPORT / GETTING THERE -->
   <section id="getting-there" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
     <div class="container-wide">
-      <div class="max-w-2xl mb-10">
-        <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">Detailed Transport</span>
-        <h2 class="section-title">Getting to Baywalk</h2>
+      <div class="max-w-3xl mb-12">
+        <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">Detailed Transport · 详细交通指引</span>
+        <h2 class="section-title">Getting to Baywalk · 怎么去海湾</h2>
         <p class="section-subtitle mb-0">
-          Three rail stations and dozens of jeepney lines reach Malate and Roxas Boulevard. The simplest routes, step by step.
+          From international flights to the last tricycle ride: six ways to reach Manila Baywalk, with terminal-to-promenade steps, fares and realistic ride times.
+          从国际航班到最后一公里三轮车：六种抵达马尼拉海湾的交通方式，含航站楼/车站走到长廊的分步指引、票价与真实耗时参考。
         </p>
       </div>
 
-      <div class="grid lg:grid-cols-3 gap-6">
-        <!-- LRT -->
-        <div class="card">
+      <!-- ✈️ PLANE -->
+      <div class="card mb-8">
+        <div class="p-6 sm:p-8 border-b border-sand-warm flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-sunset-purple/10 text-sunset-purple flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            </div>
+            <div>
+              <div class="font-display text-2xl font-semibold text-ocean-deep">By Air · 乘坐飞机</div>
+              <div class="text-sm text-ocean-mid mt-0.5">Land at MNL NAIA or Clark CRK then transfer south.</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {TRANSPORT_INFO.plane.airports.map(a => (
+              <span class="chip bg-sunset-purple/10 text-sunset-purple">{a.code} · {a.name}</span>
+            ))}
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-0 md:gap-0 md:divide-x divide-sand-warm/80">
+          <div class="p-6 sm:p-8 border-b md:border-b-0 border-sand-warm/70">
+            <div class="text-sm font-semibold text-ocean-deep mb-4 uppercase tracking-wider">Airports · 机场概览</div>
+            <ul class="space-y-5">
+              {TRANSPORT_INFO.plane.airports.map(a => (
+                <li>
+                  <div class="flex items-center gap-3 mb-1.5">
+                    <div class="font-mono text-sunset-purple font-bold text-sm bg-sunset-purple/10 px-2 py-0.5 rounded">{a.code}</div>
+                    <div class="font-medium text-ocean-deep">{a.name}</div>
+                  </div>
+                  <div class="text-xs text-ocean-mid mb-1">{a.terminals}</div>
+                  <div class="text-sm text-ocean-mid leading-relaxed">{a.note}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="p-6 sm:p-8">
+            <div class="text-sm font-semibold text-ocean-deep mb-4 uppercase tracking-wider">From NAIA to Baywalk · 机场转乘四步</div>
+            <ol class="space-y-4">
+              {TRANSPORT_INFO.plane.steps.map((s, i) => (
+                <li class="flex gap-3">
+                  <div class="shrink-0 w-7 h-7 rounded-full bg-sunset-orange text-white text-xs font-display font-semibold flex items-center justify-center">{i + 1}</div>
+                  <div class="text-sm text-ocean-mid leading-relaxed pt-0.5">{s}</div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- 🚆 RAIL -->
+        <div class="card flex flex-col">
           <div class="p-6 border-b border-sand-warm flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-ocean-deep/10 text-ocean-deep flex items-center justify-center">
+            <div class="w-11 h-11 rounded-xl bg-ocean-deep/10 text-ocean-deep flex items-center justify-center shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m16 19 2 3"/><path d="M9 7h.01"/><path d="M15 7h.01"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">By LRT-1</div>
-              <div class="text-xs text-ocean-mid">Fastest from Taft / Quiapo / Pasay</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">By Rail · 轻轨 / 铁路</div>
+              <div class="text-xs text-ocean-mid">LRT-1 · PNR Metro Commuter</div>
             </div>
           </div>
-          <ul class="divide-y divide-sand-warm/80 text-sm">
-            {TRANSPORT_INFO.lrt.map((r) => (
-              <li class="p-5">
-                <div class="flex items-center justify-between mb-1.5">
-                  <div class="font-semibold text-ocean-deep">{r.station}</div>
-                  <span class="chip bg-ocean-mid/10 text-ocean-mid text-[11px]">{r.line.includes('-1') ? 'LRT-1 · Green' : 'LRT-1'}</span>
-                </div>
-                <div class="text-ocean-mid leading-relaxed">{r.walk}</div>
-                <div class="mt-2 text-xs text-sunset-orange">₱15 – 30 fare · First train ~5AM</div>
-              </li>
+          <div class="flex-1 divide-y divide-sand-warm/80 text-sm">
+            {TRANSPORT_INFO.rail.map((sys) => (
+              <div class="p-5">
+                <div class="font-semibold text-ocean-deep mb-3 text-[13px]">{sys.system}</div>
+                <ul class="space-y-3.5">
+                  {sys.lines.map((l) => (
+                    <li>
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="font-medium text-ocean-deep">{l.station}</span>
+                        <span class="chip bg-ocean-mid/10 text-ocean-mid text-[11px]">{l.line}</span>
+                      </div>
+                      <div class="text-ocean-mid leading-relaxed">{l.walk}</div>
+                      <div class="text-xs text-sunset-orange mt-1">💡 {l.tips}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
+          <div class="px-5 pb-5 pt-0">
+            <div class="rounded-xl bg-sand-light p-4 flex items-center justify-between text-xs">
+              <span class="text-ocean-mid">Beep card accepted · LRT base fare</span>
+              <span class="font-display font-semibold text-ocean-deep">₱15 – 30</span>
+            </div>
+          </div>
         </div>
 
-        <!-- JEEPNEY -->
-        <div class="card">
+        <!-- 🚌 BUS -->
+        <div class="card flex flex-col">
           <div class="p-6 border-b border-sand-warm flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-sunset-orange/10 text-sunset-orange flex items-center justify-center">
+            <div class="w-11 h-11 rounded-xl bg-palm-green/10 text-palm-green flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M16 6v6"/><path d="M2 12h20"/><path d="M22 18V9a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v9"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+            </div>
+            <div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">By Bus · 公交车 / 省际大巴</div>
+              <div class="text-xs text-ocean-mid">City Bus · EDSA Carousel · Provincial</div>
+            </div>
+          </div>
+          <div class="flex-1 p-5 text-sm">
+            <div class="font-semibold text-ocean-deep mb-3 text-[13px] uppercase tracking-wider">City Routes · 市区公交</div>
+            <ul class="space-y-4 mb-6">
+              {TRANSPORT_INFO.bus.cityBus.map(b => (
+                <li class="border-l-2 border-palm-green/60 pl-3.5">
+                  <div class="font-medium text-ocean-deep mb-1">{b.route}</div>
+                  <div class="text-ocean-mid leading-relaxed mb-1">{b.how}</div>
+                  <div class="text-xs text-palm-green font-medium">🎟️ {b.fare}</div>
+                </li>
+              ))}
+            </ul>
+            <div class="font-semibold text-ocean-deep mb-3 text-[13px] uppercase tracking-wider">Provincial · 省外长途</div>
+            <ul class="space-y-2 text-ocean-mid text-[13px]">
+              {TRANSPORT_INFO.bus.provincial.map(p => (
+                <li class="flex gap-2">
+                  <span class="text-sunset-orange">▸</span>{p}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        <!-- 🚕 JEEPNEY -->
+        <div class="card flex flex-col">
+          <div class="p-6 border-b border-sand-warm flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-sunset-orange/10 text-sunset-orange flex items-center justify-center shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">By Jeepney</div>
-              <div class="text-xs text-ocean-mid">Iconic Manila commute</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">By Jeepney · 吉普尼</div>
+              <div class="text-xs text-ocean-mid">Manila's iconic commute</div>
             </div>
           </div>
-          <div class="p-5 text-sm">
-            <div class="font-semibold text-ocean-deep mb-2">Look for any of these routes:</div>
+          <div class="flex-1 p-5 text-sm">
+            <div class="font-semibold text-ocean-deep mb-3">Look for these signboards · 请认准路线牌</div>
             <div class="flex flex-wrap gap-2 mb-4">
               {TRANSPORT_INFO.jeepney[0].routes.map(rt => (
                 <span class="chip bg-sunset-orange/10 text-sunset-orange">{rt}</span>
               ))}
             </div>
-            <p class="text-ocean-mid leading-relaxed mb-4">{TRANSPORT_INFO.jeepney[0].tips}</p>
-            <div class="rounded-xl bg-sand-light p-4">
-              <div class="flex items-center justify-between">
-                <span class="text-ocean-mid text-xs">Minimum fare (4 km)</span>
-                <span class="font-display font-semibold text-ocean-deep">₱13</span>
-              </div>
-              <div class="h-px bg-sand-warm my-2"></div>
-              <div class="flex items-center justify-between">
-                <span class="text-ocean-mid text-xs">Tip when boarding</span>
-                <span class="text-sunset-orange text-xs font-medium">"Baywalk, Malate po"</span>
+            <p class="text-ocean-mid leading-relaxed mb-3">{TRANSPORT_INFO.jeepney[0].tips}</p>
+            <div class="rounded-xl bg-sand-light p-4 space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-ocean-mid">Minimum fare · 4 km 起步</span>
+                <span class="font-display font-semibold text-ocean-deep">{TRANSPORT_INFO.jeepney[0].fare}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- TAXI / GRAB -->
-        <div class="card">
+        <!-- 🚕🚗 TAXI / GRAB -->
+        <div class="card flex flex-col">
           <div class="p-6 border-b border-sand-warm flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-palm-green/10 text-palm-green flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+            <div class="w-11 h-11 rounded-xl bg-palm-green/10 text-palm-green flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">By Grab / Taxi</div>
-              <div class="text-xs text-ocean-mid">Door to door, AC comfort</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">Ride-Hail / Taxi · 打车 / 网约车</div>
+              <div class="text-xs text-ocean-mid">Grab · Metered Taxi</div>
             </div>
           </div>
-          <ul class="divide-y divide-sand-warm/80 text-sm">
-            <li class="p-5">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="chip bg-palm-green/10 text-palm-green text-[11px]">From Makati CBD</span>
+          <div class="flex-1 divide-y divide-sand-warm/80 text-sm">
+            {TRANSPORT_INFO.taxiRidehail.grab.map(g => (
+              <div class="p-5">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="chip bg-palm-green/10 text-palm-green text-[11px]">From {g.from}</span>
+                  <span class="text-[11px] text-ocean-mid">{g.time}</span>
+                </div>
+                <div class="text-ocean-mid leading-relaxed mb-1">{g.fare}</div>
+                <div class="text-xs text-sunset-orange">💡 {g.tips}</div>
               </div>
-              <div class="text-ocean-mid leading-relaxed">{TRANSPORT_INFO.taxi.fromMakati}</div>
-              <div class="mt-2 flex items-center justify-between text-xs">
-                <span class="text-ocean-mid">Ride time</span>
-                <span class="font-medium text-ocean-deep">10 – 30 min</span>
+            ))}
+          </div>
+          <div class="px-5 pb-5 pt-0">
+            <div class="rounded-xl bg-sand-light p-4 space-y-2 text-xs">
+              <div class="flex justify-between">
+                <span class="text-ocean-mid">Metered flagdown · 计价器起步</span>
+                <span class="font-display font-semibold text-ocean-deep">{TRANSPORT_INFO.taxiRidehail.meteredTaxi.flagdown}</span>
               </div>
-            </li>
-            <li class="p-5">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="chip bg-sunset-purple/10 text-sunset-purple text-[11px]">From NAIA Airport</span>
-              </div>
-              <div class="text-ocean-mid leading-relaxed">{TRANSPORT_INFO.taxi.fromAirport}</div>
-              <div class="mt-2 flex items-center justify-between text-xs">
-                <span class="text-ocean-mid">Ride time</span>
-                <span class="font-medium text-ocean-deep">30 – 60 min</span>
-              </div>
-            </li>
-            <li class="p-5">
-              <div class="rounded-lg bg-sand-warm/40 p-3 flex items-start gap-2 text-xs text-ocean-mid">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sunset-orange shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                Set your drop pin to <span class="font-semibold text-ocean-deep mx-1">"Baywalk Roxas Blvd Remedios"</span> to land at the quietest entry stretch.
-              </div>
-            </li>
-          </ul>
+              <div class="text-sunset-orange">⚠️ {TRANSPORT_INFO.taxiRidehail.meteredTaxi.tips}</div>
+            </div>
+          </div>
         </div>
+
+        <!-- 🛺 TRICYCLE + PARKING -->
+        <div class="card flex flex-col">
+          <div class="p-6 border-b border-sand-warm flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-sunset-purple/10 text-sunset-purple flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="2.5"/><circle cx="5.5" cy="17.5" r="2.5"/><path d="M15 17H9V8l-5 7"/><path d="M15 8h2.5A2.5 2.5 0 0 1 20 10.5V17h-5"/><path d="M9 8h3"/></svg>
+            </div>
+            <div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">Last Mile + Parking · 接驳与停车</div>
+              <div class="text-xs text-ocean-mid">Tricycle · Pedicab · Car parks</div>
+            </div>
+          </div>
+          <div class="flex-1 divide-y divide-sand-warm/80 text-sm">
+            <div class="p-5">
+              <div class="font-medium text-ocean-deep mb-2">Tricycle / Pedicab · 三轮车</div>
+              <div class="text-ocean-mid mb-1">{TRANSPORT_INFO.taxiRidehail.tricyclePedicab.note}</div>
+              <div class="text-xs text-sunset-purple font-medium">{TRANSPORT_INFO.taxiRidehail.tricyclePedicab.fare}</div>
+            </div>
+            <div class="p-5">
+              <div class="font-medium text-ocean-deep mb-3">Car Parking · 自驾停车</div>
+              <ul class="space-y-3">
+                {TRANSPORT_INFO.parking.car.map(p => (
+                  <li class="border-l-2 border-sunset-purple/60 pl-3">
+                    <div class="font-medium text-ocean-deep text-[13px]">{p.lot}</div>
+                    <div class="text-ocean-mid text-xs">{p.price}</div>
+                    <div class="text-xs text-sunset-orange">💡 {p.tips}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRO TIP -->
+      <div class="rounded-2xl bg-sunset-gradient text-white p-6 sm:p-8 grid md:grid-cols-[1fr_auto] gap-6 items-center">
+        <div>
+          <div class="font-display text-xl sm:text-2xl font-semibold mb-2">Short on time? · 懒人首选路线</div>
+          <p class="text-white/85 text-sm sm:text-base leading-relaxed">
+            Fly to NAIA T3 → Grab sedan to Roxas Blvd (30 – 60 min) → drop at Pedro Gil jetty then walk 5 min to the sand.
+            抵达马尼拉 T3 航站楼 → Grab 叫车到 Pedro Gil 路口 → 步行 5 分钟直达白云石沙滩。
+          </p>
+        </div>
+        <a href={SITE.googleMapsShortLink} target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-ocean-deep font-medium hover:-translate-y-0.5 transition shadow-md self-start">
+          Open Google Maps
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -691,17 +823,32 @@ const attractionJsonLd = {
         <div class="md:col-span-3">
           <div class="rounded-2xl overflow-hidden shadow-sm border border-sand-warm aspect-[4/3]">
             <iframe
-              title="Baywalk Manila on Google Maps"
-              src={SITE.googleMapsShortLink}
+              title="Manila Bay Beach on Google Maps"
+              src={SITE.googleMapsEmbed}
+              width="600"
+              height="450"
+              style="border:0;"
               class="w-full h-full"
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              allow="fullscreen"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
             ></iframe>
           </div>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs text-ocean-mid">
-            <span class="chip bg-sand-warm">Map data: Google Maps</span>
-            <span class="chip bg-sand-warm">Localised for Philippines (en-PH)</span>
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap gap-2 text-xs text-ocean-mid">
+              <span class="chip bg-sand-warm">Map data: Google Maps</span>
+              <span class="chip bg-sand-warm">Localised · zh-CN</span>
+            </div>
+            <a
+              href={SITE.googleMapsShortLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-xs font-medium text-ocean-deep hover:text-sunset-orange transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              Open in Google Maps · 找到去海湾的路
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -755,9 +902,9 @@ const attractionJsonLd = {
             Put on comfortable shoes, bring a reusable bottle, and head to Roxas Boulevard an hour before dusk. The show is free every day.
           </p>
           <div class="flex flex-wrap gap-3">
-            <a href="#map" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-ocean-deep font-medium hover:-translate-y-0.5 transition shadow-md">
-              Get Directions
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <a href={SITE.googleMapsShortLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-ocean-deep font-medium hover:-translate-y-0.5 transition shadow-md">
+              Get Directions · 找到去海湾的路
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
             </a>
             <a href="#faq" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white font-medium hover:bg-white/15 transition">
               Read the FAQ
