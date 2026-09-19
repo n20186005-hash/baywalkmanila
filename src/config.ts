@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Baywalk Manila',
   tagline: 'Manila Bay Sunset & Dolomite Beach',
   description:
-    'Discover Manila Bay Beach (Baywalk) on Roxas Boulevard in Malate, Manila, Metro Manila, Philippines. View location map, opening details, nearby Rizal Park (Luneta) and Intramuros, and travel tips.',
+    'Planning Manila Baywalk & Dolomite Beach? 2026 update on entrance fee (free), opening hours, Thursday closure, best sunset time and night visits in Malate, Manila, Philippines.',
   address: {
     street: 'Baywalk, Roxas Blvd',
     district: 'Malate',
@@ -12,8 +12,8 @@ export const SITE = {
     country: 'Philippines',
   },
   geo: {
-    latitude: 14.5692,
-    longitude: 120.9834,
+    latitude: 14.5711,
+    longitude: 120.9802,
   },
   hours: {
     sunday:    '06:00-18:00',
@@ -70,6 +70,30 @@ export const FAQ = [
   {
     q: 'Is Baywalk Manila free to visit?',
     a: 'Yes. Manila Bay Beach and the Baywalk promenade are public spaces and are free to visit year-round — no ticket, booking or entrance fee is required.',
+  },
+  {
+    q: 'What are the opening hours for Manila Baywalk?',
+    a: 'The Roxas Boulevard promenade is an open public space and can be walked from early morning until late evening. The gated Dolomite Beach section typically opens 6:00 AM to 6:00 PM and is closed every Thursday for maintenance.',
+  },
+  {
+    q: 'How much is the Dolomite Beach entrance fee?',
+    a: 'There is no Dolomite Beach entrance fee — admission is free. No ticket, booking or reservation is required; bag checks at the gate only screen for prohibited single-use plastics.',
+  },
+  {
+    q: 'What is the best spot to watch the sunset in Manila?',
+    a: 'The Baywalk promenade along Roxas Boulevard offers one of the most unobstructed sunset views in Metro Manila. The Dolomite Beach section and the seawall north of Remedios Street are the two most popular vantage points.',
+  },
+  {
+    q: 'What time is the sunset at Manila Baywalk?',
+    a: 'Sunset at Manila Bay ranges from about 5:45 PM in November–January to about 6:45 PM in June–July. Arrive 30–40 minutes earlier to secure a bench or a spot on the sand.',
+  },
+  {
+    q: 'Is Manila Baywalk safe at night?',
+    a: 'The promenade is lit and patrolled, and evening crowds are normal until around 9 PM. After that it gets quiet — walk the main promenade, stay in lit areas, keep valuables out of sight and use a ride-hailing app for the return trip.',
+  },
+  {
+    q: 'What free things can I do in Manila near Baywalk?',
+    a: 'Watching the Manila Bay sunset, walking the 2-km Baywalk promenade, strolling Rizal Park (Luneta), visiting Malate Church and exploring the outer walls and plazas of Intramuros are all free. Museum admission policies vary — check the official museum website before you go.',
   },
   {
     q: 'What landmarks are near Manila Bay Beach?',
@@ -443,6 +467,7 @@ export const ENTITY = {
   nearbyLandmark2: 'Intramuros',
   mapsShareUrl: 'https://maps.app.goo.gl/9iakbrNfa9MzGGmx8',
   govtTourismUrl: 'https://www.tourism.gov.ph/',
+  philippinesTravelUrl: 'https://philippines.travel/',
   cityGovUrl: 'https://manila.gov.ph/',
   denrUrl: 'https://www.denr.gov.ph/',
   pagasaUrl: 'https://www.pagasa.dost.gov.ph/',
@@ -542,6 +567,14 @@ export const SOURCES = [
     url: ENTITY.pagasaUrl,
     linkText: 'pagasa.dost.gov.ph',
     note: '官方来源 · 潮位为模型预报值，实际以现场与官方警报为准',
+  },
+  {
+    title: 'Philippines Travel — Official Tourism Portal',
+    detail: '菲律宾国家旅游局官方目的地门户（philippines.travel），含马尼拉与大马尼拉官方旅游资讯。',
+    meta: '官方旅游局门户 · 长期有效',
+    url: ENTITY.philippinesTravelUrl,
+    linkText: 'philippines.travel',
+    note: '官方来源 · 版权归原发布机构所有',
   },
   {
     title: 'PAGASA (DOST) — Climate normals & weather bulletins',

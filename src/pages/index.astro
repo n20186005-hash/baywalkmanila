@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Stars from '../components/Stars.astro';
 import WeatherPanel from '../components/WeatherPanel.astro';
 import TidePanel from '../components/TidePanel.astro';
+import DolomiteGuide from '../components/DolomiteGuide.astro';
 import SeasonStrategy from '../components/SeasonStrategy.astro';
 import AudienceRoutes from '../components/AudienceRoutes.astro';
 import Itineraries from '../components/Itineraries.astro';
@@ -73,10 +74,11 @@ const attractionJsonLd = {
   url: thisPageUrl,
   image: [abs(HERO_IMG), abs(DOLOMITE_IMG), abs(PROMENADE_IMG), abs(SUNSET_IMG)],
   isAccessibleForFree: true,
+  publicAccess: true,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: `${ENTITY.fullName}, ${SITE.address.street}`,
-    addressLocality: `${ENTITY.city}, ${SITE.address.district}`,
+    streetAddress: `${SITE.address.street}, ${SITE.address.district}`,
+    addressLocality: ENTITY.city,
     postalCode: ENTITY.postalCode,
     addressRegion: ENTITY.stateProvince,
     addressCountry: ENTITY.countryCode,
@@ -179,6 +181,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
           <span class="chip bg-white/15 backdrop-blur-sm text-white border border-white/20">Free Entry</span>
           <span class="chip bg-white/15 backdrop-blur-sm text-white border border-white/20">Iconic Sunset</span>
           <span class="chip bg-white/15 backdrop-blur-sm text-white border border-white/20">Dolomite Beach</span>
+          <span class="chip bg-white/15 backdrop-blur-sm text-white border border-white/20">6AM–6PM · Thu Closed</span>
           <span class="chip bg-white/15 backdrop-blur-sm text-white border border-white/20">Malate · Manila</span>
         </div>
         <nav aria-label="Breadcrumb" class="mb-4">
@@ -349,7 +352,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
     </div>
   </section>
 
-  <WeatherPanel weather={weather} />
+  <WeatherPanel weather={weather} sea={tide?.sea ?? null} />
   <TidePanel tide={tide} />
 
   <!-- TICKETS / FEES -->
@@ -439,6 +442,8 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
       </div>
     </div>
   </section>
+
+  <DolomiteGuide />
 
   <!-- WHEN TO GO / DURATION / PARKING -->
   <section id="when-to-go" class="anchor-offset py-16 sm:py-20 md:py-24">
@@ -984,11 +989,11 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             <div class="mt-5 grid grid-cols-2 gap-3 text-xs">
               <div class="p-3 bg-sand-light rounded-lg">
                 <div class="uppercase tracking-wider text-ocean-mid mb-1">Latitude</div>
-                <div class="font-mono text-ocean-deep font-medium">14.5692° N</div>
+                <div class="font-mono text-ocean-deep font-medium">{SITE.geo.latitude}° N</div>
               </div>
               <div class="p-3 bg-sand-light rounded-lg">
                 <div class="uppercase tracking-wider text-ocean-mid mb-1">Longitude</div>
-                <div class="font-mono text-ocean-deep font-medium">120.9834° E</div>
+                <div class="font-mono text-ocean-deep font-medium">{SITE.geo.longitude}° E</div>
               </div>
             </div>
           </div>
@@ -1230,7 +1235,9 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             <div class="text-xs uppercase tracking-wider text-sand-light/60 mb-4">Explore</div>
             <ul class="space-y-2.5 text-sm">
               <li><a href="#overview" class="hover:text-sunset-orange transition">Overview</a></li>
-              <li><a href="#tickets" class="hover:text-sunset-orange transition">Tickets & Fees</a></li>
+              <li><a href="#tickets" class="hover:text-sunset-orange transition">Tickets &amp; Fees</a></li>
+              <li><a href="#dolomite" class="hover:text-sunset-orange transition">Dolomite Beach hours</a></li>
+              <li><a href="#sunset" class="hover:text-sunset-orange transition">Sunset &amp; night</a></li>
               <li><a href="#when-to-go" class="hover:text-sunset-orange transition">Best time to visit</a></li>
               <li><a href="#getting-there" class="hover:text-sunset-orange transition">Transport</a></li>
               <li><a href="#map" class="hover:text-sunset-orange transition">Map</a></li>
@@ -1269,6 +1276,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             <div class="text-[11px] uppercase tracking-wider text-sand-light/60 mb-3">Official sources · 官方来源</div>
             <ul class="space-y-2">
               <li><a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">Department of Tourism ↗</a></li>
+              <li><a href={ENTITY.philippinesTravelUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">Philippines Travel ↗</a></li>
               <li><a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">City of Manila ↗</a></li>
               <li><a href={ENTITY.pagasaUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">PAGASA ↗</a></li>
               <li><a href={ENTITY.denrUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">DENR ↗</a></li>

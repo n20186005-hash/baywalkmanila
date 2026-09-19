@@ -24,6 +24,10 @@ export interface TideSnapshot {
   };
   today: TideHour[];
   range: number;
+  sea: {
+    waveHeight: number | null;
+    seaTemp: number | null;
+  };
   updatedAt: number;
 }
 
@@ -80,7 +84,7 @@ export async function getTideSnapshot(latitude: number, longitude: number): Prom
     const url = new URL(ENDPOINT);
     url.searchParams.set('latitude', String(latitude));
     url.searchParams.set('longitude', String(longitude));
-    url.searchParams.set('hourly', 'sea_level_height_msl');
+    url.searchParams.set('hourly', 'sea_level_height_msl,wave_height,sea_surface_temperature');
     url.searchParams.set('timezone', TIMEZONE);
     url.searchParams.set('forecast_days', '3');
 
@@ -90,6 +94,8 @@ export async function getTideSnapshot(latitude: number, longitude: number): Prom
     const json = (await response.json()) as Record<string, any>;
     const times: string[] = json?.hourly?.time ?? [];
     const levels: (number | null)[] = json?.hourly?.sea_level_height_msl ?? [];
+    const waves: (number | null)[] = json?.hourly?.wave_height ?? [];
+    const temps: (number | null)[] = json?.hourly?.sea_surface_temperature ?? [];
 
     const hours: TideHour[] = [];
     for (let i = 0; i < times.length; i++) {
@@ -130,6 +136,10 @@ export async function getTideSnapshot(latitude: number, longitude: number): Prom
       },
       today: series,
       range: heights.length ? Math.max(...heights) - Math.min(...heights) : 0,
+      sea: {
+        waveHeight: typeof waves[index] === 'number' ? waves[index] : null,
+        seaTemp: typeof temps[index] === 'number' ? temps[index] : null,
+      },
       updatedAt: Date.now(),
     };
 
@@ -138,6 +148,22 @@ export async function getTideSnapshot(latitude: number, longitude: number): Prom
   } catch {
     return cache?.data ?? null;
   }
+}
+
+export function seaAdvice(sea: TideSnapshot['sea']): string | null {
+  if (sea.waveHeight === null && sea.seaTemp === null) return null;
+  const parts: string[] = [];
+  if (sea.seaTemp !== null) parts.push(`海水温度约 ${sea.seaTemp.toFixed(0)}°C`);
+  if (sea.waveHeight !== null) {
+    const w = sea.waveHeight;
+    const calm = w < 0.3 ? '水面平静' : w < 0.8 ? '有轻浪' : w < 1.5 ? '涌浪偏大' : '涌浪很大';
+    parts.push(`浪高约 ${w.toFixed(2)} m（${calm}）`);
+  }
+  const tail =
+    sea.waveHeight !== null && sea.waveHeight >= 1.5
+      ? '—— 不要靠近礁石与防波堤，海上项目大概率停航。'
+      : '—— 本段海湾禁止下水游泳，玩沙、观景与拍照即可。';
+  return `${parts.join('，')}${tail}`;
 }
 
 export function tideAdvice(snapshot: TideSnapshot): string {

@@ -10,12 +10,21 @@ interface Props {
   canonical?: string;
 }
 
+const DEFAULT_TITLE = `${ENTITY.fullName} (${ENTITY.shortName}) & Dolomite Beach: Free Entry, Hours & Sunset`;
+
 const {
-  title = `${ENTITY.fullName} (${ENTITY.city}) - Visitor Guide & Location`,
-  description = `Discover ${ENTITY.fullName} (${ENTITY.shortName}), the iconic bayfront landmark in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}. View location map, opening details, nearby ${ENTITY.nearbyLandmark1} and ${ENTITY.nearbyLandmark2}, and travel tips.`,
+  title = DEFAULT_TITLE,
+  description = SITE.description,
   ogImage = GALLERY.hero,
   ogImageAlt = `${ENTITY.fullName} - main view in ${ENTITY.city}, ${ENTITY.country}`,
 } = Astro.props;
+
+const fullTitle =
+  title === SITE.name
+    ? `${title} — ${SITE.tagline}`
+    : title === DEFAULT_TITLE
+      ? title
+      : `${title} | ${SITE.name}`;
 
 const siteUrl: string | undefined = Astro.site?.toString() ?? ENTITY.domainUrl;
 const pagePath = Astro.url.pathname;
@@ -25,8 +34,8 @@ const ogImageUrl = ogImage.startsWith('http')
   ? ogImage
   : new URL(ogImage, siteUrl).toString();
 
-const ogTitle = `${ENTITY.fullName} - ${ENTITY.city} Travel Guide`;
-const ogDescription = `Official visitor guide to ${ENTITY.fullName} in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}.`;
+const ogTitle = `${ENTITY.fullName} (${ENTITY.shortName}) — Free Entry, Hours, Sunset & Map`;
+const ogDescription = `Free-entry visitor guide to ${ENTITY.fullName} in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}: entrance fee, opening hours, Thursday closure, best sunset time and night visits.`;
 ---
 <!doctype html>
 <html lang="en-PH">
@@ -35,7 +44,7 @@ const ogDescription = `Official visitor guide to ${ENTITY.fullName} in ${ENTITY.
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#E8772E" />
-    <title>{title === SITE.name ? `${title} — ${SITE.tagline}` : `${title} | ${SITE.name}`}</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
 
     <!-- Canonical 规范网址 -->
