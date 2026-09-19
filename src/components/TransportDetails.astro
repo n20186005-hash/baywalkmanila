@@ -1,0 +1,273 @@
+---
+import { ENTITY, SITE } from '../config';
+
+const AIRPORT_ROUTES = [
+  {
+    terminal: 'NAIA Terminal 1',
+    detail: '国际航班为主（部分亚洲航司）',
+    steps: [
+      '出关后在到达层的官方出租车柜台排队，拒绝主动搭讪的司机',
+      'Grab 上车点位于到达层指定区域，按 App 指示前往',
+      '前往 Baywalk 车程约 30 – 60 分钟，车费约 ₱300 – 500',
+    ],
+  },
+  {
+    terminal: 'NAIA Terminal 2',
+    detail: '国内航班为主',
+    steps: [
+      '国内到达行李提取较快，可直接前往到达层的网约车上车区',
+      '预算方案：打车至 Taft Ave / EDSA 转 LRT-1，南下至 Pedro Gil 站',
+      '夜间到达建议直接打车，末班轨道交通约在 21:30 – 22:00 前后结束',
+    ],
+  },
+  {
+    terminal: 'NAIA Terminal 3',
+    detail: '多数国际航司，设施最完整',
+    steps: [
+      '到达层有官方出租车、Grab 与机场巴士柜台，先取款或换汇',
+      'P2P 机场快线可到 EDSA Taft，再转 LRT-1 至 Pedro Gil 或 Vito Cruz',
+      '直达打车约 30 – 50 分钟（非高峰），高峰时段预留 60 – 90 分钟',
+    ],
+  },
+  {
+    terminal: 'NAIA Terminal 4',
+    detail: '低成本航司与部分国内线',
+    steps: [
+      '航站楼较小，出站后步行至路边即可叫车',
+      '可步行/短途打车至 Taft Ave 衔接 LRT-1',
+      '行李较多时建议直接叫车，避免多次换乘',
+    ],
+  },
+  {
+    terminal: 'Clark International Airport (CRK)',
+    detail: '北方备选机场，距马尼拉约 90 km',
+    steps: [
+      '机场大巴直达马尼拉市区（Cubao / Pasay 等终点），车程约 2 – 3 小时',
+      '抵达后换乘 LRT-1 或打车至 Baywalk',
+      '若航班时间晚，建议在机场附近住宿一晚再南下',
+    ],
+  },
+];
+
+const PUBLIC_TRANSPORT = [
+  {
+    type: 'LRT-1 · 轻轨一号线',
+    items: [
+      'Pedro Gil 站：出站沿 Pedro Gil St 西行 5 – 7 分钟直达长廊中段，最推荐的站点',
+      'United Nations Ave 站：步行 10 – 12 分钟，适合顺路参观国家博物馆与 Rizal Park',
+      'Vito Cruz 站：步行 15 – 20 分钟，适合前往文化中心与南段',
+      '票价约 ₱15 – 30，可用 Beep 卡；高峰 7 – 9 时与 17 – 19 时车厢拥挤',
+    ],
+  },
+  {
+    type: 'PNR · 国铁通勤线',
+    items: [
+      'Dela Rosa 站可衔接马尼拉南部通勤线，班次较少，需提前查时刻表',
+      '适合从 Laguna、Alabang 方向来的旅客，转 jeepney 或三轮车更快',
+      '车厢较旧、无空调，建议避开正午',
+    ],
+  },
+  {
+    type: 'EDSA Carousel · 快速公交',
+    items: [
+      '沿 EDSA 运行的快速公交专用道，站点间距大、速度快',
+      '在 Taft Ave 站换乘 LRT-1 南下即可衔接 Baywalk',
+      '票价约 ₱15 – 40，可用 Beep 卡',
+    ],
+  },
+  {
+    type: 'City bus & jeepney · 城市巴士与吉普尼',
+    items: [
+      '城市巴士沿 Taft Ave 与 Roxas Blvd 运行，票价约 ₱12 – 25',
+      '吉普尼路线牌常见「Malate – Pier South via Mabini」「Baclaran – Dapitan via Mabini」',
+      '上车告知司机「Para po sa Roxas Blvd, Malate」，在最近路口下车',
+      '首 4 km 约 ₱14，之后每公里约 ₱2.20，现金或 Beep 卡',
+    ],
+  },
+  {
+    type: 'Pasig River Ferry · 帕西河渡轮',
+    items: [
+      '连接帕西河沿岸站点，适合作为城市观光的补充方式',
+      '班次与站点会调整，出行前请查最新运营信息',
+      '从河畔站点仍需接驳至 Roxas Blvd，实际耗时通常高于轨道交通',
+    ],
+  },
+];
+
+const TAXI = [
+  '上车点：机场到达层官方出租车柜台、酒店门口、商场指定候客区，优先使用 App 叫车',
+  '计价规则：起步价约 ₱45（前 500 m），之后每 300 m 约 ₱4；坚持要求打表',
+  'Grab 参考价：NAIA T3 → Baywalk ₱300 – 500；Makati CBD ₱150 – 250；MOA / Pasay ₱120 – 180',
+  '高峰时段（17:00 – 20:00）加价与等待时间都会上升，建议提前 20 分钟叫车',
+  '三轮车 / 人力车适合 ≤ 2 km 的最后一公里，单车约 ₱50 – 100，上车前先讲好价',
+];
+
+const FROM_DISTRICTS = [
+  { from: 'Makati CBD / BGC', how: '打车 20 – 45 分钟（视 EDSA 与 Osmeña Hwy 拥堵情况）；也可 MRT-3 至 Taft Ave 转 LRT-1', price: '₱150 – 300' },
+  { from: 'Quezon City', how: 'MRT-3 南下至 Taft Ave 转 LRT-1，或 LRT-2 转 LRT-1；打车 45 – 90 分钟', price: '₱200 – 400' },
+  { from: 'Pasay / SM Mall of Asia', how: '沿海滨大道北上经 Roxas Blvd 直达，打车 15 – 30 分钟', price: '₱120 – 180' },
+  { from: 'Parañaque / Las Piñas', how: '沿 Coastal Rd 北上接 Roxas Blvd；公交与 jeepney 亦有沿线班次', price: '₱150 – 250' },
+  { from: 'Alabang / 南部省份', how: 'Skyway 或 PNR 通勤线北上，到 Dela Rosa 或 EDSA Taft 后换乘', price: '₱200 – 350' },
+  { from: 'Manila 邮轮 / 客运码头', how: 'North Harbor / South Harbor 出站后打车约 15 – 30 分钟，行李多时直接叫车', price: '₱150 – 250' },
+];
+
+const WALK_CYCLE = [
+  '步行：长廊全长约 2 km，全程步行 25 – 35 分钟，沿途有座椅与遮荫点',
+  '从 Pedro Gil 站步行约 5 – 7 分钟；从 Rizal Park 步行约 20 – 25 分钟',
+  '骑行：Roxas Blvd 车速快、车流密集，仅建议在长廊与慢行道推行或低速骑行',
+  '雨后路面湿滑，海堤段无护栏处请保持距离',
+];
+
+const PITFALLS = [
+  '拒绝到达层主动搭讪的「包车」司机，使用官方柜台或 App 叫车',
+  '坚持打表（meter）；若司机拒绝，可换车或改用网约车',
+  '晚间返程尽量选择有人流的路段与正规上车点，不搭乘无标识车辆',
+  '过马路使用人行横道与天桥，Roxas Blvd 车速快，切勿横穿',
+  '贵重物品放内侧口袋；拍照时留意手机与相机',
+];
+---
+<section id="transport-detail" class="anchor-offset py-16 sm:py-20 md:py-24">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-10">
+      <span class="chip bg-ocean-deep/10 text-ocean-deep mb-4">Transport playbook · 交通详细攻略</span>
+      <h2 class="section-title">Every way to reach {ENTITY.fullName}</h2>
+      <p class="section-subtitle mb-0">
+        按出发地拆解：机场各航站楼怎么走、公共交通怎么换乘、出租车与网约车怎么叫、自驾与停车怎么安排，以及从邻近城区与码头如何抵达。
+      </p>
+    </div>
+
+    <!-- AIRPORT -->
+    <div class="card mb-8">
+      <div class="p-6 sm:p-8 border-b border-sand-warm">
+        <div class="font-display text-2xl font-semibold text-ocean-deep">From the airport · 机场怎么去景点</div>
+        <p class="text-sm text-ocean-mid mt-1">按航站楼逐一说明，含车程、车费区间与换乘方案。</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-0 md:divide-x divide-sand-warm/80">
+        {
+          AIRPORT_ROUTES.map((a) => (
+            <div class="p-6 border-b md:border-b-0 border-sand-warm/70">
+              <div class="font-display text-lg font-semibold text-ocean-deep">{a.terminal}</div>
+              <div class="text-xs text-ocean-mid mb-3">{a.detail}</div>
+              <ol class="space-y-2">
+                {a.steps.map((s, i) => (
+                  <li class="flex gap-2.5 text-sm text-ocean-mid leading-relaxed">
+                    <span class="shrink-0 w-5 h-5 rounded-full bg-sand-warm text-ocean-deep text-[11px] font-semibold flex items-center justify-center mt-0.5">
+                      {i + 1}
+                    </span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+      </div>
+      <div class="px-6 sm:px-8 py-5 border-t border-sand-warm">
+        <a
+          href={ENTITY.mapsShareUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sunset-gradient text-white text-sm font-medium shadow-sm hover:-translate-y-0.5 transition"
+        >
+          Open {ENTITY.fullName} in Google Maps
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- PUBLIC TRANSPORT -->
+    <div class="card p-6 sm:p-8 mb-8">
+      <div class="font-display text-2xl font-semibold text-ocean-deep mb-1">By public transport · 公共交通怎么到景点</div>
+      <p class="text-sm text-ocean-mid mb-6">轨道交通、快速公交、巴士、吉普尼与渡轮：按系统列出最省钱的到达方式。</p>
+      <div class="grid md:grid-cols-2 gap-6">
+        {
+          PUBLIC_TRANSPORT.map((p) => (
+            <div class="rounded-2xl bg-sand-light p-5">
+              <div class="font-display text-lg font-semibold text-ocean-deep mb-3">{p.type}</div>
+              <ul class="space-y-2">
+                {p.items.map((i) => (
+                  <li class="flex gap-2 text-sm text-ocean-mid leading-relaxed">
+                    <span class="text-sunset-orange mt-0.5">▸</span>
+                    <span>{i}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6 mb-8">
+      <!-- TAXI -->
+      <div class="card p-6 sm:p-7">
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-1">Taxi &amp; ride-hailing · 出租车怎么到景点</div>
+        <p class="text-xs text-ocean-mid mb-4">上车点、计价规则与参考车费。</p>
+        <ul class="space-y-2.5">
+          {
+            TAXI.map((t) => (
+              <li class="flex gap-2 text-sm text-ocean-mid leading-relaxed">
+                <span class="text-sunset-orange mt-0.5">▸</span>
+                <span>{t}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- FROM DISTRICTS -->
+      <div class="card p-6 sm:p-7 lg:col-span-2">
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-1">From nearby districts · 从邻近城区出发</div>
+        <p class="text-xs text-ocean-mid mb-4">Makati、BGC、Quezon City、Pasay、南部省份与客运码头。</p>
+        <div class="divide-y divide-sand-warm">
+          {
+            FROM_DISTRICTS.map((d) => (
+              <div class="py-3 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4">
+                <div class="font-medium text-ocean-deep text-sm sm:w-40 shrink-0">{d.from}</div>
+                <div class="text-sm text-ocean-mid leading-relaxed flex-1">{d.how}</div>
+                <div class="font-display font-semibold text-sunset-orange text-sm shrink-0">{d.price}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6 mb-8">
+      <!-- WALK & CYCLE -->
+      <div class="card p-6 sm:p-7">
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-4">On foot &amp; by bike · 步行与骑行</div>
+        <ul class="space-y-2.5">
+          {
+            WALK_CYCLE.map((w) => (
+              <li class="flex gap-2 text-sm text-ocean-mid leading-relaxed">
+                <span class="text-palm-green mt-0.5">▸</span>
+                <span>{w}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-5 rounded-xl bg-sand-light p-4 text-sm text-ocean-mid leading-relaxed">
+          无障碍接驳：建议让车辆停靠在
+          <strong class="text-ocean-deep"> {SITE.address.street} </strong>
+          一侧的落客点，减少步行距离；长廊整体平坦，座椅间隔约 50 – 100 m，适合低体力与轮椅使用者短程游览。
+        </div>
+      </div>
+
+      <!-- PITFALLS -->
+      <div class="card p-6 sm:p-7 border-sunset-pink/20">
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-4">Watch out for · 常见陷阱与安全提示</div>
+        <ul class="space-y-2.5">
+          {
+            PITFALLS.map((p) => (
+              <li class="flex gap-2 text-sm text-ocean-mid leading-relaxed">
+                <span class="text-sunset-pink mt-0.5">▸</span>
+                <span>{p}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

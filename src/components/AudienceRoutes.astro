@@ -1,0 +1,114 @@
+---
+import { ENTITY } from '../config';
+
+const ROUTES = [
+  {
+    tag: 'Families · 亲子家庭',
+    duration: '1.5 – 2.5 h',
+    pace: '每 30 分钟找阴凉处休息一次',
+    steps: [
+      '北段入口进入，先在长廊树荫下适应环境',
+      '白云石沙滩中段：沙玩、放风筝、浅滩观察（严禁下水）',
+      '长廊小吃与饮品补给，就近使用卫生间',
+      '提前 40 分钟占好日落观景点，日落后 15 分钟内撤离避开人流',
+    ],
+    notes: [
+      '儿童防晒帽、防晒霜与饮用水自备；正午地表温度高，避免 11 – 15 时到访',
+      '周四白云石沙滩段闭园维护，亲子行程请避开',
+      '周末 17:00 – 19:00 人流最密，推车通行缓慢，建议工作日或提早',
+    ],
+    tone: 'bg-sunset-orange/10 text-sunset-orange',
+  },
+  {
+    tag: 'Photography & nature · 摄影自然',
+    duration: '2.5 – 4 h',
+    pace: '慢速驻点，同一机位停留 20 – 40 分钟',
+    steps: [
+      '16:30 抵达，先在长廊与海堤段测光、确定前景',
+      '潮间带与滩涂观察（查当日潮汐表，退潮时生物更丰富）',
+      '17:45 – 18:15 日落主时段：夕阳、云隙光、剪影船影',
+      '日落后 20 分钟蓝调时刻：城市灯光与天空平衡',
+    ],
+    notes: [
+      '三脚架请在长廊靠外侧架设，避免堵塞通行；夜景注意设备防盗',
+      '候鸟季（11 月 – 次年 3 月）建议携带 300 mm 以上长焦，湾南湿地是主要观察区',
+      '尊重保护区边界与警戒线，不使用闪光灯直射鸟类，不进入封闭修复区',
+    ],
+    tone: 'bg-ocean-mid/10 text-ocean-mid',
+  },
+  {
+    tag: 'Low intensity / accessibility · 低体力无障碍',
+    duration: '1 – 1.5 h',
+    pace: '短距离移动，座椅间隔 50 – 100 m 即休息',
+    steps: [
+      '车辆直接停靠 Roxas Blvd 侧落客点，减少步行距离',
+      '平缓长廊段单向慢行，优先有扶手与靠背座椅的路段',
+      '选择视野开阔的观景座椅完成日落观景',
+      '原路返回落客点，避免夜间返程走暗处',
+    ],
+    notes: [
+      '长廊整体平坦，但个别接缝与坡道需留意；轮椅建议从 Roxas Blvd 一侧进入',
+      '无障碍卫生间最可靠的选择是沿线商场与酒店大堂',
+      '避开正午与雨后的湿滑路面；随身携带常用药物与联系卡',
+    ],
+    tone: 'bg-palm-green/10 text-palm-green',
+  },
+];
+---
+<section id="audience-routes" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-10">
+      <span class="chip bg-sunset-purple/10 text-sunset-purple mb-4">Routes by traveller type · 按人群定制</span>
+      <h2 class="section-title">Three ways to spend your time at {ENTITY.shortName}</h2>
+      <p class="section-subtitle mb-0">
+        按出行构成与节奏选择：亲子家庭、摄影与自然观察、低体力与无障碍。每条路线都标注了时长、动线与注意事项。
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+      {
+        ROUTES.map((r, i) => (
+          <article class="card p-6 flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+              <span class={`chip ${r.tone}`}>{r.tag}</span>
+              <span class="text-xs text-ocean-mid font-medium">Route {i + 1}</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="rounded-xl bg-sand-light p-3">
+                <div class="text-[11px] uppercase tracking-wider text-ocean-mid">Duration</div>
+                <div class="font-display font-semibold text-ocean-deep">{r.duration}</div>
+              </div>
+              <div class="rounded-xl bg-sand-light p-3">
+                <div class="text-[11px] uppercase tracking-wider text-ocean-mid">Pace</div>
+                <div class="text-sm text-ocean-deep font-medium leading-snug">{r.pace}</div>
+              </div>
+            </div>
+
+            <div class="font-semibold text-ocean-deep text-sm mb-2">Suggested flow · 动线</div>
+            <ol class="space-y-2.5 mb-5">
+              {r.steps.map((s, j) => (
+                <li class="flex gap-2.5 text-sm text-ocean-mid leading-relaxed">
+                  <span class="shrink-0 w-5 h-5 rounded-full bg-sand-warm text-ocean-deep text-[11px] font-semibold flex items-center justify-center mt-0.5">
+                    {j + 1}
+                  </span>
+                  <span>{s}</span>
+                </li>
+              ))}
+            </ol>
+
+            <div class="font-semibold text-ocean-deep text-sm mb-2">Key notes · 重点提示</div>
+            <ul class="space-y-2 text-sm text-ocean-mid leading-relaxed flex-1">
+              {r.notes.map((n) => (
+                <li class="flex gap-2">
+                  <span class="text-sunset-orange mt-0.5">▸</span>
+                  <span>{n}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

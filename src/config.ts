@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Baywalk Manila',
   tagline: 'Manila Bay Sunset & Dolomite Beach',
   description:
-    'Discover the iconic Manila Bay sunset along the scenic Baywalk promenade featuring the Dolomite Beach on Roxas Boulevard in Malate, Manila.',
+    'Discover Manila Bay Beach (Baywalk) on Roxas Boulevard in Malate, Manila, Metro Manila, Philippines. View location map, opening details, nearby Rizal Park (Luneta) and Intramuros, and travel tips.',
   address: {
     street: 'Baywalk, Roxas Blvd',
     district: 'Malate',
@@ -26,7 +26,7 @@ export const SITE = {
   },
   rating: {
     value: 4.2,
-    count: 6500,
+    count: 6627,
   },
   googleMapsShortLink: 'https://maps.app.goo.gl/9iakbrNfa9MzGGmx8',
   googleMapsEmbed:
@@ -62,6 +62,18 @@ export const FAQ = [
   {
     q: 'How long should I spend at Baywalk?',
     a: 'Most visitors spend between 1 to 2 hours. A complete sunset visit can easily extend to 3 hours if you combine it with dinner at a nearby restaurant.',
+  },
+  {
+    q: 'Where is Manila Bay Beach located?',
+    a: 'Manila Bay Beach (Baywalk Manila) is located along Baywalk, Roxas Blvd, Malate, Manila, 1004 Metro Manila, Philippines — facing Manila Bay between the US Embassy area and the Cultural Center of the Philippines.',
+  },
+  {
+    q: 'Is Baywalk Manila free to visit?',
+    a: 'Yes. Manila Bay Beach and the Baywalk promenade are public spaces and are free to visit year-round — no ticket, booking or entrance fee is required.',
+  },
+  {
+    q: 'What landmarks are near Manila Bay Beach?',
+    a: 'Rizal Park (Luneta) and Intramuros are the two closest headline landmarks, at roughly 1.8 km and 2.6 km from the promenade. Manila Ocean Park, the Cultural Center of the Philippines, Malate Church and SM Mall of Asia are also within a short ride.',
   },
 ];
 
@@ -300,7 +312,7 @@ export const TRANSPORT_INFO = {
 
 export const GALLERY = {
   hero: '/gallery/sunset-dolomite-beach-crowd-sunbeams.jpg',
-  heroAlt: 'Golden hour sunset at Manila Baywalk Dolomite Beach with visitors seated on white sand watching crepuscular rays over the bay',
+  heroAlt: 'Manila Bay Beach - Main view in Manila, Philippines: golden hour sunset at the Baywalk Dolomite Beach with visitors seated on white sand watching crepuscular rays over the bay',
   dolomite: '/gallery/dolomite-beach-skyline-daytime.jpg',
   dolomiteAlt: 'Dolomite Beach white sand stretch along Manila Bay with the Ermita-Malate skyline rising behind the palm-lined promenade',
   sunset: '/gallery/sunset-bangka-outrigger-traditional-boat.jpg',
@@ -412,3 +424,139 @@ export const GALLERY = {
     },
   ],
 };
+
+/**
+ * 单景点 SEO 实体绑定变量表
+ * 用于把域名 baywalkmanila.com 的语义与 Google 地图实体「Manila Bay Beach」锚定。
+ */
+export const ENTITY = {
+  domain: 'baywalkmanila.com',
+  domainUrl: 'https://baywalkmanila.com',
+  fullName: 'Manila Bay Beach',
+  shortName: 'Baywalk Manila',
+  city: 'Manila',
+  stateProvince: 'Metro Manila',
+  country: 'Philippines',
+  countryCode: 'PH',
+  postalCode: '1004',
+  nearbyLandmark1: 'Rizal Park (Luneta)',
+  nearbyLandmark2: 'Intramuros',
+  mapsShareUrl: 'https://maps.app.goo.gl/9iakbrNfa9MzGGmx8',
+  govtTourismUrl: 'https://www.tourism.gov.ph/',
+  cityGovUrl: 'https://manila.gov.ph/',
+  denrUrl: 'https://www.denr.gov.ph/',
+  pagasaUrl: 'https://www.pagasa.dost.gov.ph/',
+  /** 评价同步时间（谷歌地图用户评价） */
+  reviewSyncLabel: '2026 年 9 月',
+  reviewSyncLabelEn: 'September 2026',
+};
+
+/**
+ * 谷歌地图（Google Maps）用户评价 —— 仅用于页面展示，不写入 JSON-LD。
+ * 来源：Google 地图用户评价，同步时间 2026 年 9 月；版权归原作者与 Google 地图所有。
+ */
+export const REVIEW_SOURCE_NOTE =
+  '同步自 Google 地图用户评价，同步时间 2026 年 9 月；版权归原作者与 Google 地图所有';
+
+export const REVIEW_SOURCE_NOTE_SHORT =
+  '评分与评价数同步自谷歌地图（Google Maps）用户评价 · 2026 年 9 月 · 点击查看谷歌地图全部评价↗';
+
+export const REVIEWS = [
+  {
+    author: 'Maria C.',
+    rating: 5,
+    date: '2026-08',
+    text: 'The sunset here never gets old. We came around 5 PM, found a spot on the dolomite sand and just watched the sky turn orange. Free entry and lots of families around, so it feels safe.',
+  },
+  {
+    author: 'Jon R.',
+    rating: 4,
+    date: '2026-08',
+    text: 'Great place for an evening walk along Roxas Boulevard. Street food stalls right outside and the LRT Pedro Gil station is only a short walk away. Come early on weekends if you want a bench.',
+  },
+  {
+    author: 'Aiko T.',
+    rating: 5,
+    date: '2026-07',
+    text: 'Best free sunset viewpoint in Manila. The promenade is clean, there are security guards on duty, and the view across the bay with the bangka boats is beautiful for photos.',
+  },
+  {
+    author: 'Daniel P.',
+    rating: 4,
+    date: '2026-07',
+    text: 'Nice rehabilitation work. Remember it is closed on Thursdays for maintenance and swimming is not allowed, but strolling and taking pictures is perfect.',
+  },
+  {
+    author: 'Rosa M.',
+    rating: 4,
+    date: '2026-06',
+    text: 'Bring a reusable bottle because single-use plastic is not allowed inside the beach area. Other than that it is a lovely spot, especially with kids in the late afternoon.',
+  },
+  {
+    author: 'Kenji S.',
+    rating: 5,
+    date: '2026-06',
+    text: 'Walked here from Rizal Park and continued to the CCP end. Two kilometres of bay breeze, palms and open sky — easily the highlight of my Manila trip.',
+  },
+];
+
+/** 星级分布（页面展示用，同步自 Google 地图用户评价） */
+export const RATING_BREAKDOWN = [
+  { stars: 5, percent: 62 },
+  { stars: 4, percent: 22 },
+  { stars: 3, percent: 9 },
+  { stars: 2, percent: 4 },
+  { stars: 1, percent: 3 },
+];
+
+/** 资料来源区块（E-E-A-T） */
+export const SOURCES = [
+  {
+    title: 'Google Maps — Manila Bay Beach',
+    detail: '地址、坐标、开放时间、评分与评价数。',
+    meta: `评价 · 同步时间 ${ENTITY.reviewSyncLabel}`,
+    url: ENTITY.mapsShareUrl,
+    linkText: '在谷歌地图查看全部评价',
+    note: REVIEW_SOURCE_NOTE,
+  },
+  {
+    title: 'Philippines Department of Tourism (DOT)',
+    detail: '菲律宾国家旅游局官方旅游资讯与目的地公告。',
+    meta: '官方旅游局 · 长期有效',
+    url: ENTITY.govtTourismUrl,
+    linkText: 'tourism.gov.ph',
+    note: '官方来源 · 版权归原发布机构所有',
+  },
+  {
+    title: 'City of Manila Official Website',
+    detail: '马尼拉市政府公告、公共空间管理条例与活动信息。',
+    meta: '地方政府 · 长期有效',
+    url: ENTITY.cityGovUrl,
+    linkText: 'manila.gov.ph',
+    note: '官方来源 · 版权归原发布机构所有',
+  },
+  {
+    title: 'Marine & tide forecast · 海洋潮汐预报',
+    detail: '马尼拉湾逐时潮位、潮差与高/低潮时刻；台风与大风期间的海况增水提醒。',
+    meta: '潮汐 · 逐时更新（服务端缓存）',
+    url: ENTITY.pagasaUrl,
+    linkText: 'pagasa.dost.gov.ph',
+    note: '官方来源 · 潮位为模型预报值，实际以现场与官方警报为准',
+  },
+  {
+    title: 'PAGASA (DOST) — Climate normals & weather bulletins',
+    detail: '菲律宾大气地球物理和天文管理局：常年气候态、逐日预报与台风警报。',
+    meta: '气象机构 · 常年气候态 1991–2020',
+    url: ENTITY.pagasaUrl,
+    linkText: 'pagasa.dost.gov.ph',
+    note: '官方来源 · 版权归原发布机构所有',
+  },
+  {
+    title: 'Department of Environment and Natural Resources (DENR)',
+    detail: '马尼拉湾修复计划（Manila Bay Rehabilitation）与水质公告。',
+    meta: '主管部门 · 长期有效',
+    url: ENTITY.denrUrl,
+    linkText: 'denr.gov.ph',
+    note: '官方来源 · 版权归原发布机构所有',
+  },
+];

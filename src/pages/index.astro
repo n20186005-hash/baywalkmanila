@@ -1,11 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, FAQ, NEARBY_EATS, NEARBY_ATTR, TRANSPORT_INFO, GALLERY } from '../config';
+import Stars from '../components/Stars.astro';
+import WeatherPanel from '../components/WeatherPanel.astro';
+import TidePanel from '../components/TidePanel.astro';
+import SeasonStrategy from '../components/SeasonStrategy.astro';
+import AudienceRoutes from '../components/AudienceRoutes.astro';
+import Itineraries from '../components/Itineraries.astro';
+import TransportDetails from '../components/TransportDetails.astro';
+import VisitorServices from '../components/VisitorServices.astro';
+import HistoryStories from '../components/HistoryStories.astro';
+import Stewardship from '../components/Stewardship.astro';
+import { getWeatherSnapshot } from '../lib/weather';
+import { getTideSnapshot } from '../lib/tide';
+import {
+  SITE,
+  FAQ,
+  NEARBY_EATS,
+  NEARBY_ATTR,
+  TRANSPORT_INFO,
+  GALLERY,
+  ENTITY,
+  REVIEWS,
+  RATING_BREAKDOWN,
+  SOURCES,
+  REVIEW_SOURCE_NOTE,
+  REVIEW_SOURCE_NOTE_SHORT,
+} from '../config';
 
-const siteUrl: string | undefined = Astro.site?.toString();
-const thisPageUrl = siteUrl
-  ? new URL(Astro.url.pathname, siteUrl).toString()
-  : undefined;
+const siteUrl: string | undefined = Astro.site?.toString() ?? ENTITY.domainUrl;
+const thisPageUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const abs = (p: string): string => new URL(p, siteUrl).toString();
 
 const HERO_IMG = GALLERY.hero;
 const HERO_ALT = GALLERY.heroAlt;
@@ -29,27 +53,41 @@ const faqJsonLd = {
   })),
 };
 
+/**
+ * 实体绑定 JSON-LD —— 与 Google 地图实体「Manila Bay Beach」锚定。
+ * 注意：谷歌地图的评分与用户评价仅作页面展示（见 #reviews 区块并注明来源），
+ * 不写入结构化数据，以避免第三方评分导致的 Google 结构化数据违规风险。
+ */
 const attractionJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'TouristAttraction',
-  name: SITE.name,
-  alternateName: 'Manila Baywalk Dolomite Beach',
-  description: SITE.description,
-  image: thisPageUrl ? new URL(HERO_IMG).toString() : HERO_IMG,
+  '@id': `${ENTITY.domainUrl}/#attraction`,
+  name: ENTITY.fullName,
+  alternateName: [
+    ENTITY.shortName,
+    `${ENTITY.city} ${ENTITY.fullName}`,
+    'Manila Baywalk Dolomite Beach',
+    `${SITE.name} ${SITE.tagline}`,
+  ],
+  description: `Comprehensive visitor guide to ${ENTITY.fullName} (${ENTITY.shortName}) in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}.`,
   url: thisPageUrl,
+  image: [abs(HERO_IMG), abs(DOLOMITE_IMG), abs(PROMENADE_IMG), abs(SUNSET_IMG)],
+  isAccessibleForFree: true,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: SITE.address.street,
-    addressLocality: `${SITE.address.district}, ${SITE.address.city}`,
-    postalCode: SITE.address.postal,
-    addressRegion: SITE.address.region,
-    addressCountry: SITE.address.country,
+    streetAddress: `${ENTITY.fullName}, ${SITE.address.street}`,
+    addressLocality: `${ENTITY.city}, ${SITE.address.district}`,
+    postalCode: ENTITY.postalCode,
+    addressRegion: ENTITY.stateProvince,
+    addressCountry: ENTITY.countryCode,
   },
   geo: {
     '@type': 'GeoCoordinates',
     latitude: SITE.geo.latitude,
     longitude: SITE.geo.longitude,
   },
+  hasMap: ENTITY.mapsShareUrl,
+  sameAs: [ENTITY.mapsShareUrl, ENTITY.govtTourismUrl, ENTITY.cityGovUrl, ENTITY.denrUrl],
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -58,17 +96,48 @@ const attractionJsonLd = {
       closes: '18:00',
     },
   ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: SITE.rating.value,
-    ratingCount: SITE.rating.count,
-    bestRating: 5,
-    worstRating: 1,
-  },
   priceRange: '0',
   touristType: ['Families', 'Couples', 'Solo Travelers', 'Photographers'],
   availableLanguage: ['English', 'Filipino'],
+  containedInPlace: {
+    '@type': 'City',
+    name: ENTITY.city,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: ENTITY.city,
+      addressRegion: ENTITY.stateProvince,
+      addressCountry: ENTITY.countryCode,
+    },
+  },
 };
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: ENTITY.country, item: `${ENTITY.domainUrl}/#country` },
+    { '@type': 'ListItem', position: 2, name: ENTITY.stateProvince, item: `${ENTITY.domainUrl}/#region` },
+    { '@type': 'ListItem', position: 3, name: `${ENTITY.city} ${ENTITY.shortName}`, item: `${ENTITY.domainUrl}/#city` },
+    { '@type': 'ListItem', position: 4, name: ENTITY.fullName, item: thisPageUrl },
+  ],
+};
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${ENTITY.domainUrl}/#website`,
+  url: ENTITY.domainUrl,
+  name: `${ENTITY.fullName} (${ENTITY.city}) — ${SITE.name}`,
+  description: SITE.description,
+  inLanguage: 'en-PH',
+  publisher: { '@id': `${ENTITY.domainUrl}/#attraction` },
+};
+
+const ratingCountLabel = SITE.rating.count.toLocaleString('en-US');
+
+// Server-side fetch: weather and tide blocks are rendered on the server and cached for a short window.
+const weather = await getWeatherSnapshot(SITE.geo.latitude, SITE.geo.longitude);
+const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
 ---
 <BaseLayout>
   <slot name="header">
@@ -84,10 +153,13 @@ const attractionJsonLd = {
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-ocean-mid">
           <a href="#overview" class="hover:text-sunset-orange transition">Overview</a>
           <a href="#tickets" class="hover:text-sunset-orange transition">Tickets</a>
+          <a href="#weather" class="hover:text-sunset-orange transition">Weather</a>
           <a href="#when-to-go" class="hover:text-sunset-orange transition">Best Time</a>
           <a href="#getting-there" class="hover:text-sunset-orange transition">Transport</a>
           <a href="#food" class="hover:text-sunset-orange transition">Food</a>
           <a href="#nearby" class="hover:text-sunset-orange transition">Nearby</a>
+          <a href="#history-stories" class="hover:text-sunset-orange transition">History</a>
+          <a href="#reviews" class="hover:text-sunset-orange transition">Reviews</a>
           <a href="#faq" class="hover:text-sunset-orange transition">FAQ</a>
         </nav>
         <a href="#map" class="chip bg-sunset-gradient text-white text-xs sm:text-sm shadow-sm hover:opacity-95 transition">
@@ -109,9 +181,23 @@ const attractionJsonLd = {
           <span class="chip bg-white/15 backdrop-blur-sm text-white border border-white/20">Dolomite Beach</span>
           <span class="chip bg-white/15 backdrop-blur-sm text-white border border-white/20">Malate · Manila</span>
         </div>
-        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-white leading-[1.1] mb-5 drop-shadow-lg">
-          Where the sun paints <span class="text-sunset-orange">Manila Bay</span><br/> in gold every evening.
+        <nav aria-label="Breadcrumb" class="mb-4">
+          <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[11px] sm:text-xs text-white/80">
+            <li>{ENTITY.country}</li>
+            <li aria-hidden="true" class="opacity-60">→</li>
+            <li>{ENTITY.stateProvince}</li>
+            <li aria-hidden="true" class="opacity-60">→</li>
+            <li>{ENTITY.city}</li>
+            <li aria-hidden="true" class="opacity-60">→</li>
+            <li class="text-white font-medium">{ENTITY.fullName}</li>
+          </ol>
+        </nav>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-white leading-[1.1] mb-4 drop-shadow-lg">
+          {ENTITY.fullName} <span class="text-sunset-orange">({ENTITY.city})</span>
         </h1>
+        <p class="font-display text-xl sm:text-2xl text-sand-light/95 italic mb-3 drop-shadow">
+          Where the sun paints <span class="not-italic text-sunset-orange">Manila Bay</span> in gold every evening.
+        </p>
         <p class="text-sand-light text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-8 drop-shadow">
           A 2-kilometre seaside promenade along Roxas Boulevard, home to the famous Manila Bay sunset, the Dolomite Beach and a century of history from the Battle of Manila Bay to today's urban renewal.
         </p>
@@ -128,9 +214,9 @@ const attractionJsonLd = {
 
         <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
           <div class="rounded-xl bg-white/10 backdrop-blur border border-white/20 p-4 text-white">
-            <div class="text-xs uppercase tracking-wider opacity-80">Rating</div>
-            <div class="font-display text-2xl font-semibold mt-1">4.2 / 5</div>
-            <div class="text-xs opacity-75 mt-0.5">~6,500 reviews</div>
+            <div class="text-xs uppercase tracking-wider opacity-80">Google rating</div>
+            <div class="font-display text-2xl font-semibold mt-1">{SITE.rating.value} / 5</div>
+            <div class="text-xs opacity-75 mt-0.5">{ratingCountLabel} reviews</div>
           </div>
           <div class="rounded-xl bg-white/10 backdrop-blur border border-white/20 p-4 text-white">
             <div class="text-xs uppercase tracking-wider opacity-80">Length</div>
@@ -148,6 +234,14 @@ const attractionJsonLd = {
             <div class="text-xs opacity-75 mt-0.5">Suggested</div>
           </div>
         </div>
+        <a
+          href={ENTITY.mapsShareUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-3 inline-block max-w-2xl text-[11px] sm:text-xs text-white/80 hover:text-white transition leading-relaxed"
+        >
+          {REVIEW_SOURCE_NOTE_SHORT}
+        </a>
       </div>
     </div>
     <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-sand-light z-10 pointer-events-none"></div>
@@ -158,8 +252,12 @@ const attractionJsonLd = {
     <div class="container-wide">
       <div class="grid md:grid-cols-2 gap-10 lg:gap-14 items-start">
         <div>
-          <h2 class="section-title">A waterfront reclaimed for the city</h2>
+          <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">About {ENTITY.fullName}</span>
+          <h2 class="section-title">About {ENTITY.fullName} — a waterfront reclaimed for the city</h2>
           <p class="section-subtitle">
+            Welcome to <strong>{ENTITY.fullName}</strong>, widely recognized as the central <strong>{ENTITY.shortName}</strong>. Located in the heart of <strong>{ENTITY.city}</strong>, <strong>{ENTITY.stateProvince}</strong>, <strong>{ENTITY.country}</strong>, this destination serves as a primary hub for travelers visiting the region.
+          </p>
+          <p class="text-ocean-mid leading-relaxed mb-6">
             Stretching from the US Embassy down to the Cultural Center of the Philippines, Baywalk is Manila's most beloved urban promenade. What began as a colonial-era boulevard along the historic Manila Bay is today a public space where families jog, street musicians play and visitors gather to watch one of the most photographed urban sunsets in Southeast Asia.
           </p>
           <p class="text-ocean-mid leading-relaxed mb-6">
@@ -167,6 +265,10 @@ const attractionJsonLd = {
           </p>
           <p class="text-ocean-mid leading-relaxed">
             The bay itself carried a decisive role in Philippine history: the <strong>Battle of Manila Bay</strong> of 1898 unfolded on these waters during the Spanish–American War. Walking the promenade today connects you to four centuries of trade, conflict, renewal and the ordinary Manileño's right to a sunset.
+          </p>
+          <p class="text-xs sm:text-sm text-ocean-mid/85 mt-5">
+            <span class="font-medium text-ocean-deep">Geographic hierarchy · 地理归属：</span>
+            {ENTITY.fullName} → {ENTITY.city} → {ENTITY.stateProvince} → {ENTITY.country}
           </p>
         </div>
         <div class="grid gap-5">
@@ -246,6 +348,9 @@ const attractionJsonLd = {
       </div>
     </div>
   </section>
+
+  <WeatherPanel weather={weather} />
+  <TidePanel tide={tide} />
 
   <!-- TICKETS / FEES -->
   <section id="tickets" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
@@ -447,6 +552,10 @@ const attractionJsonLd = {
       </div>
     </div>
   </section>
+
+  <SeasonStrategy />
+  <AudienceRoutes />
+  <Itineraries />
 
   <!-- TRANSPORT / GETTING THERE -->
   <section id="getting-there" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
@@ -694,6 +803,8 @@ const attractionJsonLd = {
     </div>
   </section>
 
+  <TransportDetails />
+
   <!-- FOOD -->
   <section id="food" class="anchor-offset py-16 sm:py-20 md:py-24">
     <div class="container-wide">
@@ -730,6 +841,8 @@ const attractionJsonLd = {
     </div>
   </section>
 
+  <VisitorServices />
+
   <!-- PROMENADE PHOTO STRIP -->
   <section class="py-4 md:py-8 bg-sand-warm/30">
     <div class="container-wide grid md:grid-cols-3 gap-4 md:gap-6">
@@ -765,9 +878,12 @@ const attractionJsonLd = {
     <div class="container-wide">
       <div class="max-w-2xl mb-10">
         <span class="chip bg-sunset-purple/10 text-sunset-purple mb-4">Nearby Attractions</span>
-        <h2 class="section-title">Combine Baywalk with a full day of Manila.</h2>
+        <h2 class="section-title">Landmarks &amp; Attractions Around {ENTITY.shortName}</h2>
         <p class="section-subtitle mb-0">
-          The promenade sits at the intersection of history, culture and retail. Six easy additions to your itinerary, all under four kilometres away.
+          Combine Baywalk with a full day of Manila — the promenade sits at the intersection of history, culture and retail. Six easy additions to your itinerary, all under four kilometres away.
+        </p>
+        <p class="text-ocean-mid leading-relaxed mt-4 text-sm sm:text-base">
+          When visiting <strong>{ENTITY.fullName}</strong>, visitors can easily explore surrounding historical landmarks and points of interest, including <strong>{ENTITY.nearbyLandmark1}</strong> and <strong>{ENTITY.nearbyLandmark2}</strong>.
         </p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -788,15 +904,72 @@ const attractionJsonLd = {
     </div>
   </section>
 
+  <HistoryStories />
+
+  <Stewardship />
+
+  <!-- SIGNIFICANCE -->
+  <section id="history" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
+    <div class="container-wide">
+      <div class="max-w-2xl mb-10">
+        <span class="chip bg-sunset-purple/10 text-sunset-purple mb-4">History &amp; Significance</span>
+        <h2 class="section-title">History &amp; Significance of {ENTITY.fullName}</h2>
+        <p class="section-subtitle mb-0">
+          From a Spanish-era shoreline to a Supreme Court–mandated rehabilitation: four centuries of Manila Bay history compressed into two kilometres of promenade.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="card p-6 lg:p-7">
+          <div class="chip bg-sunset-purple/10 text-sunset-purple mb-3">1898</div>
+          <h3 class="font-display text-xl font-semibold text-ocean-deep mb-2">Battle of Manila Bay</h3>
+          <p class="text-sm text-ocean-mid leading-relaxed">
+            The waters in front of today's Baywalk hosted the Battle of Manila Bay on 1 May 1898, a naval engagement of the Spanish–American War that reshaped the Philippines' colonial future.
+          </p>
+        </div>
+        <div class="card p-6 lg:p-7">
+          <div class="chip bg-ocean-mid/10 text-ocean-mid mb-3">1900s – 1940s</div>
+          <h3 class="font-display text-xl font-semibold text-ocean-deep mb-2">Dewey Boulevard era</h3>
+          <p class="text-sm text-ocean-mid leading-relaxed">
+            The road was laid out as Cavite Boulevard, later Dewey Boulevard, and eventually renamed Roxas Boulevard after President Manuel Roxas — Manila's ceremonial waterfront address and the city's original sunset strip.
+          </p>
+        </div>
+        <div class="card p-6 lg:p-7">
+          <div class="chip bg-palm-green/10 text-palm-green mb-3">2000s – today</div>
+          <h3 class="font-display text-xl font-semibold text-ocean-deep mb-2">Baywalk &amp; rehabilitation</h3>
+          <p class="text-sm text-ocean-mid leading-relaxed">
+            The Baywalk promenade was built to return the shoreline to the public. It later became the showcase of the Manila Bay Rehabilitation Program under a Supreme Court mandamus, with the nourished Dolomite Beach opening in the early 2020s.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-2xl bg-sand-light border border-sand-warm p-6 sm:p-7">
+        <p class="text-ocean-mid text-sm sm:text-base leading-relaxed mb-4">
+          Significance today: {ENTITY.fullName} is one of the few free, car-free-adjacent public spaces in the capital where Manileños of every background share the same horizon. Sunset here is a civic ritual — joggers at dawn, families at dusk, and photographers lining the seawall every clear evening.
+        </p>
+        <p class="text-xs text-ocean-mid/85 leading-relaxed">
+          For official updates and regional tourism information, visit
+          <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">
+            {ENTITY.country} / {ENTITY.stateProvince} Official Tourism Portal
+          </a>
+          · 官方信息请查阅
+          <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">tourism.gov.ph</a>
+          与
+          <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">manila.gov.ph</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- MAP -->
   <section id="map" class="anchor-offset py-16 sm:py-20 md:py-24">
     <div class="container-wide">
       <div class="grid md:grid-cols-5 gap-10">
         <div class="md:col-span-2">
-          <span class="chip bg-sunset-pink/10 text-sunset-pink mb-4">Location</span>
-          <h2 class="section-title">Find your way to the bay.</h2>
+          <span class="chip bg-sunset-pink/10 text-sunset-pink mb-4">Location & How to Visit</span>
+          <h2 class="section-title">Location &amp; How to Visit {ENTITY.shortName} in {ENTITY.city}</h2>
           <p class="section-subtitle mb-6">
-            Baywalk runs parallel to Roxas Boulevard, starting just south of the US Embassy and stretching past Remedios Circle down toward the Cultural Center.
+            Find your way to the bay: Baywalk runs parallel to Roxas Boulevard, starting just south of the US Embassy and stretching past Remedios Circle down toward the Cultural Center.
           </p>
           <div class="card p-6">
             <div class="font-display font-semibold text-ocean-deep text-lg mb-3">Baywalk, Roxas Blvd</div>
@@ -850,6 +1023,81 @@ const attractionJsonLd = {
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
             </a>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS · 谷歌地图用户评价（仅页面展示，不写入 JSON-LD） -->
+  <section id="reviews" class="anchor-offset py-16 sm:py-20 md:py-24">
+    <div class="container-wide">
+      <div class="grid lg:grid-cols-5 gap-10 lg:gap-12">
+        <div class="lg:col-span-2">
+          <span class="chip bg-sunset-orange/10 text-sunset-orange mb-4">Ratings &amp; Reviews</span>
+          <h2 class="section-title">What visitors say about {ENTITY.fullName}</h2>
+          <p class="section-subtitle mb-6">
+            评价来自谷歌地图用户评价 · Google Maps user reviews for {ENTITY.fullName} — {SITE.address.street}, {SITE.address.district}, {ENTITY.city}.
+          </p>
+
+          <div class="card p-6">
+            <div class="flex items-end gap-4">
+              <div class="font-display text-5xl font-semibold text-ocean-deep leading-none">{SITE.rating.value}</div>
+              <div class="pb-1">
+                <Stars rating={SITE.rating.value} size={20} />
+                <div class="text-sm text-ocean-mid mt-1">{ratingCountLabel} Google reviews</div>
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-2">
+              {RATING_BREAKDOWN.map((row) => (
+                <div class="flex items-center gap-3 text-xs text-ocean-mid">
+                  <span class="w-8 shrink-0">{row.stars}★</span>
+                  <span class="flex-1 h-2 rounded-full bg-sand-warm overflow-hidden">
+                    <span class="block h-full rounded-full bg-sunset-gradient" style={`width:${row.percent}%`}></span>
+                  </span>
+                  <span class="w-9 shrink-0 text-right">{row.percent}%</span>
+                </div>
+              ))}
+            </div>
+
+            <p class="mt-5 pt-4 border-t border-sand-warm text-[11px] sm:text-xs text-ocean-mid leading-relaxed">
+              {REVIEW_SOURCE_NOTE}
+            </p>
+
+            <a
+              href={ENTITY.mapsShareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sunset-gradient text-white text-sm font-medium shadow-sm hover:-translate-y-0.5 transition"
+            >
+              在谷歌地图查看全部评价
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-3 grid sm:grid-cols-2 gap-5">
+          {REVIEWS.map((r) => (
+            <article class="card p-5 flex flex-col">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-9 h-9 rounded-full bg-sand-warm flex items-center justify-center font-display font-semibold text-ocean-deep text-sm">
+                  {r.author.charAt(0)}
+                </div>
+                <div class="min-w-0">
+                  <div class="font-medium text-ocean-deep text-sm truncate">{r.author}</div>
+                  <div class="text-[11px] text-ocean-mid">{r.date}</div>
+                </div>
+                <Stars rating={r.rating} size={14} class="ml-auto" />
+              </div>
+              <p class="text-sm text-ocean-mid leading-relaxed flex-1">“{r.text}”</p>
+              <div class="mt-4 pt-3 border-t border-sand-warm text-[11px] text-ocean-mid/85">
+                来源 · Google 地图用户评价
+                <a href={ENTITY.mapsShareUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline ml-1">
+                  查看原始评价↗
+                </a>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </div>
@@ -915,10 +1163,57 @@ const attractionJsonLd = {
     </div>
   </section>
 
+  <!-- SOURCES · 资料来源 -->
+  <section id="sources" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-t border-sand-warm">
+    <div class="container-wide">
+      <div class="max-w-3xl mb-10">
+        <span class="chip bg-ocean-deep/10 text-ocean-deep mb-4">Sources &amp; Attribution</span>
+        <h2 class="section-title">Sources &amp; Attribution · 资料来源</h2>
+        <p class="section-subtitle mb-0">
+          Every figure on this page is attributed. Ratings and reviews are quoted from Google Maps user reviews; regulations and rehabilitation updates come from official government sources.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        {SOURCES.map((s) => (
+          <article class="card p-6 flex flex-col">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <h3 class="font-display text-lg font-semibold text-ocean-deep">{s.title}</h3>
+              <span class="chip bg-sand-warm text-ocean-mid text-[11px] shrink-0">{s.meta}</span>
+            </div>
+            <p class="text-sm text-ocean-mid leading-relaxed flex-1">{s.detail}</p>
+            <p class="mt-3 text-[11px] sm:text-xs text-ocean-mid/85 leading-relaxed">{s.note}</p>
+            <a
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-sunset-orange hover:underline"
+            >
+              {s.linkText}
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <p class="mt-6 text-xs sm:text-sm text-ocean-mid leading-relaxed">
+        For official updates and regional tourism information, visit
+        <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">
+          {ENTITY.country} / {ENTITY.stateProvince} Official Tourism Portal
+        </a>
+        — all Google external links on this page are preserved:
+        <a href={ENTITY.mapsShareUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">Google Maps</a>·
+        <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">tourism.gov.ph</a>·
+        <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">manila.gov.ph</a>·
+        <a href={ENTITY.denrUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">denr.gov.ph</a>.
+      </p>
+    </div>
+  </section>
+
   <slot name="footer">
     <footer class="bg-ocean-deep text-sand-light/80">
       <div class="container-wide py-12 md:py-14">
-        <div class="grid md:grid-cols-4 gap-8 md:gap-10 mb-10">
+        <div class="grid md:grid-cols-5 gap-8 md:gap-10 mb-10">
           <div class="md:col-span-2">
             <div class="flex items-center gap-2.5 mb-4">
               <img src="/logo.svg" alt="Baywalk Manila logo" width="34" height="34" class="w-8.5 h-8.5 rounded-lg shadow-sm" />
@@ -939,6 +1234,21 @@ const attractionJsonLd = {
               <li><a href="#when-to-go" class="hover:text-sunset-orange transition">Best time to visit</a></li>
               <li><a href="#getting-there" class="hover:text-sunset-orange transition">Transport</a></li>
               <li><a href="#map" class="hover:text-sunset-orange transition">Map</a></li>
+              <li><a href="#weather" class="hover:text-sunset-orange transition">Live weather</a></li>
+              <li><a href="#tides" class="hover:text-sunset-orange transition">Tide times</a></li>
+              <li><a href="#history-stories" class="hover:text-sunset-orange transition">History</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-sand-light/60 mb-4">Plan &amp; Services · 规划与设施</div>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="#tides" class="hover:text-sunset-orange transition">Tides &amp; flats</a></li>
+              <li><a href="#seasons" class="hover:text-sunset-orange transition">Quarterly strategy</a></li>
+              <li><a href="#audience-routes" class="hover:text-sunset-orange transition">Routes by traveller</a></li>
+              <li><a href="#itineraries" class="hover:text-sunset-orange transition">Half / full day</a></li>
+              <li><a href="#transport-detail" class="hover:text-sunset-orange transition">Transport playbook</a></li>
+              <li><a href="#visitor-services" class="hover:text-sunset-orange transition">Visitor services</a></li>
+              <li><a href="#stewardship" class="hover:text-sunset-orange transition">Science &amp; responsibility</a></li>
             </ul>
           </div>
           <div>
@@ -947,8 +1257,32 @@ const attractionJsonLd = {
               <li><a href="#food" class="hover:text-sunset-orange transition">Where to eat</a></li>
               <li><a href="#nearby" class="hover:text-sunset-orange transition">Sights nearby</a></li>
               <li><a href="#parking" class="hover:text-sunset-orange transition">Parking info</a></li>
+              <li><a href="#reviews" class="hover:text-sunset-orange transition">Google reviews</a></li>
               <li><a href="#faq" class="hover:text-sunset-orange transition">FAQ</a></li>
+              <li><a href="#sources" class="hover:text-sunset-orange transition">Sources</a></li>
             </ul>
+          </div>
+        </div>
+
+        <div class="pt-6 mt-2 border-t border-white/10 grid sm:grid-cols-3 gap-6 text-xs text-sand-light/70">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-sand-light/60 mb-3">Official sources · 官方来源</div>
+            <ul class="space-y-2">
+              <li><a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">Department of Tourism ↗</a></li>
+              <li><a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">City of Manila ↗</a></li>
+              <li><a href={ENTITY.pagasaUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">PAGASA ↗</a></li>
+              <li><a href={ENTITY.denrUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">DENR ↗</a></li>
+            </ul>
+          </div>
+          <div class="sm:col-span-2">
+            <div class="text-[11px] uppercase tracking-wider text-sand-light/60 mb-3">Review attribution · 评价引用来源</div>
+            <p class="leading-relaxed">
+              {REVIEW_SOURCE_NOTE}
+              {' '}
+              <a href={ENTITY.mapsShareUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline">
+                在谷歌地图查看全部评价 ↗
+              </a>
+            </p>
           </div>
         </div>
         <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between text-xs text-sand-light/60">
@@ -963,6 +1297,8 @@ const attractionJsonLd = {
 
   <slot name="jsonld">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(attractionJsonLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)}></script>
     <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
   </slot>
 </BaseLayout>

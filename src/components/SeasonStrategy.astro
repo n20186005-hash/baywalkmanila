@@ -1,0 +1,134 @@
+---
+import { ENTITY } from '../config';
+
+const SEASONS = [
+  {
+    name: 'Cool dry season · 凉干季',
+    months: 'Nov – Feb',
+    temp: '24 – 31 °C（夜间可降至 21 °C）',
+    rain: '月均降雨 10 – 156 mm，雨日 3 – 12 天，台风概率全年最低',
+    sea: '涌浪小，水体清澈度全年最佳，藻华风险低',
+    wildlife: '越冬水鸟抵达高峰，湾南湿地可观测鹬、鸻、鹭类',
+    verdict: '全年最佳窗口：日落最清晰，适合摄影、亲子与长距离步行',
+    tone: 'bg-palm-green/10 text-palm-green',
+  },
+  {
+    name: 'Hot dry season · 热干季',
+    months: 'Mar – May',
+    temp: '26 – 35 °C，4 – 5 月体感温度最高',
+    rain: '月均 12 – 148 mm，午后热雷雨开始增多',
+    sea: '水温偏高，养分累积，偶发藻华与异味',
+    wildlife: '滩涂蟹类与潮间带无脊椎动物活跃，鸟类以留鸟为主',
+    verdict: '只推荐清晨 6 – 8 时与 17 时之后，防晒补水是硬性要求',
+    tone: 'bg-sunset-orange/10 text-sunset-orange',
+  },
+  {
+    name: 'Southwest monsoon · 西南季风雨季',
+    months: 'Jun – Sep',
+    temp: '26 – 33 °C，相对湿度常超 80%',
+    rain: '月均 268 – 425 mm，雨日 17 – 21 天，台风主要窗口',
+    sea: '涌浪大，泥沙再悬浮，水体浑浊、能见度差',
+    wildlife: '候鸟已北返，可见留鸟与雨燕类；潮间带观察受限',
+    verdict: '雨具必备，避开大风涌浪日；行程按当天预报灵活调整',
+    tone: 'bg-ocean-mid/10 text-ocean-mid',
+  },
+  {
+    name: 'Transition & typhoon peak · 转换季',
+    months: 'Oct',
+    temp: '25 – 32 °C，天气切换快',
+    rain: '月均约 274 mm，低压与台风仍频繁',
+    sea: '海况不稳，水质随降雨快速波动',
+    wildlife: '首批越冬水鸟抵达，观察条件逐月改善',
+    verdict: '行程留足弹性，出发前查看最新气象与海况警报',
+    tone: 'bg-sunset-purple/10 text-sunset-purple',
+  },
+];
+
+const MONTHLY = [
+  { m: 'Jan', hi: 30, lo: 22, rain: 17, days: 4, v: '最佳' },
+  { m: 'Feb', hi: 31, lo: 22, rain: 10, days: 3, v: '最佳' },
+  { m: 'Mar', hi: 33, lo: 23, rain: 12, days: 4, v: '佳 · 偏热' },
+  { m: 'Apr', hi: 34, lo: 24, rain: 27, days: 5, v: '清晨 / 傍晚' },
+  { m: 'May', hi: 34, lo: 25, rain: 148, days: 12, v: '闷热多雷雨' },
+  { m: 'Jun', hi: 33, lo: 25, rain: 268, days: 17, v: '雨季开始' },
+  { m: 'Jul', hi: 32, lo: 24, rain: 419, days: 21, v: '台风窗口' },
+  { m: 'Aug', hi: 31, lo: 24, rain: 425, days: 21, v: '雨量最多' },
+  { m: 'Sep', hi: 31, lo: 24, rain: 369, days: 20, v: '持续多雨' },
+  { m: 'Oct', hi: 31, lo: 24, rain: 274, days: 17, v: '波动大' },
+  { m: 'Nov', hi: 31, lo: 23, rain: 156, days: 12, v: '转佳' },
+  { m: 'Dec', hi: 30, lo: 22, rain: 84, days: 9, v: '佳' },
+];
+---
+<section id="seasons" class="anchor-offset py-16 sm:py-20 md:py-24">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-10">
+      <span class="chip bg-palm-green/10 text-palm-green mb-4">Quarterly Strategy · 季度游览策略</span>
+      <h2 class="section-title">Quarterly visit strategy for {ENTITY.fullName}</h2>
+      <p class="section-subtitle mb-0">
+        气象、水质与野生动物的综合分析 —— 基于 PAGASA 1991–2020 常年气候态（30 年平均）与马尼拉湾公开生态调查资料。
+      </p>
+    </div>
+
+    <div class="card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse min-w-[900px]">
+          <thead>
+            <tr class="bg-sand-light text-ocean-deep">
+              <th class="p-4 font-display font-semibold whitespace-nowrap">Season · 季节</th>
+              <th class="p-4 font-display font-semibold whitespace-nowrap">Months</th>
+              <th class="p-4 font-display font-semibold">Temperature · 气温</th>
+              <th class="p-4 font-display font-semibold">Rain &amp; storms · 降雨与台风</th>
+              <th class="p-4 font-display font-semibold">Sea &amp; water · 海况与水质</th>
+              <th class="p-4 font-display font-semibold">Wildlife · 野生动物</th>
+              <th class="p-4 font-display font-semibold">Verdict · 综合建议</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-sand-warm">
+            {
+              SEASONS.map((s) => (
+                <tr class="align-top">
+                  <td class="p-4 whitespace-nowrap">
+                    <span class={`chip ${s.tone} mb-2`}>{s.name}</span>
+                  </td>
+                  <td class="p-4 whitespace-nowrap font-medium text-ocean-deep">{s.months}</td>
+                  <td class="p-4 text-ocean-mid leading-relaxed">{s.temp}</td>
+                  <td class="p-4 text-ocean-mid leading-relaxed">{s.rain}</td>
+                  <td class="p-4 text-ocean-mid leading-relaxed">{s.sea}</td>
+                  <td class="p-4 text-ocean-mid leading-relaxed">{s.wildlife}</td>
+                  <td class="p-4 text-ocean-mid leading-relaxed">{s.verdict}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <div class="font-display text-lg font-semibold text-ocean-deep mb-4">
+        Monthly quick reference · 逐月速查（常年平均）
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        {
+          MONTHLY.map((x) => (
+            <div class="rounded-xl border border-sand-warm bg-white p-3">
+              <div class="flex items-baseline justify-between">
+                <span class="font-display font-semibold text-ocean-deep">{x.m}</span>
+                <span class="text-[11px] text-ocean-mid">{x.v}</span>
+              </div>
+              <div class="mt-1 text-sm text-ocean-deep font-medium">
+                {x.hi}° / {x.lo}°
+              </div>
+              <div class="text-[11px] text-ocean-mid mt-1">{x.rain} mm · {x.days} 雨日</div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-4 text-xs text-ocean-mid/85 leading-relaxed">
+        常年气候态为统计平均值，个别年份会显著偏离；出行请以
+        <a href={ENTITY.pagasaUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">PAGASA 最新预报与警报</a>
+        为准。
+      </p>
+    </div>
+  </div>
+</section>

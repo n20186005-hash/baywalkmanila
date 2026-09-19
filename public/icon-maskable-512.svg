@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Baywalk Manila">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5E4B8B"/>
+      <stop offset="45%" stop-color="#D4547A"/>
+      <stop offset="100%" stop-color="#E8772E"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E6B9A"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <circle cx="256" cy="256" r="72" fill="#F7C873"/>
+  <rect x="0" y="340" width="512" height="172" fill="url(#sea)"/>
+  <path d="M0 340h512v22H0z" fill="#F5E6D3" opacity="0.55"/>
+  <path d="M80 412c24-19 48 19 72 0s48 19 72 0 48 19 72 0 48 19 72 0" fill="none" stroke="#F5E6D3" stroke-width="9" stroke-linecap="round" opacity="0.7"/>
+</svg>

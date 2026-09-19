@@ -1,0 +1,198 @@
+---
+import { tideAdvice, type TideSnapshot } from '../lib/tide';
+import { ENTITY } from '../config';
+
+interface Props {
+  tide: TideSnapshot | null;
+}
+
+const { tide } = Astro.props;
+
+const TZ = 'Asia/Manila';
+const timeFmt = new Intl.DateTimeFormat('en-PH', {
+  timeZone: TZ,
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+});
+
+function hhmm(iso: string): string {
+  const d = new Date(`${iso.length === 16 ? iso : iso.slice(0, 16)}:00+08:00`);
+  return Number.isNaN(d.getTime()) ? iso.slice(11, 16) : timeFmt.format(d);
+}
+
+const W = 100;
+const H = 42;
+
+function buildChart(series: { time: string; height: number }[]) {
+  if (!series.length) return null;
+  const heights = series.map((s) => s.height);
+  const max = Math.max(...heights);
+  const min = Math.min(...heights);
+  const span = max - min || 1;
+  const points = series.map((s, i) => ({
+    x: (i / Math.max(series.length - 1, 1)) * W,
+    y: H - 3 - ((s.height - min) / span) * (H - 8),
+    ...s,
+  }));
+  const line = points.map((p) => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+  const area = `${line} ${W},${H} 0,${H}`;
+  return { points, line, area, max, min };
+}
+
+const chart = tide ? buildChart(tide.today) : null;
+const todayEvents = tide ? tide.events.filter((e) => tide.today.some((h) => h.time === e.time)) : [];
+const advice = tide ? tideAdvice(tide) : null;
+---
+<section id="tides" class="anchor-offset py-16 sm:py-20 md:py-24">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-10">
+      <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">Tides · 潮汐与赶海时间</span>
+      <h2 class="section-title">Tide times at {ENTITY.fullName}</h2>
+      <p class="section-subtitle mb-0">
+        马尼拉湾为半日潮（一天两次高潮、两次低潮）。潮位决定滩涂能露出多少、能走多远 —— 出发前先看这张表。
+      </p>
+    </div>
+
+    {
+      tide && chart && advice ? (
+        <div class="grid lg:grid-cols-5 gap-6">
+          <!-- CURRENT -->
+          <div class="lg:col-span-2 card p-6 sm:p-7">
+            <div class="text-xs uppercase tracking-wider text-ocean-mid">Now · 当前潮位</div>
+            <div class="flex items-end gap-2 mt-1">
+              <span class="font-display text-5xl font-semibold text-ocean-deep leading-none">
+                {tide.current.height.toFixed(2)}
+              </span>
+              <span class="text-lg text-ocean-mid pb-1">m</span>
+            </div>
+            <div class="mt-2 inline-flex items-center gap-1.5 chip bg-ocean-mid/10 text-ocean-mid">
+              <span aria-hidden="true">{tide.current.rising ? '▲' : '▼'}</span>
+              {tide.current.rising ? 'Rising · 涨潮中' : 'Falling · 退潮中'}
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+              <div class="rounded-xl bg-sand-light p-3">
+                <div class="text-[11px] uppercase tracking-wider text-ocean-mid">Tidal range · 潮差</div>
+                <div class="font-display font-semibold text-ocean-deep text-lg">
+                  {tide.range.toFixed(2)} m
+                </div>
+              </div>
+              <div class="rounded-xl bg-sand-light p-3">
+                <div class="text-[11px] uppercase tracking-wider text-ocean-mid">
+                  Next {tide.current.next?.type === 'high' ? 'high' : 'low'} tide
+                </div>
+                <div class="font-display font-semibold text-ocean-deep text-lg">
+                  {tide.current.next ? hhmm(tide.current.next.time) : '—'}
+                </div>
+                {tide.current.next && (
+                  <div class="text-[11px] text-ocean-mid">
+                    in {Math.round(tide.current.minutesToNext / 60)} h {tide.current.minutesToNext % 60} min
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div class="mt-5 rounded-2xl border border-ocean-deep/20 bg-ocean-deep/10 p-4">
+              <div class="font-display font-semibold text-ocean-deep text-base mb-1">
+                When to explore the flats · 赶海时机
+              </div>
+              <p class="text-xs sm:text-sm text-ocean-mid leading-relaxed">{advice}</p>
+            </div>
+
+            <p class="mt-4 text-xs text-ocean-mid/85 leading-relaxed">
+              安全提醒：潮间带禁止下水游泳；退潮时不要走到离岸过远的滩面，涨潮速度比步行快，务必在涨潮前返回。
+            </p>
+          </div>
+
+          <!-- CHART + TABLE -->
+          <div class="lg:col-span-3 card p-6 sm:p-7">
+            <div class="flex items-center justify-between mb-4">
+              <div class="font-display text-lg font-semibold text-ocean-deep">
+                Today's tide curve · 今日潮位曲线
+              </div>
+              <div class="text-[11px] text-ocean-mid">
+                Updated {timeFmt.format(new Date(tide.updatedAt))} (GMT+8)
+              </div>
+            </div>
+
+            <svg
+              viewBox={`0 0 ${W} ${H}`}
+              preserveAspectRatio="none"
+              class="w-full h-40 sm:h-48"
+              role="img"
+              aria-label="Today's tide height curve"
+            >
+              <polygon points={chart.area} fill="#6BA3C9" opacity="0.18" />
+              <polyline
+                points={chart.line}
+                fill="none"
+                stroke="#2E6B9A"
+                stroke-width="1.2"
+                vector-effect="non-scaling-stroke"
+                stroke-linejoin="round"
+              />
+              {chart.points.map((p) =>
+                tide.events.some((e) => e.time === p.time) ? (
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r="1.4"
+                    fill={tide.events.find((e) => e.time === p.time)?.type === 'high' ? '#E8772E' : '#1E3A5F'}
+                  />
+                ) : null
+              )}
+            </svg>
+            <div class="flex items-center justify-between text-[11px] text-ocean-mid mt-1">
+              <span>00:00</span>
+              <span class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-sunset-orange"></span> High tide
+                </span>
+                <span class="inline-flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-ocean-deep"></span> Low tide
+                </span>
+              </span>
+              <span>23:00</span>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {todayEvents.length ? (
+                todayEvents.map((e) => (
+                  <div class="rounded-xl border border-sand-warm bg-sand-light/60 p-3">
+                    <div class="text-[11px] uppercase tracking-wider text-ocean-mid">
+                      {e.type === 'high' ? 'High · 高潮' : 'Low · 低潮'}
+                    </div>
+                    <div class="font-display font-semibold text-ocean-deep text-lg">{hhmm(e.time)}</div>
+                    <div class="text-[11px] text-ocean-mid">{e.height.toFixed(2)} m</div>
+                  </div>
+                ))
+              ) : (
+                <div class="col-span-full text-sm text-ocean-mid">
+                  今日剩余时段没有明显的高/低潮转折点，潮位变化平缓。
+                </div>
+              )}
+            </div>
+
+            <p class="mt-5 pt-4 border-t border-sand-warm text-[11px] sm:text-xs text-ocean-mid/85 leading-relaxed">
+              潮位为相对平均海平面的高度（米），按 Asia/Manila 时区（GMT+8）显示。实际潮时受潮汐、气压与风暴增水影响，大风或台风期间请额外关注
+              <a href={ENTITY.pagasaUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">
+                PAGASA 海况与警报
+              </a>
+              。
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div class="card p-6 sm:p-7">
+          <div class="font-display text-lg font-semibold text-ocean-deep mb-2">
+            Tide forecast temporarily unavailable
+          </div>
+          <p class="text-sm text-ocean-mid leading-relaxed">
+            潮汐数据暂时无法加载，请稍后刷新页面。作为通用参考：马尼拉湾属于半日潮，每天约有两次高潮与两次低潮，相邻高潮与低潮间隔约 6 小时，潮差通常在 1 米上下；低潮前后一小时最适合观察滩涂与潮间带生物。
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>

@@ -1,0 +1,80 @@
+---
+const HALF_DAY = [
+  { time: '16:00', title: 'Arrive at Roxas Blvd drop-off', desc: '在 Roxas Blvd 与 Remedios St 路口下车，步行约 3 分钟进入长廊。' },
+  { time: '16:20', title: 'Promenade north section', desc: '沿海堤与棕榈缓冲带慢行，先熟悉动线与卫生间、饮水补给位置。' },
+  { time: '16:50', title: 'Dolomite Beach section', desc: '沙滩段拍照、沙玩与滩涂观察；禁止下水，注意周四闭园维护。' },
+  { time: '17:30', title: 'Sunset main slot', desc: '提前 30 – 40 分钟占好座位或沙面位置，等待日落与云隙光。' },
+  { time: '18:15', title: 'Blue hour', desc: '日落后约 20 分钟是天空与城市灯光平衡的最佳时段。' },
+  { time: '18:45', title: 'Snack or dinner', desc: '长廊小吃摊补给，或步行至 Malate 餐饮区用晚餐。' },
+  { time: '19:30', title: 'Return', desc: '回到落客点叫车；周末此时段路面拥堵，预留 15 分钟缓冲。' },
+];
+
+const FULL_DAY = [
+  { time: '09:00', title: 'Rizal Park (Luneta)', desc: '黎刹公园与博物馆群，了解马尼拉的城市起点与 Kilometre Zero。' },
+  { time: '11:30', title: 'Lunch in Malate / Ermita', desc: '老城餐饮区用餐，类型从路边小吃到家庭式餐厅均有。' },
+  { time: '13:00', title: 'Intramuros', desc: '城中城：Fort Santiago、San Agustin Church 与城墙步道，约 2 – 3 小时。' },
+  { time: '15:30', title: 'Coffee & recharge', desc: '返回 Roxas Blvd 沿线补水休息，避开正午高温。' },
+  { time: '16:30', title: 'Baywalk promenade', desc: '进入长廊，从北段向南慢行，完成全程约 2 km。' },
+  { time: '17:30', title: 'Sunset at the bay', desc: '白云石沙滩段或海堤段观看日落，全天行程的高潮。' },
+  { time: '19:00', title: 'Dinner & night walk', desc: '晚餐后可沿灯光长廊再走一段，注意随身物品。' },
+  { time: '20:30', title: 'Head back', desc: '打车或 LRT-1 返程；夜间尽量选择有人流的路段。' },
+];
+
+---
+<section id="itineraries" class="anchor-offset py-16 sm:py-20 md:py-24">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-10">
+      <span class="chip bg-ocean-deep/10 text-ocean-deep mb-4">Sample itineraries · 推荐路线</span>
+      <h2 class="section-title">Half-day and full-day itineraries around the bay</h2>
+      <p class="section-subtitle mb-0">
+        通用参考路线：半日侧重日落与长廊体验，全日把 Rizal Park、Intramuros 与 Baywalk 串成一条不绕路的历史—海湾动线。
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6">
+      <div class="card p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <div class="font-display text-xl font-semibold text-ocean-deep">Half day · 半日路线</div>
+            <div class="text-xs text-ocean-mid mt-0.5">约 3.5 小时 · 以日落为核心</div>
+          </div>
+          <span class="chip bg-sunset-orange/10 text-sunset-orange">3.5 h</span>
+        </div>
+        <ol class="relative border-l border-sand-warm pl-5 space-y-5">
+          {
+            HALF_DAY.map((s) => (
+              <li class="relative">
+                <span class="absolute -left-[26px] top-1 w-3 h-3 rounded-full bg-sunset-orange ring-4 ring-white"></span>
+                <div class="font-mono text-xs text-sunset-orange font-semibold">{s.time}</div>
+                <div class="font-medium text-ocean-deep text-sm sm:text-base">{s.title}</div>
+                <div class="text-sm text-ocean-mid leading-relaxed mt-0.5">{s.desc}</div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <div class="card p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <div class="font-display text-xl font-semibold text-ocean-deep">Full day · 全日路线</div>
+            <div class="text-xs text-ocean-mid mt-0.5">约 8 小时 · 历史与海湾串联</div>
+          </div>
+          <span class="chip bg-ocean-deep/10 text-ocean-deep">8 h</span>
+        </div>
+        <ol class="relative border-l border-sand-warm pl-5 space-y-5">
+          {
+            FULL_DAY.map((s) => (
+              <li class="relative">
+                <span class="absolute -left-[26px] top-1 w-3 h-3 rounded-full bg-ocean-deep ring-4 ring-white"></span>
+                <div class="font-mono text-xs text-ocean-deep font-semibold">{s.time}</div>
+                <div class="font-medium text-ocean-deep text-sm sm:text-base">{s.title}</div>
+                <div class="text-sm text-ocean-mid leading-relaxed mt-0.5">{s.desc}</div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

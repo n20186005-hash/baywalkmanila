@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Baywalk Manila">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5E4B8B"/>
+      <stop offset="45%" stop-color="#D4547A"/>
+      <stop offset="100%" stop-color="#E8772E"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E6B9A"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#sky)"/>
+  <circle cx="256" cy="245" r="90" fill="#F7C873"/>
+  <rect x="0" y="315" width="512" height="197" fill="url(#sea)"/>
+  <path d="M0 315h512v26H0z" fill="#F5E6D3" opacity="0.55"/>
+  <path d="M52 400c26-21 52 21 78 0s52 21 78 0 52 21 78 0 52 21 78 0" fill="none" stroke="#F5E6D3" stroke-width="10" stroke-linecap="round" opacity="0.75"/>
+  <path d="M52 444c26-21 52 21 78 0s52 21 78 0 52 21 78 0 52 21 78 0" fill="none" stroke="#F5E6D3" stroke-width="10" stroke-linecap="round" opacity="0.45"/>
+</svg>

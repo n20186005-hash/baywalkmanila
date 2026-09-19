@@ -1,25 +1,32 @@
 ---
 import '../styles/global.css';
-import { SITE } from '../config';
+import { SITE, ENTITY, GALLERY } from '../config';
 
 interface Props {
   title?: string;
   description?: string;
-  image?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  canonical?: string;
 }
 
 const {
-  title = SITE.name,
-  description = SITE.description,
+  title = `${ENTITY.fullName} (${ENTITY.city}) - Visitor Guide & Location`,
+  description = `Discover ${ENTITY.fullName} (${ENTITY.shortName}), the iconic bayfront landmark in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}. View location map, opening details, nearby ${ENTITY.nearbyLandmark1} and ${ENTITY.nearbyLandmark2}, and travel tips.`,
+  ogImage = GALLERY.hero,
+  ogImageAlt = `${ENTITY.fullName} - main view in ${ENTITY.city}, ${ENTITY.country}`,
 } = Astro.props;
 
-const siteUrl: string | undefined = Astro.site?.toString();
+const siteUrl: string | undefined = Astro.site?.toString() ?? ENTITY.domainUrl;
 const pagePath = Astro.url.pathname;
-const fullUrl = siteUrl ? new URL(pagePath, siteUrl).toString() : undefined;
+const canonicalUrl = Astro.props.canonical ?? new URL(pagePath, siteUrl).toString();
 
-const ogImage = siteUrl
-  ? new URL('/og-default.jpg', siteUrl).toString()
-  : '/og-default.jpg';
+const ogImageUrl = ogImage.startsWith('http')
+  ? ogImage
+  : new URL(ogImage, siteUrl).toString();
+
+const ogTitle = `${ENTITY.fullName} - ${ENTITY.city} Travel Guide`;
+const ogDescription = `Official visitor guide to ${ENTITY.fullName} in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}.`;
 ---
 <!doctype html>
 <html lang="en-PH">
@@ -31,26 +38,37 @@ const ogImage = siteUrl
     <title>{title === SITE.name ? `${title} — ${SITE.tagline}` : `${title} | ${SITE.name}`}</title>
     <meta name="description" content={description} />
 
+    <!-- Canonical 规范网址 -->
+    <link rel="canonical" href={canonicalUrl} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg" />
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     <link rel="alternate icon" href="/favicon.svg" />
 
-    {fullUrl && <link rel="canonical" href={fullUrl} />}
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="application-name" content={SITE.name} />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content={SITE.name} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    {fullUrl && <meta property="og:url" content={fullUrl} />}
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content="en_PH" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <script is:inline define:vars={{ ga4Id: SITE.ga4Id }}>
       (function () {
@@ -66,6 +84,14 @@ const ogImage = siteUrl
           anonymize_ip: true,
         });
       })();
+    </script>
+
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
     </script>
 
     <slot name="head" />

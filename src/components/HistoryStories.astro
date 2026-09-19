@@ -1,0 +1,115 @@
+---
+import { ENTITY } from '../config';
+
+const TIMELINE = [
+  {
+    era: 'Pre-colonial · 前殖民时期',
+    title: 'A fishing village on the salt shore',
+    text: '今日 Malate 一带在西班牙人到来前已是海湾边的聚落，居民以捕鱼、制盐与近岸贸易为生。湾区的潮汐与季风决定了整个聚落的作息。',
+  },
+  {
+    era: '1571 onwards · 西班牙殖民期',
+    title: 'Churches, forts and a bayfront parish',
+    text: '西班牙人在湾南建立教区与防御设施，Malate Church（Our Lady of Remedies）成为航海者与渔民的信仰中心，海湾成为马尼拉与外界联系的水上门户。',
+  },
+  {
+    era: '1898 · 美西战争',
+    title: 'Battle of Manila Bay',
+    text: '1898 年 5 月 1 日，马尼拉湾海战在眼前这片水域展开，直接改变了菲律宾的殖民归属。今天的海堤与长廊，正是当年舰队对峙的岸线。',
+  },
+  {
+    era: '1900s – 1940s · 大道成形',
+    title: 'Cavite Boulevard → Dewey Boulevard',
+    text: '海湾大道最初以 Cavite 命名，后改称 Dewey Boulevard，成为马尼拉最早的海滨礼仪大道，两侧陆续出现使馆、俱乐部与住宅区。',
+  },
+  {
+    era: '1945 · 战争创伤',
+    title: 'Manila devastated, the bayfront too',
+    text: '二战末期的马尼拉战役几乎摧毁了整座城市，湾区沿线建筑亦未能幸免。战后的重建奠定了今天 Roxas Boulevard 沿线的城市肌理。',
+  },
+  {
+    era: '1948 · 命名更替',
+    title: 'Renamed Roxas Boulevard',
+    text: '大道更名为 Roxas Boulevard，以纪念菲律宾第三共和国首任总统 Manuel Roxas，沿用至今。',
+  },
+  {
+    era: '1970s – 1990s · 填海与再开发',
+    title: 'Reclamation and the Cultural Center complex',
+    text: '1970 年代起的文化中心综合体填海工程把岸线向外推进，形成了今天长廊南段的陆地。城市化同时让公共亲水空间长期短缺。',
+  },
+  {
+    era: '2000s – today · 归还公众',
+    title: 'Baywalk and the rehabilitation program',
+    text: 'Baywalk 长廊在此背景下建设，把岸线重新交还给市民；其后成为马尼拉湾修复计划的展示段，白云石沙滩在 2020 年代初期完成并对外开放。',
+  },
+];
+
+const LEGENDS = [
+  {
+    title: 'Why is it called Malate? · 马尼拉地名传说',
+    tag: 'Folk etymology · 民间词源',
+    text: '一种流传很广的说法认为 Malate 来自他加禄语 “maalat”（咸的），指当年此处井水或海风带咸味。这一词源在地志著作中被反复提及，但语言学者并未形成定论 —— 本站将其作为民间传说呈现，不作为史实。',
+  },
+  {
+    title: 'Our Lady of Remedies · 航海者的主保',
+    tag: 'Religious tradition · 宗教民俗',
+    text: 'Malate Church 供奉 Nuestra Señora de los Remedios（救助之母），长期被出海者与渔民视为守护者。当地家庭在远行或出海前到此祈祷的传统延续至今，属于信仰习俗而非历史事件。',
+  },
+  {
+    title: 'The sunset as a civic ritual · 日落的公共仪式',
+    tag: 'Cultural image · 文化意象',
+    text: '马尼拉湾的日落在菲律宾文学、绘画与摄影中反复出现，被视为属于所有人的公共景观。傍晚聚集在长廊与海堤上看日落，是几代马尼拉人共享的城市记忆。',
+  },
+  {
+    title: 'Bangka and kalesa · 两种旧时速度',
+    tag: 'Living heritage · 活态遗产',
+    text: '带舷外支架的传统 bangka 仍在湾区作业，长廊上也能见到装饰华丽的 kalesa 马车。它们既是交通工具，也是被保留下来的城市景观符号。',
+  },
+];
+---
+<section id="history-stories" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-10">
+      <span class="chip bg-sunset-purple/10 text-sunset-purple mb-4">History &amp; stories · 历史背景与传说</span>
+      <h2 class="section-title">The long story behind {ENTITY.fullName}</h2>
+      <p class="section-subtitle mb-0">
+        从前殖民时期的渔村到今天的修复工程：八段关键时间线，以及流传在马尼拉人口中的地名由来、信仰习俗与文化意象。
+      </p>
+    </div>
+
+    <ol class="relative border-l border-sand-warm pl-6 space-y-7 mb-12">
+      {
+        TIMELINE.map((t) => (
+          <li class="relative">
+            <span class="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-sunset-purple ring-4 ring-white"></span>
+            <div class="text-[11px] uppercase tracking-wider text-sunset-purple font-semibold">{t.era}</div>
+            <h3 class="font-display text-lg font-semibold text-ocean-deep mt-1">{t.title}</h3>
+            <p class="text-sm text-ocean-mid leading-relaxed mt-1.5 max-w-3xl">{t.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="font-display text-xl font-semibold text-ocean-deep mb-5">
+      Lore &amp; local colour · 传说与地方色彩
+    </div>
+    <div class="grid sm:grid-cols-2 gap-5">
+      {
+        LEGENDS.map((l) => (
+          <article class="card p-6 flex flex-col">
+            <span class="chip bg-sand-warm text-ocean-mid text-[11px] self-start mb-3">{l.tag}</span>
+            <h3 class="font-display text-lg font-semibold text-ocean-deep mb-2">{l.title}</h3>
+            <p class="text-sm text-ocean-mid leading-relaxed flex-1">{l.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-6 text-xs text-ocean-mid/85 leading-relaxed max-w-3xl">
+      说明：本区块区分「史实时间线」与「民间传说 / 信仰习俗」两类内容，传说部分标注为 legend /
+      tradition，不作为历史事实陈述。若需权威史料，建议查阅国家图书馆、国家博物馆与
+      <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">马尼拉市政府</a>
+      的公开资料。
+    </p>
+  </div>
+</section>

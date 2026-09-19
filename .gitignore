@@ -1,7 +1,45 @@
-node_modules
-dist
-.astro
-.wrangler
-*.log
-.DS_Store
+# Dependencies
+node_modules/
+.pnpm-store/
+.pnpm-state/
+
+# Build output (manual deploy to Cloudflare Workers)
+dist/
+dist-static/
+.astro/
+.wrangler/
+.output/
+.worker-next/
+.mf/
+
+# Local environment
+.env
+.env.*
+!.env.example
 .dev.vars
+*.dev.vars
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+install.log
+
+# Editors & OS
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Caches & misc
+coverage/
+.cache/
+*.tsbuildinfo
+.temp/
+tmp/
+*.local
