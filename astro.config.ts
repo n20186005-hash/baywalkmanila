@@ -4,10 +4,11 @@ import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 import process from 'node:process';
 
-const site = process.env.SITE_URL || undefined;
+const site = process.env.SITE_URL || 'https://baywalkmanila.com';
 
 export default defineConfig({
   site: site,
+  trailingSlash: 'always',
   output: 'server',
   adapter: cloudflare({
     imageService: 'passthrough',
@@ -16,7 +17,7 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    ...(site ? [sitemap()] : []),
+    ...(site ? [sitemap({ customPages: [`${site.replace(/\/$/, '')}/`] })] : []),
   ],
 });
 

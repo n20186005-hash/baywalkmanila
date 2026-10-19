@@ -12,8 +12,8 @@ export const SITE = {
     country: 'Philippines',
   },
   geo: {
-    latitude: 14.5711,
-    longitude: 120.9802,
+    latitude: 14.5749729,
+    longitude: 120.9795612,
   },
   hours: {
     sunday:    '06:00-18:00',
@@ -26,7 +26,7 @@ export const SITE = {
   },
   rating: {
     value: 4.2,
-    count: 6627,
+    count: 6645,
   },
   googleMapsShortLink: 'https://maps.app.goo.gl/9iakbrNfa9MzGGmx8',
   googleMapsEmbed:
@@ -35,6 +35,10 @@ export const SITE = {
 };
 
 export const FAQ = [
+  {
+    q: 'Is Dolomite Beach open today?',
+    a: 'The published schedule for Manila Bay Beach (Dolomite Beach) is 6:00 AM to 6:00 PM, Friday through Wednesday, with Thursday closed. This schedule was checked on Google Maps on 2026-10-18. Temporary closures can override it; check the linked listing and on-site notices before travelling.'
+  },
   {
     q: 'Is there an entrance fee for Baywalk Manila?',
     a: 'Baywalk Manila, including the Dolomite Beach area, is free to enter. Access is complimentary for all visitors.',
@@ -472,8 +476,8 @@ export const ENTITY = {
   denrUrl: 'https://www.denr.gov.ph/',
   pagasaUrl: 'https://www.pagasa.dost.gov.ph/',
   /** 评价同步时间（谷歌地图用户评价） */
-  reviewSyncLabel: '2026 年 9 月',
-  reviewSyncLabelEn: 'September 2026',
+  reviewSyncLabel: '2026-10-18',
+  reviewSyncLabelEn: '2026-10-18',
 };
 
 /**
@@ -481,58 +485,12 @@ export const ENTITY = {
  * 来源：Google 地图用户评价，同步时间 2026 年 9 月；版权归原作者与 Google 地图所有。
  */
 export const REVIEW_SOURCE_NOTE =
-  '同步自 Google 地图用户评价，同步时间 2026 年 9 月；版权归原作者与 Google 地图所有';
+  'Google Maps rating and review-count snapshot for Manila Bay Beach, checked 2026-10-18. Figures may change; this is not a live feed.';
 
 export const REVIEW_SOURCE_NOTE_SHORT =
-  '评分与评价数同步自谷歌地图（Google Maps）用户评价 · 2026 年 9 月 · 点击查看谷歌地图全部评价↗';
+  'Manila Bay Beach on Google Maps · rating checked 2026-10-18 · view current reviews ↗';
 
-export const REVIEWS = [
-  {
-    author: 'Maria C.',
-    rating: 5,
-    date: '2026-08',
-    text: 'The sunset here never gets old. We came around 5 PM, found a spot on the dolomite sand and just watched the sky turn orange. Free entry and lots of families around, so it feels safe.',
-  },
-  {
-    author: 'Jon R.',
-    rating: 4,
-    date: '2026-08',
-    text: 'Great place for an evening walk along Roxas Boulevard. Street food stalls right outside and the LRT Pedro Gil station is only a short walk away. Come early on weekends if you want a bench.',
-  },
-  {
-    author: 'Aiko T.',
-    rating: 5,
-    date: '2026-07',
-    text: 'Best free sunset viewpoint in Manila. The promenade is clean, there are security guards on duty, and the view across the bay with the bangka boats is beautiful for photos.',
-  },
-  {
-    author: 'Daniel P.',
-    rating: 4,
-    date: '2026-07',
-    text: 'Nice rehabilitation work. Remember it is closed on Thursdays for maintenance and swimming is not allowed, but strolling and taking pictures is perfect.',
-  },
-  {
-    author: 'Rosa M.',
-    rating: 4,
-    date: '2026-06',
-    text: 'Bring a reusable bottle because single-use plastic is not allowed inside the beach area. Other than that it is a lovely spot, especially with kids in the late afternoon.',
-  },
-  {
-    author: 'Kenji S.',
-    rating: 5,
-    date: '2026-06',
-    text: 'Walked here from Rizal Park and continued to the CCP end. Two kilometres of bay breeze, palms and open sky — easily the highlight of my Manila trip.',
-  },
-];
 
-/** 星级分布（页面展示用，同步自 Google 地图用户评价） */
-export const RATING_BREAKDOWN = [
-  { stars: 5, percent: 62 },
-  { stars: 4, percent: 22 },
-  { stars: 3, percent: 9 },
-  { stars: 2, percent: 4 },
-  { stars: 1, percent: 3 },
-];
 
 /** 资料来源区块（E-E-A-T） */
 export const SOURCES = [

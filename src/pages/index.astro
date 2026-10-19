@@ -21,8 +21,6 @@ import {
   TRANSPORT_INFO,
   GALLERY,
   ENTITY,
-  REVIEWS,
-  RATING_BREAKDOWN,
   SOURCES,
   REVIEW_SOURCE_NOTE,
   REVIEW_SOURCE_NOTE_SHORT,
@@ -89,7 +87,7 @@ const attractionJsonLd = {
     longitude: SITE.geo.longitude,
   },
   hasMap: ENTITY.mapsShareUrl,
-  sameAs: [ENTITY.mapsShareUrl, ENTITY.govtTourismUrl, ENTITY.cityGovUrl, ENTITY.denrUrl],
+  sameAs: [ENTITY.mapsShareUrl],
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -132,7 +130,7 @@ const websiteJsonLd = {
   name: `${ENTITY.fullName} (${ENTITY.city}) — ${SITE.name}`,
   description: SITE.description,
   inLanguage: 'en-PH',
-  publisher: { '@id': `${ENTITY.domainUrl}/#attraction` },
+  
 };
 
 const ratingCountLabel = SITE.rating.count.toLocaleString('en-US');
@@ -152,7 +150,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             <div class="text-[10px] sm:text-xs text-ocean-mid uppercase tracking-wider hidden sm:block">Roxas Blvd · Malate</div>
           </div>
         </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-ocean-mid">
+        <nav aria-label="Main navigation" class="hidden xl:flex items-center gap-4 text-sm font-medium text-ocean-mid">
           <a href="#overview" class="hover:text-sunset-orange transition">Overview</a>
           <a href="#tickets" class="hover:text-sunset-orange transition">Tickets</a>
           <a href="#weather" class="hover:text-sunset-orange transition">Weather</a>
@@ -168,9 +166,18 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
           View on Map
         </a>
       </div>
+      <nav aria-label="Visitor shortcuts" class="xl:hidden flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-sand-warm px-4 py-3 text-sm font-medium text-ocean-deep">
+        <a href="#tickets">Entry fee</a><a href="#dolomite">Opening hours</a><a href="#getting-there">Directions</a><a href="#faq">FAQ</a>
+      </nav>
     </header>
   </slot>
 
+  <aside class="bg-sand-warm border-b border-sand-warm px-4 py-4 text-center text-sm text-ocean-deep" aria-label="Dolomite Beach visiting information">
+    <strong>Dolomite Beach hours:</strong> 6:00 AM–6:00 PM, Friday–Wednesday; closed Thursday.
+    <a href="#dolomite" class="underline font-medium">Entry fee and opening hours</a> ·
+    <a href={ENTITY.mapsShareUrl} target="_blank" rel="noopener noreferrer" class="underline">Check today's listing</a>.
+    Schedule checked <time datetime="2026-10-18">2026-10-18</time>; temporary closures may apply.
+  </aside>
   <!-- HERO -->
   <section id="top" class="relative overflow-hidden">
     <div class="absolute inset-0 bg-ocean-deep/40 z-10"></div>
@@ -315,7 +322,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
           { label: 'Dolomite sand', icon: 'sand' },
           { label: 'Sunset views', icon: 'sun' },
           { label: 'Street food', icon: 'food' },
-          { label: 'Open daily', icon: 'clock' },
+          { label: 'Beach closed Thursdays', icon: 'clock' },
           { label: 'LRT-accessible', icon: 'train' },
         ].map((f) => (
           <div class="rounded-xl border border-sand-warm bg-white px-3 py-4 flex flex-col items-center justify-center text-center">
@@ -1033,77 +1040,14 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
     </div>
   </section>
 
-  <!-- REVIEWS · 谷歌地图用户评价（仅页面展示，不写入 JSON-LD） -->
-  <section id="reviews" class="anchor-offset py-16 sm:py-20 md:py-24">
-    <div class="container-wide">
-      <div class="grid lg:grid-cols-5 gap-10 lg:gap-12">
-        <div class="lg:col-span-2">
-          <span class="chip bg-sunset-orange/10 text-sunset-orange mb-4">Ratings &amp; Reviews</span>
-          <h2 class="section-title">What visitors say about {ENTITY.fullName}</h2>
-          <p class="section-subtitle mb-6">
-            评价来自谷歌地图用户评价 · Google Maps user reviews for {ENTITY.fullName} — {SITE.address.street}, {SITE.address.district}, {ENTITY.city}.
-          </p>
-
-          <div class="card p-6">
-            <div class="flex items-end gap-4">
-              <div class="font-display text-5xl font-semibold text-ocean-deep leading-none">{SITE.rating.value}</div>
-              <div class="pb-1">
-                <Stars rating={SITE.rating.value} size={20} />
-                <div class="text-sm text-ocean-mid mt-1">{ratingCountLabel} Google reviews</div>
-              </div>
-            </div>
-
-            <div class="mt-5 space-y-2">
-              {RATING_BREAKDOWN.map((row) => (
-                <div class="flex items-center gap-3 text-xs text-ocean-mid">
-                  <span class="w-8 shrink-0">{row.stars}★</span>
-                  <span class="flex-1 h-2 rounded-full bg-sand-warm overflow-hidden">
-                    <span class="block h-full rounded-full bg-sunset-gradient" style={`width:${row.percent}%`}></span>
-                  </span>
-                  <span class="w-9 shrink-0 text-right">{row.percent}%</span>
-                </div>
-              ))}
-            </div>
-
-            <p class="mt-5 pt-4 border-t border-sand-warm text-[11px] sm:text-xs text-ocean-mid leading-relaxed">
-              {REVIEW_SOURCE_NOTE}
-            </p>
-
-            <a
-              href={ENTITY.mapsShareUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-4 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sunset-gradient text-white text-sm font-medium shadow-sm hover:-translate-y-0.5 transition"
-            >
-              在谷歌地图查看全部评价
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="lg:col-span-3 grid sm:grid-cols-2 gap-5">
-          {REVIEWS.map((r) => (
-            <article class="card p-5 flex flex-col">
-              <div class="flex items-center gap-3 mb-3">
-                <div class="w-9 h-9 rounded-full bg-sand-warm flex items-center justify-center font-display font-semibold text-ocean-deep text-sm">
-                  {r.author.charAt(0)}
-                </div>
-                <div class="min-w-0">
-                  <div class="font-medium text-ocean-deep text-sm truncate">{r.author}</div>
-                  <div class="text-[11px] text-ocean-mid">{r.date}</div>
-                </div>
-                <Stars rating={r.rating} size={14} class="ml-auto" />
-              </div>
-              <p class="text-sm text-ocean-mid leading-relaxed flex-1">“{r.text}”</p>
-              <div class="mt-4 pt-3 border-t border-sand-warm text-[11px] text-ocean-mid/85">
-                来源 · Google 地图用户评价
-                <a href={ENTITY.mapsShareUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline ml-1">
-                  查看原始评价↗
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+  <section id="reviews" class="anchor-offset py-16 sm:py-20">
+    <div class="container-wide max-w-3xl">
+      <span class="chip bg-sunset-orange/10 text-sunset-orange mb-4">Google Maps snapshot</span>
+      <h2 class="section-title">Manila Bay Beach rating and reviews</h2>
+      <div class="card p-6">
+        <div class="flex flex-wrap items-center gap-4"><strong class="text-4xl text-ocean-deep">{SITE.rating.value} / 5</strong><Stars rating={SITE.rating.value} size={20} /><span>{ratingCountLabel} reviews</span></div>
+        <p class="mt-4 text-sm text-ocean-mid">{REVIEW_SOURCE_NOTE} The listing covers Manila Bay Beach; it does not rate the entire Baywalk promenade.</p>
+        <a href={ENTITY.mapsShareUrl} target="_blank" rel="noopener noreferrer" class="inline-block mt-4 underline text-sunset-orange">Read current visitor reviews on Google Maps ↗</a>
       </div>
     </div>
   </section>
@@ -1175,7 +1119,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
         <span class="chip bg-ocean-deep/10 text-ocean-deep mb-4">Sources &amp; Attribution</span>
         <h2 class="section-title">Sources &amp; Attribution · 资料来源</h2>
         <p class="section-subtitle mb-0">
-          Every figure on this page is attributed. Ratings and reviews are quoted from Google Maps user reviews; regulations and rehabilitation updates come from official government sources.
+          The rating and review count are a dated Google Maps snapshot. Follow the source links for current information; opening hours and access rules can change.
         </p>
       </div>
 
