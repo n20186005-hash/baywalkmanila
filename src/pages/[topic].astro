@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TopicPage from '../components/TopicPage.astro';
+import { TOPICS, TOPIC_SLUGS, getTopic } from '../data/topics';
+import { SITE, ENTITY } from '../config';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return TOPIC_SLUGS.map((slug) => ({
+    params: { topic: slug },
+    props: { topic: getTopic(slug)! },
+  }));
+}
+
+const { topic } = Astro.props;
+
+const siteUrl: string | undefined = Astro.site?.toString() ?? ENTITY.domainUrl;
+const thisPageUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const homeUrl = new URL('/', siteUrl).toString();
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: homeUrl },
+    { '@type': 'ListItem', position: 2, name: topic.title, item: thisPageUrl },
+  ],
+};
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: topic.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const webPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${thisPageUrl}#webpage`,
+  url: thisPageUrl,
+  name: topic.title,
+  description: topic.metaDescription,
+  inLanguage: 'en-PH',
+  isPartOf: { '@type': 'WebSite', name: SITE.name, url: homeUrl },
+  about: { '@type': 'TouristAttraction', '@id': `${ENTITY.domainUrl}/#attraction` },
+  breadcrumb: { '@id': `${thisPageUrl}#breadcrumb` },
+};
+---
+
+<BaseLayout title={topic.metaTitle} description={topic.metaDescription}>
+  <TopicPage topic={topic} />
+
+  <slot name="jsonld">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({ ...breadcrumbJsonLd, '@id': `${thisPageUrl}#breadcrumb` })}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+  </slot>
+</BaseLayout>

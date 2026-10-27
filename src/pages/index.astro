@@ -11,6 +11,7 @@ import TransportDetails from '../components/TransportDetails.astro';
 import VisitorServices from '../components/VisitorServices.astro';
 import HistoryStories from '../components/HistoryStories.astro';
 import Stewardship from '../components/Stewardship.astro';
+import TopicLinks from '../components/TopicLinks.astro';
 import { getWeatherSnapshot } from '../lib/weather';
 import { getTideSnapshot } from '../lib/tide';
 import {
@@ -53,9 +54,9 @@ const faqJsonLd = {
 };
 
 /**
- * 实体绑定 JSON-LD —— 与 Google 地图实体「Manila Bay Beach」锚定。
- * 注意：谷歌地图的评分与用户评价仅作页面展示（见 #reviews 区块并注明来源），
- * 不写入结构化数据，以避免第三方评分导致的 Google 结构化数据违规风险。
+ * Entity-bound JSON-LD — anchored to the Google Maps entity "Manila Bay Beach".
+ * Note: Google Maps rating and user reviews are shown on the page only (see the #reviews block, with source noted),
+ * and are not written into structured data, to avoid Google structured-data policy risks from third-party ratings.
  */
 const attractionJsonLd = {
   '@context': 'https://schema.org',
@@ -277,7 +278,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             The bay itself carried a decisive role in Philippine history: the <strong>Battle of Manila Bay</strong> of 1898 unfolded on these waters during the Spanish–American War. Walking the promenade today connects you to four centuries of trade, conflict, renewal and the ordinary Manileño's right to a sunset.
           </p>
           <p class="text-xs sm:text-sm text-ocean-mid/85 mt-5">
-            <span class="font-medium text-ocean-deep">Geographic hierarchy · 地理归属：</span>
+            <span class="font-medium text-ocean-deep">Geographic hierarchy:</span>
             {ENTITY.fullName} → {ENTITY.city} → {ENTITY.stateProvince} → {ENTITY.country}
           </p>
         </div>
@@ -573,11 +574,10 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
   <section id="getting-there" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
     <div class="container-wide">
       <div class="max-w-3xl mb-12">
-        <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">Detailed Transport · 详细交通指引</span>
-        <h2 class="section-title">Getting to Baywalk · 怎么去海湾</h2>
+        <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">Detailed Transport</span>
+        <h2 class="section-title">Getting to Baywalk</h2>
         <p class="section-subtitle mb-0">
           From international flights to the last tricycle ride: six ways to reach Manila Baywalk, with terminal-to-promenade steps, fares and realistic ride times.
-          从国际航班到最后一公里三轮车：六种抵达马尼拉海湾的交通方式，含航站楼/车站走到长廊的分步指引、票价与真实耗时参考。
         </p>
       </div>
 
@@ -589,7 +589,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
             </div>
             <div>
-              <div class="font-display text-2xl font-semibold text-ocean-deep">By Air · 乘坐飞机</div>
+              <div class="font-display text-2xl font-semibold text-ocean-deep">By Air</div>
               <div class="text-sm text-ocean-mid mt-0.5">Land at MNL NAIA or Clark CRK then transfer south.</div>
             </div>
           </div>
@@ -601,7 +601,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
         </div>
         <div class="grid md:grid-cols-2 gap-0 md:gap-0 md:divide-x divide-sand-warm/80">
           <div class="p-6 sm:p-8 border-b md:border-b-0 border-sand-warm/70">
-            <div class="text-sm font-semibold text-ocean-deep mb-4 uppercase tracking-wider">Airports · 机场概览</div>
+            <div class="text-sm font-semibold text-ocean-deep mb-4 uppercase tracking-wider">Airports</div>
             <ul class="space-y-5">
               {TRANSPORT_INFO.plane.airports.map(a => (
                 <li>
@@ -616,7 +616,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             </ul>
           </div>
           <div class="p-6 sm:p-8">
-            <div class="text-sm font-semibold text-ocean-deep mb-4 uppercase tracking-wider">From NAIA to Baywalk · 机场转乘四步</div>
+            <div class="text-sm font-semibold text-ocean-deep mb-4 uppercase tracking-wider">From NAIA to Baywalk</div>
             <ol class="space-y-4">
               {TRANSPORT_INFO.plane.steps.map((s, i) => (
                 <li class="flex gap-3">
@@ -637,7 +637,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m16 19 2 3"/><path d="M9 7h.01"/><path d="M15 7h.01"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">By Rail · 轻轨 / 铁路</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">By Rail</div>
               <div class="text-xs text-ocean-mid">LRT-1 · PNR Metro Commuter</div>
             </div>
           </div>
@@ -675,12 +675,12 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M16 6v6"/><path d="M2 12h20"/><path d="M22 18V9a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v9"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">By Bus · 公交车 / 省际大巴</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">By Bus</div>
               <div class="text-xs text-ocean-mid">City Bus · EDSA Carousel · Provincial</div>
             </div>
           </div>
           <div class="flex-1 p-5 text-sm">
-            <div class="font-semibold text-ocean-deep mb-3 text-[13px] uppercase tracking-wider">City Routes · 市区公交</div>
+            <div class="font-semibold text-ocean-deep mb-3 text-[13px] uppercase tracking-wider">City Routes</div>
             <ul class="space-y-4 mb-6">
               {TRANSPORT_INFO.bus.cityBus.map(b => (
                 <li class="border-l-2 border-palm-green/60 pl-3.5">
@@ -690,7 +690,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
                 </li>
               ))}
             </ul>
-            <div class="font-semibold text-ocean-deep mb-3 text-[13px] uppercase tracking-wider">Provincial · 省外长途</div>
+            <div class="font-semibold text-ocean-deep mb-3 text-[13px] uppercase tracking-wider">Provincial</div>
             <ul class="space-y-2 text-ocean-mid text-[13px]">
               {TRANSPORT_INFO.bus.provincial.map(p => (
                 <li class="flex gap-2">
@@ -710,12 +710,12 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">By Jeepney · 吉普尼</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">By Jeepney</div>
               <div class="text-xs text-ocean-mid">Manila's iconic commute</div>
             </div>
           </div>
           <div class="flex-1 p-5 text-sm">
-            <div class="font-semibold text-ocean-deep mb-3">Look for these signboards · 请认准路线牌</div>
+            <div class="font-semibold text-ocean-deep mb-3">Look for these signboards</div>
             <div class="flex flex-wrap gap-2 mb-4">
               {TRANSPORT_INFO.jeepney[0].routes.map(rt => (
                 <span class="chip bg-sunset-orange/10 text-sunset-orange">{rt}</span>
@@ -724,7 +724,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             <p class="text-ocean-mid leading-relaxed mb-3">{TRANSPORT_INFO.jeepney[0].tips}</p>
             <div class="rounded-xl bg-sand-light p-4 space-y-2">
               <div class="flex items-center justify-between text-xs">
-                <span class="text-ocean-mid">Minimum fare · 4 km 起步</span>
+                <span class="text-ocean-mid">Minimum fare · first 4 km</span>
                 <span class="font-display font-semibold text-ocean-deep">{TRANSPORT_INFO.jeepney[0].fare}</span>
               </div>
             </div>
@@ -738,7 +738,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">Ride-Hail / Taxi · 打车 / 网约车</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">Ride-Hail / Taxi</div>
               <div class="text-xs text-ocean-mid">Grab · Metered Taxi</div>
             </div>
           </div>
@@ -757,7 +757,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
           <div class="px-5 pb-5 pt-0">
             <div class="rounded-xl bg-sand-light p-4 space-y-2 text-xs">
               <div class="flex justify-between">
-                <span class="text-ocean-mid">Metered flagdown · 计价器起步</span>
+                <span class="text-ocean-mid">Metered flagdown</span>
                 <span class="font-display font-semibold text-ocean-deep">{TRANSPORT_INFO.taxiRidehail.meteredTaxi.flagdown}</span>
               </div>
               <div class="text-sunset-orange">⚠️ {TRANSPORT_INFO.taxiRidehail.meteredTaxi.tips}</div>
@@ -772,18 +772,18 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="2.5"/><circle cx="5.5" cy="17.5" r="2.5"/><path d="M15 17H9V8l-5 7"/><path d="M15 8h2.5A2.5 2.5 0 0 1 20 10.5V17h-5"/><path d="M9 8h3"/></svg>
             </div>
             <div>
-              <div class="font-display text-xl font-semibold text-ocean-deep">Last Mile + Parking · 接驳与停车</div>
+              <div class="font-display text-xl font-semibold text-ocean-deep">Last Mile + Parking</div>
               <div class="text-xs text-ocean-mid">Tricycle · Pedicab · Car parks</div>
             </div>
           </div>
           <div class="flex-1 divide-y divide-sand-warm/80 text-sm">
             <div class="p-5">
-              <div class="font-medium text-ocean-deep mb-2">Tricycle / Pedicab · 三轮车</div>
+              <div class="font-medium text-ocean-deep mb-2">Tricycle / Pedicab</div>
               <div class="text-ocean-mid mb-1">{TRANSPORT_INFO.taxiRidehail.tricyclePedicab.note}</div>
               <div class="text-xs text-sunset-purple font-medium">{TRANSPORT_INFO.taxiRidehail.tricyclePedicab.fare}</div>
             </div>
             <div class="p-5">
-              <div class="font-medium text-ocean-deep mb-3">Car Parking · 自驾停车</div>
+              <div class="font-medium text-ocean-deep mb-3">Car Parking</div>
               <ul class="space-y-3">
                 {TRANSPORT_INFO.parking.car.map(p => (
                   <li class="border-l-2 border-sunset-purple/60 pl-3">
@@ -801,10 +801,9 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
       <!-- PRO TIP -->
       <div class="rounded-2xl bg-sunset-gradient text-white p-6 sm:p-8 grid md:grid-cols-[1fr_auto] gap-6 items-center">
         <div>
-          <div class="font-display text-xl sm:text-2xl font-semibold mb-2">Short on time? · 懒人首选路线</div>
+          <div class="font-display text-xl sm:text-2xl font-semibold mb-2">Short on time?</div>
           <p class="text-white/85 text-sm sm:text-base leading-relaxed">
             Fly to NAIA T3 → Grab sedan to Roxas Blvd (30 – 60 min) → drop at Pedro Gil jetty then walk 5 min to the sand.
-            抵达马尼拉 T3 航站楼 → Grab 叫车到 Pedro Gil 路口 → 步行 5 分钟直达白云石沙滩。
           </p>
         </div>
         <a href={SITE.googleMapsShortLink} target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-ocean-deep font-medium hover:-translate-y-0.5 transition shadow-md self-start">
@@ -960,14 +959,11 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
           Significance today: {ENTITY.fullName} is one of the few free, car-free-adjacent public spaces in the capital where Manileños of every background share the same horizon. Sunset here is a civic ritual — joggers at dawn, families at dusk, and photographers lining the seawall every clear evening.
         </p>
         <p class="text-xs text-ocean-mid/85 leading-relaxed">
-          For official updates and regional tourism information, visit
+          For official updates and regional tourism information, visit the
           <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">
             {ENTITY.country} / {ENTITY.stateProvince} Official Tourism Portal
-          </a>
-          · 官方信息请查阅
-          <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">tourism.gov.ph</a>
-          与
-          <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">manila.gov.ph</a>.
+          </a>.
+          Also see <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">tourism.gov.ph</a> and <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="font-medium text-sunset-orange hover:underline mx-1">manila.gov.ph</a>.
         </p>
       </div>
     </div>
@@ -1022,7 +1018,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
           <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap gap-2 text-xs text-ocean-mid">
               <span class="chip bg-sand-warm">Map data: Google Maps</span>
-              <span class="chip bg-sand-warm">Localised · zh-CN</span>
+              <span class="chip bg-sand-warm">Area map</span>
             </div>
             <a
               href={SITE.googleMapsShortLink}
@@ -1031,7 +1027,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
               class="inline-flex items-center gap-1.5 text-xs font-medium text-ocean-deep hover:text-sunset-orange transition"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              Open in Google Maps · 找到去海湾的路
+              Open in Google Maps
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
             </a>
           </div>
@@ -1100,7 +1096,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
           </p>
           <div class="flex flex-wrap gap-3">
             <a href={SITE.googleMapsShortLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-ocean-deep font-medium hover:-translate-y-0.5 transition shadow-md">
-              Get Directions · 找到去海湾的路
+              Get Directions
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
             </a>
             <a href="#faq" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white font-medium hover:bg-white/15 transition">
@@ -1112,12 +1108,12 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
     </div>
   </section>
 
-  <!-- SOURCES · 资料来源 -->
+  <!-- SOURCES -->
   <section id="sources" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-t border-sand-warm">
     <div class="container-wide">
       <div class="max-w-3xl mb-10">
         <span class="chip bg-ocean-deep/10 text-ocean-deep mb-4">Sources &amp; Attribution</span>
-        <h2 class="section-title">Sources &amp; Attribution · 资料来源</h2>
+        <h2 class="section-title">Sources &amp; Attribution</h2>
         <p class="section-subtitle mb-0">
           The rating and review count are a dated Google Maps snapshot. Follow the source links for current information; opening hours and access rules can change.
         </p>
@@ -1159,6 +1155,8 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
     </div>
   </section>
 
+  <TopicLinks />
+
   <slot name="footer">
     <footer class="bg-ocean-deep text-sand-light/80">
       <div class="container-wide py-12 md:py-14">
@@ -1191,7 +1189,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             </ul>
           </div>
           <div>
-            <div class="text-xs uppercase tracking-wider text-sand-light/60 mb-4">Plan &amp; Services · 规划与设施</div>
+            <div class="text-xs uppercase tracking-wider text-sand-light/60 mb-4">Plan &amp; Services</div>
             <ul class="space-y-2.5 text-sm">
               <li><a href="#tides" class="hover:text-sunset-orange transition">Tides &amp; flats</a></li>
               <li><a href="#seasons" class="hover:text-sunset-orange transition">Quarterly strategy</a></li>
@@ -1217,7 +1215,7 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
 
         <div class="pt-6 mt-2 border-t border-white/10 grid sm:grid-cols-3 gap-6 text-xs text-sand-light/70">
           <div>
-            <div class="text-[11px] uppercase tracking-wider text-sand-light/60 mb-3">Official sources · 官方来源</div>
+            <div class="text-[11px] uppercase tracking-wider text-sand-light/60 mb-3">Official sources</div>
             <ul class="space-y-2">
               <li><a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">Department of Tourism ↗</a></li>
               <li><a href={ENTITY.philippinesTravelUrl} target="_blank" rel="noopener noreferrer" class="hover:text-sunset-orange transition">Philippines Travel ↗</a></li>
@@ -1227,12 +1225,12 @@ const tide = await getTideSnapshot(SITE.geo.latitude, SITE.geo.longitude);
             </ul>
           </div>
           <div class="sm:col-span-2">
-            <div class="text-[11px] uppercase tracking-wider text-sand-light/60 mb-3">Review attribution · 评价引用来源</div>
+            <div class="text-[11px] uppercase tracking-wider text-sand-light/60 mb-3">Review attribution</div>
             <p class="leading-relaxed">
               {REVIEW_SOURCE_NOTE}
               {' '}
               <a href={ENTITY.mapsShareUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline">
-                在谷歌地图查看全部评价 ↗
+                View all reviews on Google Maps ↗
               </a>
             </p>
           </div>

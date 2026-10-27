@@ -4,38 +4,38 @@ import { ENTITY } from '../config';
 const SCIENCE = [
   {
     title: 'A semi-enclosed bay with a working intertidal zone',
-    zh: '半封闭海湾与潮间带',
-    text: '马尼拉湾是一个半封闭的浅水海湾，湾口朝向南海，水体交换周期长。退潮时露出的潮间带是蟹类、贝类与多毛类等底栖生物的栖息层，也是迁徙水鸟的重要觅食地。',
+    tag: 'Semi-enclosed bay & intertidal flat',
+    text: 'Manila Bay is a shallow, semi-enclosed bay opening to the South China Sea, with slow water exchange. At low tide the exposed intertidal flat is habitat for crabs, shellfish and polychaetes, and an important feeding ground for migratory waterbirds.',
   },
   {
     title: 'A stopover on the East Asian–Australasian Flyway',
-    zh: '东亚—澳大利西亚迁飞通道',
-    text: '湾区南侧的 Las Piñas–Parañaque 关键栖息地是迁飞通道上的重要中途站，每年约 11 月至次年 3 月可见大批鸻鹬类与鹭类。观察时请保持距离，不进入封闭区域。',
+    tag: 'East Asian–Australasian Flyway',
+    text: 'The Las Piñas–Parañaque critical habitat on the bay\'s south side is a key stopover on the flyway; large flocks of waders and egrets are seen roughly November to March. Keep your distance and do not enter closed areas.',
   },
   {
     title: 'The Dolomite Beach is engineered nourishment, not a natural beach',
-    zh: '人工养滩而非天然沙滩',
-    text: '白云石沙滩属于海滩养护（beach nourishment）工程：以粉碎白云石替代被侵蚀的岸线，用于稳定岸滩与恢复公共空间。它并非天然沙滩，维护与补沙需要持续投入，因此设有禁塑、禁泳等管理规则。',
+    tag: 'Engineered nourishment, not natural sand',
+    text: 'Dolomite Beach is a beach-nourishment project: crushed dolomite replaces eroded shoreline to stabilise the coast and restore public space. It is not a natural beach, and its upkeep needs continuous investment — hence the no-plastic, no-swimming rules.',
   },
 ];
 
 const RESPONSIBILITIES = [
-  '带走自己的垃圾：长廊垃圾桶在高峰时段容易溢出，自备垃圾袋是最可靠的做法',
-  '遵守一次性塑料限制：进入沙滩段前寄存塑料瓶、包装袋与吸管，改用可重复使用容器',
-  '不投喂、不采集、不捕捉：鸟类与潮间带生物对人类干扰非常敏感',
-  '不下水游泳：湾区仍在修复阶段，水质与水下地形均不适合涉水活动',
-  '尊重居民与其他访客：长廊是共享空间，控制音量，不占用通行道长时间驻留',
-  '谨慎使用无人机：起降可能受现场规定限制，且会惊扰鸟类',
-  '优先低碳到达：轨道交通、步行与共享出行能显著降低湾区的人流与排放压力',
+  'Take your trash with you: boardwalk bins overflow at peak times, so bring your own bag',
+  'Respect the single-use plastic limits: stow plastic bottles, wrappers and straws before the beach, use reusables',
+  'Do not feed, collect or catch: birds and intertidal life are very sensitive to human disturbance',
+  'Do not swim: the bay is still under rehabilitation and both water quality and the underwater terrain are unsuitable',
+  'Respect residents and other visitors: it is a shared space — keep noise down and do not block the walkway',
+  'Use drones cautiously: launches may be restricted on site and can disturb birds',
+  'Prefer low-carbon arrival: rail, walking and ride-sharing ease crowd and emission pressure on the bay',
 ];
 ---
 <section id="stewardship" class="anchor-offset py-16 sm:py-20 md:py-24">
   <div class="container-wide">
     <div class="max-w-3xl mb-10">
-      <span class="chip bg-palm-green/10 text-palm-green mb-4">Science &amp; responsibility · 科普与访客责任</span>
+      <span class="chip bg-palm-green/10 text-palm-green mb-4">Science &amp; responsibility</span>
       <h2 class="section-title">Understand the bay, then leave it better</h2>
       <p class="section-subtitle mb-0">
-        为什么这里有禁塑与禁泳规则、为什么沙滩是白色的、为什么湾区值得保护 —— 理解背后的科学，比记住规则本身更重要。
+        Why there are no-plastic and no-swimming rules, why the sand is white, and why the bay is worth protecting — understanding the science behind it matters more than memorising the rules.
       </p>
     </div>
 
@@ -47,7 +47,7 @@ const RESPONSIBILITIES = [
               <span class="w-7 h-7 rounded-lg bg-palm-green/10 text-palm-green text-xs font-semibold flex items-center justify-center">
                 {i + 1}
               </span>
-              <span class="chip bg-sand-warm text-ocean-mid text-[11px]">{s.zh}</span>
+              <span class="chip bg-sand-warm text-ocean-mid text-[11px]">{s.tag}</span>
             </div>
             <h3 class="font-display text-lg font-semibold text-ocean-deep mb-2 leading-snug">{s.title}</h3>
             <p class="text-sm text-ocean-mid leading-relaxed flex-1">{s.text}</p>
@@ -58,19 +58,19 @@ const RESPONSIBILITIES = [
 
     <div class="grid lg:grid-cols-5 gap-6">
       <div class="lg:col-span-2 card p-6 sm:p-7 border-sunset-orange/20">
-        <h3 class="font-display text-lg font-semibold text-ocean-deep mb-3">Water quality &amp; swimming · 水质与游泳</h3>
+        <h3 class="font-display text-lg font-semibold text-ocean-deep mb-3">Water quality &amp; swimming</h3>
         <p class="text-sm text-ocean-mid leading-relaxed mb-4">
-          马尼拉湾的修复是长期工程，水质会随降雨、径流与潮汐波动。切勿以晴天时的水体外观判断安全程度 —— 是否可接触水体请以主管部门与现场公告为准，目前沙滩段禁止下水。
+          Manila Bay rehabilitation is a long-term effort, and water quality shifts with rain, runoff and tides. Never judge safety by how the water looks on a clear day — whether contact is allowed follows the authorities and on-site notices; swimming is currently banned on the beach.
         </p>
         <ul class="space-y-2 text-sm text-ocean-mid leading-relaxed">
-          <li class="flex gap-2"><span class="text-sunset-orange">▸</span> 雨后 24 – 48 小时内水体浑浊度通常明显上升</li>
-          <li class="flex gap-2"><span class="text-sunset-orange">▸</span> 儿童玩沙后请用清水与肥皂清洁双手</li>
-          <li class="flex gap-2"><span class="text-sunset-orange">▸</span> 出现异味或警戒线时，请服从现场人员指引</li>
+          <li class="flex gap-2"><span class="text-sunset-orange">▸</span> Turbidity usually rises noticeably within 24 – 48 h after rain</li>
+          <li class="flex gap-2"><span class="text-sunset-orange">▸</span> Wash children's hands with clean water and soap after playing in the sand</li>
+          <li class="flex gap-2"><span class="text-sunset-orange">▸</span> If there is an odour or a warning line, follow on-site staff guidance</li>
         </ul>
       </div>
 
       <div class="lg:col-span-3 card p-6 sm:p-7">
-        <h3 class="font-display text-lg font-semibold text-ocean-deep mb-4">Visitor responsibility · 访客责任清单</h3>
+        <h3 class="font-display text-lg font-semibold text-ocean-deep mb-4">Visitor responsibility</h3>
         <ol class="space-y-3">
           {
             RESPONSIBILITIES.map((r, i) => (
@@ -84,7 +84,7 @@ const RESPONSIBILITIES = [
           }
         </ol>
         <p class="mt-5 pt-4 border-t border-sand-warm text-xs text-ocean-mid/85 leading-relaxed">
-          生态与修复进展以主管部门公开资料为准：
+          Ecology and rehabilitation progress follow the agencies' public data:
           <a href={ENTITY.denrUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">DENR</a>·
           <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">City of Manila</a>·
           <a href={ENTITY.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">Department of Tourism</a>.

@@ -1,0 +1,48 @@
+---
+import { TOPICS, CLUSTER_LABELS } from '../data/topics';
+import { ENTITY } from '../config';
+
+const siteUrl: string | undefined = Astro.site?.toString() ?? ENTITY.domainUrl;
+const topicUrl = (slug: string) => new URL(`/${slug}/`, siteUrl).toString();
+
+const clusters = ['A', 'B', 'C', 'D'] as const;
+---
+
+<section id="topic-links" class="anchor-offset py-16 sm:py-20 bg-sand-light/40 border-y border-sand-warm">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-10">
+      <span class="chip bg-sunset-orange/10 text-sunset-orange mb-4">Guides</span>
+      <h2 class="section-title">More Baywalk Manila guides</h2>
+      <p class="section-subtitle mb-0">
+        Focused, practical pages on visiting, eating, nearby sights and itineraries — each answers one question travellers actually search for.
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+      {
+        clusters.map((c) => {
+          const items = TOPICS.filter((t) => t.cluster === c);
+          return (
+            <div>
+              <div class="text-xs uppercase tracking-wider text-ocean-mid mb-4">
+                {CLUSTER_LABELS[c]}
+              </div>
+              <ul class="grid sm:grid-cols-2 gap-2.5">
+                {items.map((t) => (
+                  <li>
+                    <a
+                      href={topicUrl(t.slug)}
+                      class="block rounded-xl border border-sand-warm bg-white px-4 py-3 text-sm text-ocean-deep hover:border-sunset-orange hover:text-sunset-orange transition"
+                    >
+                      {t.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

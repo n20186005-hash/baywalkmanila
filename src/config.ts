@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Baywalk Manila',
   tagline: 'Manila Bay Sunset & Dolomite Beach',
   description:
-    'Planning Manila Baywalk & Dolomite Beach? 2026 update on entrance fee (free), opening hours, Thursday closure, best sunset time and night visits in Malate, Manila, Philippines.',
+    'Dolomite Beach & Baywalk Manila: free entry, open 6 AM–6 PM (closed Thursdays), best sunset time, no swimming — 2026 visitor guide in Malate, Manila, Philippines.',
   address: {
     street: 'Baywalk, Roxas Blvd',
     district: 'Malate',
@@ -26,7 +26,7 @@ export const SITE = {
   },
   rating: {
     value: 4.2,
-    count: 6645,
+    count: 6651,
   },
   googleMapsShortLink: 'https://maps.app.goo.gl/9iakbrNfa9MzGGmx8',
   googleMapsEmbed:
@@ -196,20 +196,20 @@ export const TRANSPORT_INFO = {
         name: 'Ninoy Aquino International Airport (NAIA)',
         code: 'MNL',
         terminals: 'Terminals 1 / 2 / 3 / 4',
-        note: 'Manila 的主国际机场，距 Baywalk 约 7 – 12 km，车程视交通 30 – 90 分钟。',
+        note: 'Manila\'s main international airport, about 7–12 km from Baywalk; drive time 30–90 minutes depending on traffic.',
       },
       {
         name: 'Clark International Airport',
         code: 'CRK',
         terminals: 'Angeles City, Pampanga',
-        note: '北方备选机场，距 Baywalk 约 90 km，推荐预订机场大巴直达 Manila。',
+        note: 'Northern alternative airport, about 90 km from Manila; book an airport bus straight to the city.',
       },
     ],
     steps: [
-      'Step 1 — 抵达 NAIA T3：在到达大厅取行李后，走出出口。',
-      'Step 2 — 选择机场快线：搭乘 Premium Point-to-Point (P2P) Bus「NAIA Loop – Manila」方向，或使用 Grab 叫车。',
-      'Step 3 — 在「Roxas Boulevard / Malate」附近下车；若搭乘 P2P 到 EDSA Taft，再换乘 LRT-1 南下即可衔接。',
-      'Step 4 — 从 Pedro Gil Station 步行 5 – 7 分钟西向直达 Baywalk。',
+      'Step 1 — Arrive at NAIA T3: collect your luggage in the arrivals hall, then step out of the exit.',
+      'Step 2 — Choose the airport express: take the Premium Point-to-Point (P2P) Bus "NAIA Loop – Manila", or use Grab to hail a ride.',
+      'Step 3 — Alight near "Roxas Boulevard / Malate"; if you took the P2P to EDSA Taft, transfer to LRT-1 southbound to connect.',
+      'Step 4 — Walk 5–7 minutes west from Pedro Gil Station straight to Baywalk.',
     ],
   },
   rail: [
@@ -219,20 +219,20 @@ export const TRANSPORT_INFO = {
         {
           line: 'LRT-1',
           station: 'Pedro Gil Station',
-          walk: '5 – 7 min 沿 Pedro Gil St 向西朝海湾方向步行即可抵达 Baywalk 中段。',
-          tips: '从站台的 Taft Ave 西口出站，搭乘三轮车约 PHP 50 也可直达。',
+          walk: '5–7 min west along Pedro Gil St toward the bay reaches the mid-section of Baywalk.',
+          tips: 'Exit via the Taft Ave west gate; a tricycle for about PHP 50 also goes directly.',
         },
         {
           line: 'LRT-1',
           station: 'United Nations Avenue Station',
-          walk: '10 – 12 min 沿 UN Ave 向西一直走到 Roxas Blvd。',
-          tips: '适合前往 Rizal Park 端 Baywalk，沿途可经菲律宾国家博物馆。',
+          walk: '10–12 min west along UN Ave straight to Roxas Blvd.',
+          tips: 'Good for the Rizal Park end of Baywalk; the National Museum of the Philippines is on the way.',
         },
         {
           line: 'LRT-1',
           station: 'Vito Cruz Station',
-          walk: '15 – 20 min 向南沿 Taft Ave 转至 Pablo Ocampo Sr 向西。',
-          tips: '前往 CCP Complex 与 Harbour Square 端点推荐此站下车。',
+          walk: '15–20 min south along Taft Ave then west via Pablo Ocampo Sr.',
+          tips: 'Recommended for the CCP Complex and Harbour Square ends.',
         },
       ],
     },
@@ -242,8 +242,8 @@ export const TRANSPORT_INFO = {
         {
           line: 'PNR Metro South Commuter',
           station: 'Dela Rosa Station',
-          walk: '约 25 min，转三轮车/jeep 更快。',
-          tips: '适合从 Laguna / Alabang 方向来的旅客；在 Dela Rosa 换乘 jeep「Pier South via Mabini」直达。',
+          walk: 'About 25 min; faster if you transfer to a tricycle / jeep.',
+          tips: 'Good for travellers from Laguna / Alabang; at Dela Rosa transfer to the jeep "Pier South via Mabini" which goes direct.',
         },
       ],
     },
@@ -252,23 +252,23 @@ export const TRANSPORT_INFO = {
     cityBus: [
       {
         route: 'EDSA Carousel (Cherry Blossom / Bus Stop 4 – Monumento)',
-        how: '乘 EDSA 快速公交至 Taft Ave 站，换乘 LRT-1 南下至 Pedro Gil 或 Vito Cruz。',
-        fare: 'PHP 15 – 40，可使用 Beep 卡。',
+        how: 'Take the EDSA Bus Rapid Transit to Taft Ave Station, then transfer to LRT-1 southbound to Pedro Gil or Vito Cruz.',
+        fare: 'PHP 15–40, Beep card accepted.',
       },
       {
         route: 'Manila City Bus Route 11 – Monumento via Taft / Buendia',
-        how: '沿 Taft Ave 南行，在 Pedro Gil 路口下车后步行 5 分钟。',
-        fare: 'PHP 12 – 25。',
+        how: 'Head south on Taft Ave, alight at Pedro Gil junction then walk 5 minutes.',
+        fare: 'PHP 12–25.',
       },
       {
         route: 'Premium P2P Airport Loop Bus',
-        how: '从 NAIA T3 / T2 直达 EDSA Taft，转乘 LRT-1 或打车至 Baywalk。',
-        fare: 'PHP 150 – 250，每 30 分钟一班。',
+        how: 'From NAIA T3 / T2 direct to EDSA Taft, then transfer to LRT-1 or a taxi to Baywalk.',
+        fare: 'PHP 150–250, departs every 30 minutes.',
       },
     ],
     provincial: [
-      '从吕宋北部 (Baguio / Clark)：Victory Liner / Partas 至 Pasay / Cubao 终点站，换乘 LRT-1 南下。',
-      '从吕宋南部 (Batangas / Laguna)：Jam Liner / DLTB 至 Buendia / Taft，再换乘 jeep 或 LRT-1。',
+      'From northern Luzon (Baguio / Clark): Victory Liner / Partas to the Pasay / Cubao terminals, then transfer to LRT-1 southbound.',
+      'From southern Luzon (Batangas / Laguna): Jam Liner / DLTB to Buendia / Taft, then transfer to a jeep or LRT-1.',
     ],
   },
   jeepney: [
@@ -279,61 +279,61 @@ export const TRANSPORT_INFO = {
         'Vito Cruz – Divisoria via Taft',
         'Santa Cruz – Pier South via Mabini',
       ],
-      tips: '请在乘车时告知司机「Para po sa Roxas Blvd, Malate」 或 「Baywalk / Dolomite Beach」，让其在最近路口下车。',
-      fare: '首 4 km PHP 14，每公里 PHP 2.20；现金支付或 Beep 卡均可。',
+      tips: 'Tell the driver "Para po sa Roxas Blvd, Malate" or "Baywalk / Dolomite Beach" to alight at the nearest junction.',
+      fare: 'First 4 km PHP 14, then PHP 2.20/km; cash or Beep card.',
     },
   ],
   taxiRidehail: {
     grab: [
       {
         from: 'NAIA Terminal 3',
-        fare: 'Grab Sedan PHP 300 – 500；GrabCar Premium 略高。',
-        time: '无交通 30 min，高峰 60 – 90 min。',
-        tips: '建议使用 Grab 提前锁定车费，避免路边议价。',
+        fare: 'Grab Sedan PHP 300–500; GrabCar Premium slightly higher.',
+        time: '30 min with no traffic, 60–90 min at peak.',
+        tips: 'Use Grab to lock in the fare in advance and avoid roadside haggling.',
       },
       {
         from: 'Makati CBD (Ayala Triangle)',
-        fare: 'PHP 150 – 250。',
-        time: '20 – 45 min 取决于 EDSA/Osmeña Highway。',
-        tips: '避开 17:00 – 20:00 晚高峰。',
+        fare: 'PHP 150–250.',
+        time: '20–45 min depending on EDSA / Osmeña Highway.',
+        tips: 'Avoid the 17:00–20:00 evening peak.',
       },
       {
         from: 'SM Mall of Asia (MOA) / Pasay',
-        fare: 'PHP 120 – 180。',
-        time: '15 – 30 min。',
-        tips: '可沿 Seaside Blvd 北上经 Roxas Blvd 一路沿湾。',
+        fare: 'PHP 120–180.',
+        time: '15–30 min.',
+        tips: 'You can head north along Seaside Blvd and follow Roxas Blvd all the way along the bay.',
       },
     ],
     meteredTaxi: {
-      flagdown: 'PHP 45 起步，前 500 m，之后每 300 m 跳 PHP 4。',
-      tips: '坚持使用计价器 (meter)；部分司机会要求固定费率，可拒绝或改乘 Grab。',
+      flagdown: 'PHP 45 flag-down (first 500 m), then PHP 4 per 300 m.',
+      tips: 'Insist on the meter; some drivers ask for a fixed rate — decline or switch to Grab.',
     },
     tricyclePedicab: {
-      note: '短程接驳工具（≤ 2 km），适合从 LRT 站/酒店到 Baywalk。',
-      fare: '单车 PHP 50 – 100/次；多人同乘可议价。',
+      note: 'Short-hop connector (≤2 km), good from LRT stations / hotels to Baywalk.',
+      fare: 'About PHP 50–100 per ride; negotiate for multiple passengers.',
     },
   },
   parking: {
     car: [
       {
         lot: 'Rizal Park Parking (N. Luneta Rd / Roxas Blvd)',
-        price: 'PHP 30 – 50/hr；全天 PHP 200 – 350。',
-        tips: '适合前往 Baywalk 北段。',
+        price: 'PHP 30–50/hr; PHP 200–350 for the whole day.',
+        tips: 'Good for the northern section of Baywalk.',
       },
       {
         lot: 'Harbour Square / CCP Open Parking (Pasay)',
-        price: 'PHP 40 – 60/hr；平日夜间车位充裕。',
-        tips: '靠近 Baywalk 南端。',
+        price: 'PHP 40–60/hr; plenty of spaces on weekday nights.',
+        tips: 'Close to the southern end of Baywalk.',
       },
       {
         lot: 'Robinsons Place Manila (Pedro Gil / M.H. del Pilar)',
-        price: '首 3 hr PHP 80，之后 PHP 20/hr。',
-        tips: '购物中心停车场连接 Mall，车位最多。',
+        price: 'First 3 hr PHP 80, then PHP 20/hr.',
+        tips: 'Mall parking connected to the mall, the most spaces available.',
       },
     ],
     motorcycle: {
-      price: '街边指定摩托位 PHP 20 – 40/次；商场停车场 PHP 30/hr。',
-      tips: '停车后务必上锁并带走贵重物品。',
+      price: 'Designated roadside motorcycle bays PHP 20–40 per time; mall parking PHP 30/hr.',
+      tips: 'Always lock up and take valuables with you after parking.',
     },
   },
 };
@@ -454,8 +454,8 @@ export const GALLERY = {
 };
 
 /**
- * 单景点 SEO 实体绑定变量表
- * 用于把域名 baywalkmanila.com 的语义与 Google 地图实体「Manila Bay Beach」锚定。
+ * Single-attraction SEO entity-binding variable table.
+ * Anchors the semantics of baywalkmanila.com to the Google Maps entity "Manila Bay Beach".
  */
 export const ENTITY = {
   domain: 'baywalkmanila.com',
@@ -475,14 +475,14 @@ export const ENTITY = {
   cityGovUrl: 'https://manila.gov.ph/',
   denrUrl: 'https://www.denr.gov.ph/',
   pagasaUrl: 'https://www.pagasa.dost.gov.ph/',
-  /** 评价同步时间（谷歌地图用户评价） */
+  /** Review sync time (Google Maps user reviews) */
   reviewSyncLabel: '2026-10-18',
   reviewSyncLabelEn: '2026-10-18',
 };
 
 /**
- * 谷歌地图（Google Maps）用户评价 —— 仅用于页面展示，不写入 JSON-LD。
- * 来源：Google 地图用户评价，同步时间 2026 年 9 月；版权归原作者与 Google 地图所有。
+ * Google Maps user ratings — shown on the page only, not written into JSON-LD.
+ * Source: Google Maps user ratings, synced September 2026; copyright belongs to the original authors and Google Maps.
  */
 export const REVIEW_SOURCE_NOTE =
   'Google Maps rating and review-count snapshot for Manila Bay Beach, checked 2026-10-18. Figures may change; this is not a live feed.';
@@ -492,62 +492,62 @@ export const REVIEW_SOURCE_NOTE_SHORT =
 
 
 
-/** 资料来源区块（E-E-A-T） */
+/** Sources section (E-E-A-T) */
 export const SOURCES = [
   {
     title: 'Google Maps — Manila Bay Beach',
-    detail: '地址、坐标、开放时间、评分与评价数。',
-    meta: `评价 · 同步时间 ${ENTITY.reviewSyncLabel}`,
+    detail: 'Address, coordinates, opening hours, rating and review count.',
+    meta: `Rating · synced ${ENTITY.reviewSyncLabel}`,
     url: ENTITY.mapsShareUrl,
-    linkText: '在谷歌地图查看全部评价',
+    linkText: 'View all reviews on Google Maps',
     note: REVIEW_SOURCE_NOTE,
   },
   {
     title: 'Philippines Department of Tourism (DOT)',
-    detail: '菲律宾国家旅游局官方旅游资讯与目的地公告。',
-    meta: '官方旅游局 · 长期有效',
+    detail: 'Official tourism information and destination notices from the Philippine national tourism board.',
+    meta: 'Official tourism board · always valid',
     url: ENTITY.govtTourismUrl,
     linkText: 'tourism.gov.ph',
-    note: '官方来源 · 版权归原发布机构所有',
+    note: 'Official source · copyright belongs to the original publisher',
   },
   {
     title: 'City of Manila Official Website',
-    detail: '马尼拉市政府公告、公共空间管理条例与活动信息。',
-    meta: '地方政府 · 长期有效',
+    detail: 'Manila city government notices, public-space regulations and event information.',
+    meta: 'Local government · always valid',
     url: ENTITY.cityGovUrl,
     linkText: 'manila.gov.ph',
-    note: '官方来源 · 版权归原发布机构所有',
+    note: 'Official source · copyright belongs to the original publisher',
   },
   {
-    title: 'Marine & tide forecast · 海洋潮汐预报',
-    detail: '马尼拉湾逐时潮位、潮差与高/低潮时刻；台风与大风期间的海况增水提醒。',
-    meta: '潮汐 · 逐时更新（服务端缓存）',
+    title: 'Marine & tide forecast',
+    detail: 'Hourly tide levels, tidal range and high/low tide times for Manila Bay; storm-surge and sea-state cautions during typhoons and strong winds.',
+    meta: 'Tides · updated hourly (server-cached)',
     url: ENTITY.pagasaUrl,
     linkText: 'pagasa.dost.gov.ph',
-    note: '官方来源 · 潮位为模型预报值，实际以现场与官方警报为准',
+    note: 'Official source · tide values are model forecasts; follow on-site and official advisories',
   },
   {
     title: 'Philippines Travel — Official Tourism Portal',
-    detail: '菲律宾国家旅游局官方目的地门户（philippines.travel），含马尼拉与大马尼拉官方旅游资讯。',
-    meta: '官方旅游局门户 · 长期有效',
+    detail: 'Official destination portal of the Philippine national tourism board (philippines.travel), with official Manila and Metro Manila travel information.',
+    meta: 'Official tourism portal · always valid',
     url: ENTITY.philippinesTravelUrl,
     linkText: 'philippines.travel',
-    note: '官方来源 · 版权归原发布机构所有',
+    note: 'Official source · copyright belongs to the original publisher',
   },
   {
     title: 'PAGASA (DOST) — Climate normals & weather bulletins',
-    detail: '菲律宾大气地球物理和天文管理局：常年气候态、逐日预报与台风警报。',
-    meta: '气象机构 · 常年气候态 1991–2020',
+    detail: 'Philippine Atmospheric, Geophysical and Astronomical Services Administration: long-term climate normals, daily forecasts and typhoon bulletins.',
+    meta: 'Meteorological agency · climate normals 1991–2020',
     url: ENTITY.pagasaUrl,
     linkText: 'pagasa.dost.gov.ph',
-    note: '官方来源 · 版权归原发布机构所有',
+    note: 'Official source · copyright belongs to the original publisher',
   },
   {
     title: 'Department of Environment and Natural Resources (DENR)',
-    detail: '马尼拉湾修复计划（Manila Bay Rehabilitation）与水质公告。',
-    meta: '主管部门 · 长期有效',
+    detail: 'Manila Bay Rehabilitation programme and water-quality advisories.',
+    meta: 'Managing agency · always valid',
     url: ENTITY.denrUrl,
     linkText: 'denr.gov.ph',
-    note: '官方来源 · 版权归原发布机构所有',
+    note: 'Official source · copyright belongs to the original publisher',
   },
 ];

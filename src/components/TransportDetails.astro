@@ -4,143 +4,143 @@ import { ENTITY, SITE } from '../config';
 const AIRPORT_ROUTES = [
   {
     terminal: 'NAIA Terminal 1',
-    detail: '国际航班为主（部分亚洲航司）',
+    detail: 'Mainly international flights (some Asian carriers)',
     steps: [
-      '出关后在到达层的官方出租车柜台排队，拒绝主动搭讪的司机',
-      'Grab 上车点位于到达层指定区域，按 App 指示前往',
-      '前往 Baywalk 车程约 30 – 60 分钟，车费约 ₱300 – 500',
+      'After clearing customs, queue at the official taxi counter on the arrivals level; decline drivers who approach you unsolicited',
+      'Grab pickup is at a designated area on the arrivals level — follow the app directions',
+      'The drive to Baywalk takes about 30–60 minutes; fare around ₱300–500',
     ],
   },
   {
     terminal: 'NAIA Terminal 2',
-    detail: '国内航班为主',
+    detail: 'Mainly domestic flights',
     steps: [
-      '国内到达行李提取较快，可直接前往到达层的网约车上车区',
-      '预算方案：打车至 Taft Ave / EDSA 转 LRT-1，南下至 Pedro Gil 站',
-      '夜间到达建议直接打车，末班轨道交通约在 21:30 – 22:00 前后结束',
+      'Domestic baggage claim is quick — head straight to the ride-hailing pickup zone on the arrivals level',
+      'Budget option: take a taxi to Taft Ave / EDSA and transfer to LRT-1, heading south to Pedro Gil',
+      'For late-night arrivals, take a taxi directly; the last rail service ends around 21:30–22:00',
     ],
   },
   {
     terminal: 'NAIA Terminal 3',
-    detail: '多数国际航司，设施最完整',
+    detail: 'Most international carriers; most complete facilities',
     steps: [
-      '到达层有官方出租车、Grab 与机场巴士柜台，先取款或换汇',
-      'P2P 机场快线可到 EDSA Taft，再转 LRT-1 至 Pedro Gil 或 Vito Cruz',
-      '直达打车约 30 – 50 分钟（非高峰），高峰时段预留 60 – 90 分钟',
+      'The arrivals level has official taxi, Grab and airport-bus counters — withdraw cash or exchange currency first',
+      'The P2P airport express goes to EDSA Taft, then transfer to LRT-1 to Pedro Gil or Vito Cruz',
+      'A direct taxi takes about 30–50 minutes off-peak; allow 60–90 minutes at peak',
     ],
   },
   {
     terminal: 'NAIA Terminal 4',
-    detail: '低成本航司与部分国内线',
+    detail: 'Low-cost carriers and some domestic routes',
     steps: [
-      '航站楼较小，出站后步行至路边即可叫车',
-      '可步行/短途打车至 Taft Ave 衔接 LRT-1',
-      '行李较多时建议直接叫车，避免多次换乘',
+      'The terminal is small — after exiting, walk to the roadside to hail a ride',
+      'Walk or take a short taxi to Taft Ave to connect with LRT-1',
+      'With lots of luggage, take a taxi directly to avoid multiple transfers',
     ],
   },
   {
     terminal: 'Clark International Airport (CRK)',
-    detail: '北方备选机场，距马尼拉约 90 km',
+    detail: 'Northern alternative airport, about 90 km from Manila',
     steps: [
-      '机场大巴直达马尼拉市区（Cubao / Pasay 等终点），车程约 2 – 3 小时',
-      '抵达后换乘 LRT-1 或打车至 Baywalk',
-      '若航班时间晚，建议在机场附近住宿一晚再南下',
+      'Airport buses run directly to Manila city (Cubao / Pasay terminals), about 2–3 hours',
+      'After arrival, transfer to LRT-1 or a taxi to Baywalk',
+      'If your flight arrives late, consider staying near the airport overnight before heading south',
     ],
   },
 ];
 
 const PUBLIC_TRANSPORT = [
   {
-    type: 'LRT-1 · 轻轨一号线',
+    type: 'LRT-1 · Light Rail Line 1',
     items: [
-      'Pedro Gil 站：出站沿 Pedro Gil St 西行 5 – 7 分钟直达长廊中段，最推荐的站点',
-      'United Nations Ave 站：步行 10 – 12 分钟，适合顺路参观国家博物馆与 Rizal Park',
-      'Vito Cruz 站：步行 15 – 20 分钟，适合前往文化中心与南段',
-      '票价约 ₱15 – 30，可用 Beep 卡；高峰 7 – 9 时与 17 – 19 时车厢拥挤',
+      'Pedro Gil Station: exit and walk west along Pedro Gil St for 5–7 min to the mid-section of the promenade — the most recommended stop',
+      'United Nations Ave Station: 10–12 min walk, good for combining with the National Museum and Rizal Park',
+      'Vito Cruz Station: 15–20 min walk, good for the Cultural Center and the southern end',
+      'Fare about ₱15–30, Beep card accepted; carriages are crowded 7–9 AM and 5–7 PM',
     ],
   },
   {
-    type: 'PNR · 国铁通勤线',
+    type: 'PNR · Commuter Rail',
     items: [
-      'Dela Rosa 站可衔接马尼拉南部通勤线，班次较少，需提前查时刻表',
-      '适合从 Laguna、Alabang 方向来的旅客，转 jeepney 或三轮车更快',
-      '车厢较旧、无空调，建议避开正午',
+      'Dela Rosa Station connects to Manila\'s southern commuter line; services are infrequent — check the timetable ahead',
+      'Good for travellers from Laguna or Alabang; transferring to a jeepney or tricycle is faster',
+      'Carriages are older and not air-conditioned — avoid the midday heat',
     ],
   },
   {
-    type: 'EDSA Carousel · 快速公交',
+    type: 'EDSA Carousel · Bus Rapid Transit',
     items: [
-      '沿 EDSA 运行的快速公交专用道，站点间距大、速度快',
-      '在 Taft Ave 站换乘 LRT-1 南下即可衔接 Baywalk',
-      '票价约 ₱15 – 40，可用 Beep 卡',
+      'A dedicated busway along EDSA with widely spaced, fast stops',
+      'Transfer to LRT-1 southbound at Taft Ave Station to reach Baywalk',
+      'Fare about ₱15–40, Beep card accepted',
     ],
   },
   {
-    type: 'City bus & jeepney · 城市巴士与吉普尼',
+    type: 'City bus & jeepney · City buses and jeepneys',
     items: [
-      '城市巴士沿 Taft Ave 与 Roxas Blvd 运行，票价约 ₱12 – 25',
-      '吉普尼路线牌常见「Malate – Pier South via Mabini」「Baclaran – Dapitan via Mabini」',
-      '上车告知司机「Para po sa Roxas Blvd, Malate」，在最近路口下车',
-      '首 4 km 约 ₱14，之后每公里约 ₱2.20，现金或 Beep 卡',
+      'City buses run along Taft Ave and Roxas Blvd, fare about ₱12–25',
+      'Common jeepney route signs: "Malate – Pier South via Mabini", "Baclaran – Dapitan via Mabini"',
+      'Tell the driver "Para po sa Roxas Blvd, Malate" to alight at the nearest junction',
+      'First 4 km about ₱14, then about ₱2.20/km; cash or Beep card',
     ],
   },
   {
-    type: 'Pasig River Ferry · 帕西河渡轮',
+    type: 'Pasig River Ferry · Pasig River Ferry',
     items: [
-      '连接帕西河沿岸站点，适合作为城市观光的补充方式',
-      '班次与站点会调整，出行前请查最新运营信息',
-      '从河畔站点仍需接驳至 Roxas Blvd，实际耗时通常高于轨道交通',
+      'Connects stations along the Pasig River — a nice complement to city sightseeing',
+      'Schedules and stops change — check the latest operating information before you travel',
+      'You still need a connection to Roxas Blvd from riverside stops; usually slower than rail',
     ],
   },
 ];
 
 const TAXI = [
-  '上车点：机场到达层官方出租车柜台、酒店门口、商场指定候客区，优先使用 App 叫车',
-  '计价规则：起步价约 ₱45（前 500 m），之后每 300 m 约 ₱4；坚持要求打表',
-  'Grab 参考价：NAIA T3 → Baywalk ₱300 – 500；Makati CBD ₱150 – 250；MOA / Pasay ₱120 – 180',
-  '高峰时段（17:00 – 20:00）加价与等待时间都会上升，建议提前 20 分钟叫车',
-  '三轮车 / 人力车适合 ≤ 2 km 的最后一公里，单车约 ₱50 – 100，上车前先讲好价',
+  'Pickup points: official taxi counters on the airport arrivals level, hotel entrances and designated mall bays — prefer app-based hailing',
+  'Metering rule: flag-down about ₱45 (first 500 m), then about ₱4 per 300 m; insist on the meter',
+  'Grab reference fares: NAIA T3 → Baywalk ₱300–500; Makati CBD ₱150–250; MOA / Pasay ₱120–180',
+  'During peak hours (17:00–20:00) surcharges and wait times rise — book about 20 minutes early',
+  'Tricycles / pedicabs suit the last ≤2 km; about ₱50–100 per ride — agree the price first',
 ];
 
 const FROM_DISTRICTS = [
-  { from: 'Makati CBD / BGC', how: '打车 20 – 45 分钟（视 EDSA 与 Osmeña Hwy 拥堵情况）；也可 MRT-3 至 Taft Ave 转 LRT-1', price: '₱150 – 300' },
-  { from: 'Quezon City', how: 'MRT-3 南下至 Taft Ave 转 LRT-1，或 LRT-2 转 LRT-1；打车 45 – 90 分钟', price: '₱200 – 400' },
-  { from: 'Pasay / SM Mall of Asia', how: '沿海滨大道北上经 Roxas Blvd 直达，打车 15 – 30 分钟', price: '₱120 – 180' },
-  { from: 'Parañaque / Las Piñas', how: '沿 Coastal Rd 北上接 Roxas Blvd；公交与 jeepney 亦有沿线班次', price: '₱150 – 250' },
-  { from: 'Alabang / 南部省份', how: 'Skyway 或 PNR 通勤线北上，到 Dela Rosa 或 EDSA Taft 后换乘', price: '₱200 – 350' },
-  { from: 'Manila 邮轮 / 客运码头', how: 'North Harbor / South Harbor 出站后打车约 15 – 30 分钟，行李多时直接叫车', price: '₱150 – 250' },
+  { from: 'Makati CBD / BGC', how: 'Taxi 20–45 minutes (depending on EDSA and Osmeña Hwy congestion); or MRT-3 to Taft Ave then LRT-1', price: '₱150–300' },
+  { from: 'Quezon City', how: 'MRT-3 south to Taft Ave then LRT-1, or LRT-2 to LRT-1; taxi 45–90 minutes', price: '₱200–400' },
+  { from: 'Pasay / SM Mall of Asia', how: 'Head north along the waterfront via Roxas Blvd directly; taxi 15–30 minutes', price: '₱120–180' },
+  { from: 'Parañaque / Las Piñas', how: 'North via Coastal Rd onto Roxas Blvd; buses and jeepneys also run along the route', price: '₱150–250' },
+  { from: 'Alabang / Southern provinces', how: 'Skyway or the PNR commuter line north to Dela Rosa or EDSA Taft, then transfer', price: '₱200–350' },
+  { from: 'Manila cruise / ferry terminal', how: 'After exiting North Harbor / South Harbor, taxi about 15–30 minutes; hail directly if you have lots of luggage', price: '₱150–250' },
 ];
 
 const WALK_CYCLE = [
-  '步行：长廊全长约 2 km，全程步行 25 – 35 分钟，沿途有座椅与遮荫点',
-  '从 Pedro Gil 站步行约 5 – 7 分钟；从 Rizal Park 步行约 20 – 25 分钟',
-  '骑行：Roxas Blvd 车速快、车流密集，仅建议在长廊与慢行道推行或低速骑行',
-  '雨后路面湿滑，海堤段无护栏处请保持距离',
+  'Walking: the promenade is about 2 km end to end; a full walk takes 25–35 minutes, with benches and shade along the way',
+  'About 5–7 minutes from Pedro Gil Station; about 20–25 minutes from Rizal Park',
+  'Cycling: Roxas Blvd has fast, dense traffic — only push or ride slowly on the promenade and its slow lanes',
+  'After rain the pavement is slippery; keep your distance from unrailed sections of the seawall',
 ];
 
 const PITFALLS = [
-  '拒绝到达层主动搭讪的「包车」司机，使用官方柜台或 App 叫车',
-  '坚持打表（meter）；若司机拒绝，可换车或改用网约车',
-  '晚间返程尽量选择有人流的路段与正规上车点，不搭乘无标识车辆',
-  '过马路使用人行横道与天桥，Roxas Blvd 车速快，切勿横穿',
-  '贵重物品放内侧口袋；拍照时留意手机与相机',
+  'Decline "charter" drivers who approach you at arrivals; use official counters or app-based hailing',
+  'Insist on the meter; if the driver refuses, switch cars or use a ride-hailing app',
+  'For evening returns, choose well-lit, busy routes and proper pickup points; never take unmarked vehicles',
+  'Cross at zebra crossings and footbridges — Roxas Blvd is fast; never jaywalk',
+  'Keep valuables in an inside pocket; watch your phone and camera while taking photos',
 ];
 ---
 <section id="transport-detail" class="anchor-offset py-16 sm:py-20 md:py-24">
   <div class="container-wide">
     <div class="max-w-3xl mb-10">
-      <span class="chip bg-ocean-deep/10 text-ocean-deep mb-4">Transport playbook · 交通详细攻略</span>
+      <span class="chip bg-ocean-deep/10 text-ocean-deep mb-4">Transport playbook</span>
       <h2 class="section-title">Every way to reach {ENTITY.fullName}</h2>
       <p class="section-subtitle mb-0">
-        按出发地拆解：机场各航站楼怎么走、公共交通怎么换乘、出租车与网约车怎么叫、自驾与停车怎么安排，以及从邻近城区与码头如何抵达。
+        Broken down by where you start: how to get from each airport terminal, how to transfer on public transport, how to hail taxis and ride-hailing, driving and parking, and how to reach the bay from neighbouring districts and the pier.
       </p>
     </div>
 
     <!-- AIRPORT -->
     <div class="card mb-8">
       <div class="p-6 sm:p-8 border-b border-sand-warm">
-        <div class="font-display text-2xl font-semibold text-ocean-deep">From the airport · 机场怎么去景点</div>
-        <p class="text-sm text-ocean-mid mt-1">按航站楼逐一说明，含车程、车费区间与换乘方案。</p>
+        <div class="font-display text-2xl font-semibold text-ocean-deep">From the airport</div>
+        <p class="text-sm text-ocean-mid mt-1">Covered terminal by terminal, with drive time, fare ranges and transfer options.</p>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-0 md:divide-x divide-sand-warm/80">
         {
@@ -177,8 +177,8 @@ const PITFALLS = [
 
     <!-- PUBLIC TRANSPORT -->
     <div class="card p-6 sm:p-8 mb-8">
-      <div class="font-display text-2xl font-semibold text-ocean-deep mb-1">By public transport · 公共交通怎么到景点</div>
-      <p class="text-sm text-ocean-mid mb-6">轨道交通、快速公交、巴士、吉普尼与渡轮：按系统列出最省钱的到达方式。</p>
+      <div class="font-display text-2xl font-semibold text-ocean-deep mb-1">By public transport</div>
+      <p class="text-sm text-ocean-mid mb-6">Rail, bus rapid transit, city buses, jeepneys and the ferry — the cheapest ways to arrive, listed by system.</p>
       <div class="grid md:grid-cols-2 gap-6">
         {
           PUBLIC_TRANSPORT.map((p) => (
@@ -201,8 +201,8 @@ const PITFALLS = [
     <div class="grid lg:grid-cols-3 gap-6 mb-8">
       <!-- TAXI -->
       <div class="card p-6 sm:p-7">
-        <div class="font-display text-xl font-semibold text-ocean-deep mb-1">Taxi &amp; ride-hailing · 出租车怎么到景点</div>
-        <p class="text-xs text-ocean-mid mb-4">上车点、计价规则与参考车费。</p>
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-1">Taxi &amp; ride-hailing</div>
+        <p class="text-xs text-ocean-mid mb-4">Pickup points, metering rules and reference fares.</p>
         <ul class="space-y-2.5">
           {
             TAXI.map((t) => (
@@ -217,8 +217,8 @@ const PITFALLS = [
 
       <!-- FROM DISTRICTS -->
       <div class="card p-6 sm:p-7 lg:col-span-2">
-        <div class="font-display text-xl font-semibold text-ocean-deep mb-1">From nearby districts · 从邻近城区出发</div>
-        <p class="text-xs text-ocean-mid mb-4">Makati、BGC、Quezon City、Pasay、南部省份与客运码头。</p>
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-1">From nearby districts</div>
+        <p class="text-xs text-ocean-mid mb-4">Makati, BGC, Quezon City, Pasay, the southern provinces and the ferry terminal.</p>
         <div class="divide-y divide-sand-warm">
           {
             FROM_DISTRICTS.map((d) => (
@@ -236,7 +236,7 @@ const PITFALLS = [
     <div class="grid lg:grid-cols-2 gap-6 mb-8">
       <!-- WALK & CYCLE -->
       <div class="card p-6 sm:p-7">
-        <div class="font-display text-xl font-semibold text-ocean-deep mb-4">On foot &amp; by bike · 步行与骑行</div>
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-4">On foot &amp; by bike</div>
         <ul class="space-y-2.5">
           {
             WALK_CYCLE.map((w) => (
@@ -248,15 +248,15 @@ const PITFALLS = [
           }
         </ul>
         <div class="mt-5 rounded-xl bg-sand-light p-4 text-sm text-ocean-mid leading-relaxed">
-          无障碍接驳：建议让车辆停靠在
+          Accessibility: ask to be dropped off at a set-down point on the
           <strong class="text-ocean-deep"> {SITE.address.street} </strong>
-          一侧的落客点，减少步行距离；长廊整体平坦，座椅间隔约 50 – 100 m，适合低体力与轮椅使用者短程游览。
+          side to shorten the walk; the promenade is generally flat with benches every 50–100 m, suitable for low-mobility and wheelchair users on short visits.
         </div>
       </div>
 
       <!-- PITFALLS -->
       <div class="card p-6 sm:p-7 border-sunset-pink/20">
-        <div class="font-display text-xl font-semibold text-ocean-deep mb-4">Watch out for · 常见陷阱与安全提示</div>
+        <div class="font-display text-xl font-semibold text-ocean-deep mb-4">Watch out for</div>
         <ul class="space-y-2.5">
           {
             PITFALLS.map((p) => (

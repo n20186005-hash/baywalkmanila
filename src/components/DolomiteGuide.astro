@@ -3,19 +3,19 @@ import { ENTITY } from '../config';
 
 const HOURS = [
   {
-    zone: 'Dolomite Beach · 白云石沙滩',
+    zone: 'Dolomite Beach',
     hours: '6:00 AM – 6:00 PM',
     note: 'Gated section with bag checks. Closed every Thursday for maintenance and sand rehabilitation.',
     tone: 'bg-sunset-orange/10 text-sunset-orange',
   },
   {
-    zone: 'Roxas Blvd Promenade · 长廊',
+    zone: 'Roxas Blvd Promenade',
     hours: 'Early morning – late evening',
     note: 'Open public space with lighting after dark; short temporary closures possible for events or maintenance.',
     tone: 'bg-palm-green/10 text-palm-green',
   },
   {
-    zone: 'Street parking · 路边停车',
+    zone: 'Street parking',
     hours: 'Attended during daylight & sunset hours',
     note: 'Bayside slots fill up quickly after 4 PM, especially on weekends.',
     tone: 'bg-ocean-mid/10 text-ocean-mid',
@@ -29,41 +29,41 @@ const HOURS = [
 ];
 
 const SUNSET = [
-  { period: 'Nov – Jan', time: '5:40 – 5:55 PM', tip: '最清爽的日落季，天空通透，观赏条件全年最好' },
-  { period: 'Feb – Apr', time: '6:05 – 6:25 PM', tip: '热干季，云层常形成火烧云，注意补水' },
-  { period: 'May – Jul', time: '6:30 – 6:45 PM', tip: '雨季开始，晚霞与雷云同框的概率高' },
-  { period: 'Aug – Oct', time: '5:55 – 6:35 PM', tip: '台风季，天气切换快，出发前看当天预报' },
+  { period: 'Nov – Jan', time: '5:40 – 5:55 PM', tip: 'The clearest sunset season, with crisp skies — the best viewing conditions of the year' },
+  { period: 'Feb – Apr', time: '6:05 – 6:25 PM', tip: 'Hot dry season; clouds often turn fiery at dusk — stay hydrated' },
+  { period: 'May – Jul', time: '6:30 – 6:45 PM', tip: 'Start of the rainy season; high chance of dusk light with thunderclouds' },
+  { period: 'Aug – Oct', time: '5:55 – 6:35 PM', tip: 'Typhoon season; weather shifts fast — check the day\'s forecast before you go' },
 ];
 
 const NIGHT = [
-  '长廊与海堤段有路灯照明，日落后人流通常持续到 21:00 前后',
-  '夜间常见的设施类型：小吃摊、饮品店、马车（kalesa）候客点与便利店',
-  '白云石沙滩段傍晚清场，夜间无法进入；夜间活动集中在开放的长廊与海堤',
-  '安全建议：走主道与有照明路段，避免靠近无护栏的海堤边缘与暗处',
-  '返程优先使用网约车 App，或在主干道正规候客点打车',
-  '随身物品放内侧口袋，拍照时留意手机与相机',
+  'The promenade and seawall are lit after dark; crowds usually linger until around 21:00',
+  'Typical at night: food stalls, drink kiosks, horse-drawn carriage (kalesa) stands and convenience stores',
+  'The Dolomite Beach section clears at dusk and is closed at night; night activity centres on the open promenade and seawall',
+  'Safety: stay on main, lit paths; avoid unrailed seawall edges and unlit spots',
+  'For the return trip, prefer a ride-hailing app or flag a taxi at a proper stand on the main road',
+  'Keep valuables in an inside pocket; watch your phone and camera while taking photos',
 ];
 
 const FREE_THINGS = [
-  { title: 'Watch the Manila Bay sunset', desc: '全年免费、无需门票，本页「最佳观赏时间」已按季节列出日落时刻。' },
-  { title: 'Walk the 2-km Baywalk promenade', desc: '平坦的滨海步道，沿途有座椅、雕塑与遮荫点，适合推车与轮椅。' },
-  { title: 'Stroll Rizal Park (Luneta)', desc: '约 1.8 km 外的城市公园，含黎刹纪念碑与 Kilometre Zero 地标。' },
-  { title: 'Visit Malate Church', desc: '16 世纪巴洛克式教堂，步行约 450 m 可达，注意弥撒时段保持安静。' },
-  { title: 'Explore Intramuros plazas & walls', desc: '城中城的广场与城墙步道免费开放，室内馆点与博物馆另收门票。' },
-  { title: 'Browse the National Museum cluster', desc: '博物馆群就在 Rizal Park 一侧，开放政策与票价以官方公告为准。' },
+  { title: 'Watch the Manila Bay sunset', desc: 'Free all year, no ticket needed; this page lists sunset times by season under "Best time for the sunset".' },
+  { title: 'Walk the 2-km Baywalk promenade', desc: 'A flat seafront walkway with benches, sculptures and shade — good for strollers and wheelchairs.' },
+  { title: 'Stroll Rizal Park (Luneta)', desc: 'A city park about 1.8 km away, with the Rizal Monument and the Kilometre Zero marker.' },
+  { title: 'Visit Malate Church', desc: 'A 16th-century Baroque church, about 450 m on foot; keep quiet during Mass.' },
+  { title: 'Explore Intramuros plazas & walls', desc: 'The walled city\'s plazas and rampart walks are free; indoor museums charge separately.' },
+  { title: 'Browse the National Museum cluster', desc: 'The museum cluster sits beside Rizal Park; opening policy and fees follow official notices.' },
 ];
 ---
 <section id="dolomite" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
   <div class="container-wide">
     <div class="max-w-3xl mb-10">
       <span class="chip bg-sunset-orange/10 text-sunset-orange mb-4">
-        Dolomite Beach · 门票 / 开放时间 / 日落 / 夜间
+        Dolomite Beach
       </span>
       <h2 class="section-title">
         Manila Baywalk &amp; Dolomite Beach: entrance fee, opening hours &amp; sunset
       </h2>
       <p class="section-subtitle mb-0">
-        游客最常搜的四件事一次讲清：要不要门票、几点开放、几点看日落、晚上能不能去。所有时间以现场公告为准。
+        The four things visitors search for most, answered at once: is there a fee, what are the hours, when is sunset, and can you go at night. All times follow on-site notices.
       </p>
     </div>
 
@@ -71,31 +71,31 @@ const FREE_THINGS = [
     <div class="grid lg:grid-cols-5 gap-6">
       <div id="dolomite-fee" class="lg:col-span-2 card p-6 sm:p-7">
         <h3 class="font-display text-xl font-semibold text-ocean-deep mb-1">
-          Entrance fee · 门票与费用
+          Entrance fee
         </h3>
         <p class="text-xs text-ocean-mid mb-4">Dolomite Beach entrance fee / Baywalk ticket price</p>
 
         <div class="rounded-2xl bg-palm-green/10 border border-palm-green/25 p-5 mb-5">
           <div class="flex items-baseline gap-2">
             <span class="font-display text-4xl font-semibold text-palm-green">Free</span>
-            <span class="text-sm text-ocean-deep font-medium">免票入场 · No entrance fee</span>
+            <span class="text-sm text-ocean-deep font-medium">No entrance fee</span>
           </div>
           <p class="text-sm text-ocean-mid leading-relaxed mt-2">
-            白云石沙滩与 Roxas Blvd 长廊均为公共空间，<strong class="text-ocean-deep">不收门票、无需预约</strong>。闸口只会检查是否携带禁止的一次性塑料制品。
+            Dolomite Beach and the Roxas Blvd promenade are both public spaces, <strong class="text-ocean-deep">free to enter and no booking needed</strong>. The gate only checks for banned single-use plastics.
           </p>
         </div>
 
         <ul class="space-y-2.5 text-sm text-ocean-mid leading-relaxed">
-          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> 沙滩段与长廊：免费</li>
-          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> 停车：路边泊位约 ₱20 – 50 / 小时</li>
-          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> 海湾游船 / 游艇：另行收费，人均 ₱1,800 起</li>
-          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> 本段海湾<strong class="text-ocean-deep">禁止下水游泳</strong>，玩沙与观景免费</li>
+          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> Beach section and promenade: free</li>
+          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> Parking: roadside bays about ₱20–50 / hour</li>
+          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> Bay cruise / yacht: charged separately, from ₱1,800 per person</li>
+          <li class="flex gap-2"><span class="text-palm-green mt-0.5">▸</span> Swimming is <strong class="text-ocean-deep">not allowed</strong> in this bay section; sand play and viewing are free</li>
         </ul>
       </div>
 
       <div id="dolomite-hours" class="lg:col-span-3 card p-6 sm:p-7">
         <h3 class="font-display text-xl font-semibold text-ocean-deep mb-1">
-          Opening hours &amp; operating days · 开放时间
+          Opening hours &amp; operating days
         </h3>
         <p class="text-xs text-ocean-mid mb-5">Dolomite Beach open hours / Baywalk opening times</p>
 
@@ -114,9 +114,8 @@ const FREE_THINGS = [
         </ul>
 
         <p class="mt-4 text-xs text-ocean-mid/85 leading-relaxed">
-          维护日提示：白云石沙滩段<strong class="text-ocean-deep">每周四闭园</strong>进行养护与补沙；长廊一般不受影响。法定活动或台风警报期间可能临时封闭，请以现场与
-          <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">马尼拉市政府公告</a>
-          为准。
+          Maintenance note: the Dolomite Beach section <strong class="text-ocean-deep">closes every Thursday</strong> for upkeep and sand replenishment; the promenade is usually unaffected. It may close temporarily during official events or typhoon alerts — follow on-site notices and the
+          <a href={ENTITY.cityGovUrl} target="_blank" rel="noopener noreferrer" class="text-sunset-orange hover:underline mx-1">Manila city government announcement</a>.
         </p>
       </div>
     </div>
@@ -124,10 +123,10 @@ const FREE_THINGS = [
     <!-- SUNSET -->
     <div id="sunset" class="anchor-offset mt-8 card p-6 sm:p-8">
       <h3 class="font-display text-xl font-semibold text-ocean-deep mb-1">
-        Best time for the sunset · 最佳日落观赏时间
+        Best time for the sunset
       </h3>
       <p class="text-sm text-ocean-mid mb-5">
-        马尼拉湾日落时刻随季节变化。一般建议 <strong class="text-ocean-deep">提前 30 – 40 分钟到场</strong>占位，日落后再停留 20 分钟拍蓝调时刻。
+        Manila Bay sunset times shift with the seasons. Generally arrive <strong class="text-ocean-deep">30–40 minutes early</strong> to claim a spot, then stay 20 minutes after for the blue hour.
       </p>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {
@@ -141,9 +140,9 @@ const FREE_THINGS = [
         }
       </div>
       <p class="mt-4 text-xs text-ocean-mid/85 leading-relaxed">
-        更精确的当日日落时刻见本页
-        <a href="#weather" class="text-sunset-orange hover:underline mx-1">实时天气模块</a>
-        （按 Asia/Manila 时区给出当天日出 / 日落时间）。
+        For the precise sunset time today, see the
+        <a href="#weather" class="text-sunset-orange hover:underline mx-1">live weather module</a>
+        on this page (sunrise / sunset for the Asia/Manila timezone).
       </p>
     </div>
 
@@ -151,7 +150,7 @@ const FREE_THINGS = [
     <div id="night" class="anchor-offset mt-8 grid lg:grid-cols-5 gap-6">
       <div class="lg:col-span-3 card p-6 sm:p-7">
         <h3 class="font-display text-xl font-semibold text-ocean-deep mb-1">
-          Manila Baywalk at night · 夜间怎么玩
+          Manila Baywalk at night
         </h3>
         <p class="text-xs text-ocean-mid mb-4">Baywalk Manila at night / nightlife &amp; safety</p>
         <ul class="space-y-2.5">
@@ -168,7 +167,7 @@ const FREE_THINGS = [
 
       <div id="free-things" class="anchor-offset lg:col-span-2 card p-6 sm:p-7">
         <h3 class="font-display text-xl font-semibold text-ocean-deep mb-1">
-          Free things to do nearby · 附近免费玩法
+          Free things to do nearby
         </h3>
         <p class="text-xs text-ocean-mid mb-4">Things to do in Manila for free</p>
         <ol class="space-y-3">

@@ -153,23 +153,23 @@ export async function getTideSnapshot(latitude: number, longitude: number): Prom
 export function seaAdvice(sea: TideSnapshot['sea']): string | null {
   if (sea.waveHeight === null && sea.seaTemp === null) return null;
   const parts: string[] = [];
-  if (sea.seaTemp !== null) parts.push(`海水温度约 ${sea.seaTemp.toFixed(0)}°C`);
+  if (sea.seaTemp !== null) parts.push(`Sea temperature about ${sea.seaTemp.toFixed(0)}°C`);
   if (sea.waveHeight !== null) {
     const w = sea.waveHeight;
-    const calm = w < 0.3 ? '水面平静' : w < 0.8 ? '有轻浪' : w < 1.5 ? '涌浪偏大' : '涌浪很大';
-    parts.push(`浪高约 ${w.toFixed(2)} m（${calm}）`);
+    const calm = w < 0.3 ? 'calm' : w < 0.8 ? 'light waves' : w < 1.5 ? 'choppy swell' : 'heavy swell';
+    parts.push(`Wave height about ${w.toFixed(2)} m (${calm})`);
   }
   const tail =
     sea.waveHeight !== null && sea.waveHeight >= 1.5
-      ? '—— 不要靠近礁石与防波堤，海上项目大概率停航。'
-      : '—— 本段海湾禁止下水游泳，玩沙、观景与拍照即可。';
-  return `${parts.join('，')}${tail}`;
+      ? ' — keep away from rocks and breakwaters; boat trips are likely suspended.'
+      : ' — swimming is banned in this bay section; stick to sand play, viewing and photos.';
+  return `${parts.join(', ')}${tail}`;
 }
 
 export function tideAdvice(snapshot: TideSnapshot): string {
-  const { current, range } = snapshot;
+  const { current } = snapshot;
   if (current.next?.type === 'low') {
-    return `正在退潮，约 ${Math.round(current.minutesToNext / 60)} 小时后到达低潮。低潮前后一小时是观察潮间带蟹类、贝类与滩涂纹理的最佳窗口，请始终留意回程路线，别被上涨的潮水切断退路。`;
+    return `Ebbing now, low tide in about ${Math.round(current.minutesToNext / 60)} h. The hour around low tide is the best window to see intertidal crabs, shellfish and the exposed flat — always watch your way back so the rising water does not cut you off.`;
   }
-  return `正在涨潮，下一次高潮约在 ${Math.round(current.minutesToNext / 60)} 小时后。高潮时水面更靠近海堤，适合拍摄船影与倒影；潮间带观察则要等退潮后再来。`;
+  return `Flooding now, next high tide in about ${Math.round(current.minutesToNext / 60)} h. At high tide the water comes closer to the seawall, good for boat silhouettes and reflections; for intertidal viewing come back after it ebbs.`;
 }

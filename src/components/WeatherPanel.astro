@@ -59,18 +59,18 @@ const adviceTone: Record<string, string> = {
 };
 
 const BLOCKS = [
-  { key: 'outfit', title: '出行穿搭', icon: 'shirt' },
-  { key: 'plan', title: '游玩安排', icon: 'route' },
-  { key: 'packing', title: '随身物品', icon: 'bag' },
+  { key: 'outfit', title: 'Outfit', icon: 'shirt' },
+  { key: 'plan', title: 'Plan', icon: 'route' },
+  { key: 'packing', title: 'Packing', icon: 'bag' },
 ] as const;
 ---
 <section id="weather" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
   <div class="container-wide">
     <div class="max-w-3xl mb-10">
-      <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">Live Weather · 实时天气与预报</span>
+      <span class="chip bg-ocean-mid/10 text-ocean-mid mb-4">Live Weather</span>
       <h2 class="section-title">Weather at {ENTITY.fullName} — what to do about it</h2>
       <p class="section-subtitle mb-0">
-        不只报温度：下面直接告诉你今天穿什么、怎么安排、带什么，以及有没有需要注意的风险。数据按 Asia/Manila 时区（GMT+8）更新。
+        Not just the temperature: below we tell you what to wear today, how to plan, what to pack, and any risk worth noting. Data updates in the Asia/Manila time zone (GMT+8).
       </p>
     </div>
 
@@ -82,7 +82,7 @@ const BLOCKS = [
             <div class="lg:col-span-2 card p-6 sm:p-7">
               <div class="flex items-start justify-between gap-4">
                 <div>
-                  <div class="text-xs uppercase tracking-wider text-ocean-mid">Now · 当前</div>
+                  <div class="text-xs uppercase tracking-wider text-ocean-mid">Now</div>
                   <div class="flex items-end gap-2 mt-1">
                     <span class="font-display text-5xl sm:text-6xl font-semibold text-ocean-deep leading-none">
                       {Math.round(current.temperature)}
@@ -90,42 +90,42 @@ const BLOCKS = [
                     <span class="text-xl text-ocean-mid pb-1">°C</span>
                   </div>
                   <div class="text-sm text-ocean-mid mt-2">
-                    体感 {Math.round(current.apparentTemperature)}°C
+                    Feels like {Math.round(current.apparentTemperature)}°C
                   </div>
                 </div>
                 <div class="text-right">
                   <div class="font-display text-lg font-semibold text-ocean-deep">{condition.label}</div>
                   <div class="text-xs text-ocean-mid mt-1">
-                    {current.isDay ? '白天' : '夜间'} · {Math.round(today.tempMin)}–{Math.round(today.tempMax)}°C
+                    {current.isDay ? 'Day' : 'Night'} · {Math.round(today.tempMin)}–{Math.round(today.tempMax)}°C
                   </div>
                 </div>
               </div>
 
               <div class="mt-5 flex flex-wrap gap-2">
                 <span class="chip bg-ocean-mid/10 text-ocean-mid">
-                  降水概率 {rainChance(today)}%
+                  Rain chance {rainChance(today)}%
                 </span>
                 <span class="chip bg-sand-warm text-ocean-deep">
-                  风力 {wind.level} 级 · {wind.name}
+                  Wind {wind.level} · {wind.name}
                 </span>
                 <span class="chip bg-sand-warm text-ocean-deep">
-                  湿度 {current.humidity}% · {humidityLabel(current.humidity)}
+                  Humidity {current.humidity}% · {humidityLabel(current.humidity)}
                 </span>
               </div>
 
               <div class="mt-5 grid grid-cols-3 gap-3 text-sm">
                 <div class="rounded-xl bg-sand-light p-3">
-                  <div class="text-[11px] uppercase tracking-wider text-ocean-mid">日出</div>
+                  <div class="text-[11px] uppercase tracking-wider text-ocean-mid">Sunrise</div>
                   <div class="font-display font-semibold text-ocean-deep text-lg">{hhmm(today.sunrise)}</div>
                 </div>
                 <div class="rounded-xl bg-sand-light p-3">
-                  <div class="text-[11px] uppercase tracking-wider text-ocean-mid">日落</div>
+                  <div class="text-[11px] uppercase tracking-wider text-ocean-mid">Sunset</div>
                   <div class="font-display font-semibold text-ocean-deep text-lg">{hhmm(today.sunset)}</div>
                 </div>
                 <div class="rounded-xl bg-sand-light p-3">
-                  <div class="text-[11px] uppercase tracking-wider text-ocean-mid">今日最高紫外线</div>
+                  <div class="text-[11px] uppercase tracking-wider text-ocean-mid">Peak UV today</div>
                   <div class="font-display font-semibold text-ocean-deep text-lg">
-                    {today.uvIndexMax !== null ? `${Math.round(today.uvIndexMax)} 级` : '—'}
+                    {today.uvIndexMax !== null ? `${Math.round(today.uvIndexMax)}` : '—'}
                   </div>
                   <div class="text-[11px] text-ocean-mid">{uvLabel(today.uvIndexMax)}</div>
                 </div>
@@ -137,7 +137,7 @@ const BLOCKS = [
               </div>
 
               <p class="mt-4 text-xs text-ocean-mid/85 leading-relaxed">
-                <span class="font-medium text-ocean-deep">防晒 · </span>
+                <span class="font-medium text-ocean-deep">Sun protection: </span>
                 {sunAdvice(today.uvIndexMax)}
               </p>
             </div>
@@ -148,7 +148,7 @@ const BLOCKS = [
                 <div class="rounded-2xl border border-sunset-pink/40 bg-sunset-pink/10 p-5">
                   <div class="flex items-center gap-2 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sunset-pink"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-                    <span class="font-display font-semibold text-sunset-pink">风险提醒 · 优先关注</span>
+                    <span class="font-display font-semibold text-sunset-pink">Risk alerts</span>
                   </div>
                   <ul class="space-y-2">
                     {bundle.risks.map((r) => (
@@ -163,7 +163,7 @@ const BLOCKS = [
                 <div class="rounded-2xl border border-palm-green/25 bg-palm-green/10 p-4 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-palm-green shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
                   <span class="text-sm text-ocean-deep">
-                    当前无需特别注意的气象风险，按常规行程安排即可。
+                    No particular weather risk to watch right now — proceed with your normal plan.
                   </span>
                 </div>
               )}
@@ -209,7 +209,7 @@ const BLOCKS = [
               {seaLine && (
                 <div class="rounded-2xl bg-ocean-deep/5 border border-ocean-deep/10 p-4">
                   <div class="font-display font-semibold text-ocean-deep text-sm mb-1">
-                    海边场景 · 海水与涌浪
+                    Seaside conditions
                   </div>
                   <p class="text-sm text-ocean-mid leading-relaxed">{seaLine}</p>
                 </div>
@@ -220,7 +220,7 @@ const BLOCKS = [
           <!-- 7 DAY -->
           <div class="card p-6 sm:p-7 mt-6">
             <div class="flex items-center justify-between mb-5">
-              <div class="font-display text-lg font-semibold text-ocean-deep">7-day outlook · 未来 7 天</div>
+              <div class="font-display text-lg font-semibold text-ocean-deep">7-day outlook</div>
               <div class="text-[11px] text-ocean-mid">
                 Updated {timeFmt.format(new Date(weather.updatedAt))} (GMT+8)
               </div>
@@ -321,7 +321,7 @@ const BLOCKS = [
             </ul>
 
             <p class="mt-4 pt-4 border-t border-sand-warm text-[11px] sm:text-xs text-ocean-mid/85 leading-relaxed">
-              温度为摄氏度、降水为毫米。降水概率是可能性而非确定性，60% 以上建议带伞。预报用于出行参考，台风季（7–10 月）请额外关注 PAGASA 警报。
+              Temperatures are Celsius and rainfall is millimetres. Rain chance is a probability, not a certainty — at 60% or above bring an umbrella. Forecasts are for planning; in the typhoon season (Jul–Oct) also follow PAGASA alerts.
             </p>
           </div>
         </>
@@ -331,7 +331,7 @@ const BLOCKS = [
             Weather forecast temporarily unavailable
           </div>
           <p class="text-sm text-ocean-mid leading-relaxed">
-            实时天气暂时无法加载，请稍后刷新页面。作为通用参考：{ENTITY.city} 属热带海洋性气候，全年气温 24–34°C，11 月至次年 4 月为干季，6–10 月为雨季与台风季，午后雷阵雨常见。
+            The live weather could not be loaded; please refresh later. As a general guide: {ENTITY.city} has a tropical marine climate, 24–34°C year-round, with a dry season from November to April and a wet, typhoon-prone rainy season from June to October, and common afternoon thunderstorms.
           </p>
         </div>
       )

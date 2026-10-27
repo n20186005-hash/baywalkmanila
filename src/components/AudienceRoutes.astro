@@ -3,53 +3,53 @@ import { ENTITY } from '../config';
 
 const ROUTES = [
   {
-    tag: 'Families · 亲子家庭',
+    tag: 'Families',
     duration: '1.5 – 2.5 h',
-    pace: '每 30 分钟找阴凉处休息一次',
+    pace: 'Rest in the shade every 30 minutes',
     steps: [
-      '北段入口进入，先在长廊树荫下适应环境',
-      '白云石沙滩中段：沙玩、放风筝、浅滩观察（严禁下水）',
-      '长廊小吃与饮品补给，就近使用卫生间',
-      '提前 40 分钟占好日落观景点，日落后 15 分钟内撤离避开人流',
+      'Enter from the north-end gate and acclimate in the tree-shaded corridor',
+      'Dolomite Beach mid-section: sand play, kite flying, shallows observation (no swimming)',
+      'Top up snacks and drinks at the boardwalk stalls and use the nearest restroom',
+      'Claim a sunset viewing spot 40 min early; leave within 15 min after sunset to avoid crowds',
     ],
     notes: [
-      '儿童防晒帽、防晒霜与饮用水自备；正午地表温度高，避免 11 – 15 时到访',
-      '周四白云石沙滩段闭园维护，亲子行程请避开',
-      '周末 17:00 – 19:00 人流最密，推车通行缓慢，建议工作日或提早',
+      'Bring your own child sun hat, sunscreen and drinking water; ground is hottest at midday, avoid 11 – 15 h',
+      'Dolomite Beach closes for maintenance on Thursdays — plan family trips around it',
+      'Weekends 17:00 – 19:00 are the busiest; strollers move slowly, prefer weekdays or arrive early',
     ],
     tone: 'bg-sunset-orange/10 text-sunset-orange',
   },
   {
-    tag: 'Photography & nature · 摄影自然',
+    tag: 'Photography & nature',
     duration: '2.5 – 4 h',
-    pace: '慢速驻点，同一机位停留 20 – 40 分钟',
+    pace: 'Slow, set up at a spot and stay 20 – 40 min',
     steps: [
-      '16:30 抵达，先在长廊与海堤段测光、确定前景',
-      '潮间带与滩涂观察（查当日潮汐表，退潮时生物更丰富）',
-      '17:45 – 18:15 日落主时段：夕阳、云隙光、剪影船影',
-      '日落后 20 分钟蓝调时刻：城市灯光与天空平衡',
+      'Arrive 16:30, meter and pick a foreground along the corridor and seawall',
+      'Observe the intertidal flat (check the day\'s tide table; low tide reveals more life)',
+      '17:45 – 18:15 sunset prime: sun, crepuscular rays, silhouetted boats',
+      '20 min after sunset blue hour: balance of city lights and sky',
     ],
     notes: [
-      '三脚架请在长廊靠外侧架设，避免堵塞通行；夜景注意设备防盗',
-      '候鸟季（11 月 – 次年 3 月）建议携带 300 mm 以上长焦，湾南湿地是主要观察区',
-      '尊重保护区边界与警戒线，不使用闪光灯直射鸟类，不进入封闭修复区',
+      'Set up tripods on the outer edge of the corridor to keep the path clear; watch gear at night',
+      'Bird season (Nov – Mar) favors 300 mm+ telephoto; the southern wetland is the main spot',
+      'Respect reserve boundaries and warning lines; no flash on birds; no entry to closed rehab zones',
     ],
     tone: 'bg-ocean-mid/10 text-ocean-mid',
   },
   {
-    tag: 'Low intensity / accessibility · 低体力无障碍',
+    tag: 'Low intensity / accessibility',
     duration: '1 – 1.5 h',
-    pace: '短距离移动，座椅间隔 50 – 100 m 即休息',
+    pace: 'Short moves, rest every 50 – 100 m at a seat',
     steps: [
-      '车辆直接停靠 Roxas Blvd 侧落客点，减少步行距离',
-      '平缓长廊段单向慢行，优先有扶手与靠背座椅的路段',
-      '选择视野开阔的观景座椅完成日落观景',
-      '原路返回落客点，避免夜间返程走暗处',
+      'Drop off directly at the Roxas Blvd side to cut walking distance',
+      'Stroll slowly one-way on the level corridor; prefer railed, backed seating',
+      'Pick an open-view seat for the sunset',
+      'Return the same way to the drop-off; avoid dark stretches at night',
     ],
     notes: [
-      '长廊整体平坦，但个别接缝与坡道需留意；轮椅建议从 Roxas Blvd 一侧进入',
-      '无障碍卫生间最可靠的选择是沿线商场与酒店大堂',
-      '避开正午与雨后的湿滑路面；随身携带常用药物与联系卡',
+      'The corridor is mostly flat but watch seams and ramps; enter from the Roxas Blvd side for wheelchairs',
+      'Most reliable accessible restrooms are in the malls and hotel lobbies along the route',
+      'Avoid midday and post-rain slippery surfaces; carry regular medication and an ID card',
     ],
     tone: 'bg-palm-green/10 text-palm-green',
   },
@@ -58,10 +58,10 @@ const ROUTES = [
 <section id="audience-routes" class="anchor-offset py-16 sm:py-20 md:py-24 bg-white border-y border-sand-warm">
   <div class="container-wide">
     <div class="max-w-3xl mb-10">
-      <span class="chip bg-sunset-purple/10 text-sunset-purple mb-4">Routes by traveller type · 按人群定制</span>
+      <span class="chip bg-sunset-purple/10 text-sunset-purple mb-4">Routes by traveller type</span>
       <h2 class="section-title">Three ways to spend your time at {ENTITY.shortName}</h2>
       <p class="section-subtitle mb-0">
-        按出行构成与节奏选择：亲子家庭、摄影与自然观察、低体力与无障碍。每条路线都标注了时长、动线与注意事项。
+        Choose by who is travelling and the pace: families, photography &amp; nature watching, or low-intensity and accessible. Each route lists its duration, flow and key notes.
       </p>
     </div>
 
@@ -85,7 +85,7 @@ const ROUTES = [
               </div>
             </div>
 
-            <div class="font-semibold text-ocean-deep text-sm mb-2">Suggested flow · 动线</div>
+            <div class="font-semibold text-ocean-deep text-sm mb-2">Suggested flow</div>
             <ol class="space-y-2.5 mb-5">
               {r.steps.map((s, j) => (
                 <li class="flex gap-2.5 text-sm text-ocean-mid leading-relaxed">
@@ -97,7 +97,7 @@ const ROUTES = [
               ))}
             </ol>
 
-            <div class="font-semibold text-ocean-deep text-sm mb-2">Key notes · 重点提示</div>
+            <div class="font-semibold text-ocean-deep text-sm mb-2">Key notes</div>
             <ul class="space-y-2 text-sm text-ocean-mid leading-relaxed flex-1">
               {r.notes.map((n) => (
                 <li class="flex gap-2">

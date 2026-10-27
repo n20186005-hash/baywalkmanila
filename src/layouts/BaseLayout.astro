@@ -35,7 +35,7 @@ const ogImageUrl = ogImage.startsWith('http')
   : new URL(ogImage, siteUrl).toString();
 
 const ogTitle = `${ENTITY.fullName} (${ENTITY.shortName}) — Free Entry, Hours, Sunset & Map`;
-const ogDescription = `Free-entry visitor guide to ${ENTITY.fullName} in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}: entrance fee, opening hours, Thursday closure, best sunset time and night visits.`;
+const ogDescription = `Free-entry visitor guide to ${ENTITY.fullName} in ${ENTITY.city}, ${ENTITY.stateProvince}, ${ENTITY.country}: entrance fee, opening hours, Thursday closure, best sunset time, no swimming and night visits.`;
 ---
 <!doctype html>
 <html lang="en-PH">
@@ -47,7 +47,7 @@ const ogDescription = `Free-entry visitor guide to ${ENTITY.fullName} in ${ENTIT
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
 
-    <!-- Canonical 规范网址 -->
+    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalUrl} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
